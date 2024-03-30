@@ -1,23 +1,24 @@
 ﻿using FixMath.NET;
 using System;
 using System.Threading;
+using Deterministic.FixedPoint;
 
 namespace BEPUutilities
 {
 	static class Matrix3x6
 	{
-		[ThreadStatic] private static Fix64[,] Matrix;
+		[ThreadStatic] private static fp[,] Matrix;
 
-		public static bool Gauss(Fix64[,] M, int m, int n)
+		public static bool Gauss(fp[,] M, int m, int n)
 		{
 			// Perform Gauss-Jordan elimination
 			for (int k = 0; k < m; k++)
 			{
-				Fix64 maxValue = Fix64.Abs(M[k, k]);
+				fp maxValue = Fix64.Abs(M[k, k]);
 				int iMax = k;
 				for (int i = k+1; i < m; i++)
 				{
-					Fix64 value = Fix64.Abs(M[i, k]);
+					fp value = Fix64.Abs(M[i, k]);
 					if (value >= maxValue)
 					{
 						maxValue = value;
@@ -31,14 +32,14 @@ namespace BEPUutilities
 				{
 					for (int j = 0; j < n; j++)
 					{
-						Fix64 temp = M[k, j];
+						fp temp = M[k, j];
 						M[k, j] = M[iMax, j];
 						M[iMax, j] = temp;
 					}
 				}
 
 				// Divide row by pivot
-				Fix64 pivotInverse = F64.C1 / M[k, k];
+				fp pivotInverse = F64.C1 / M[k, k];
 
 				M[k, k] = F64.C1;
 				for (int j = k + 1; j < n; j++)
@@ -51,7 +52,7 @@ namespace BEPUutilities
 				{
 					if (i == k)
 						continue;
-					Fix64 f = M[i, k];					
+					fp f = M[i, k];					
 					for (int j = k + 1; j < n; j++)
 					{
 						M[i, j] = M[i, j] - M[k, j] * f;
@@ -65,8 +66,8 @@ namespace BEPUutilities
 		public static bool Invert(ref Matrix3x3 m, out Matrix3x3 r)
 		{
 			if (Matrix == null)
-				 Matrix = new Fix64[3, 6];
-			Fix64[,] M = Matrix;
+				 Matrix = new fp[3, 6];
+			fp[,] M = Matrix;
 
 			// Initialize temporary matrix
 			M[0, 0] = m.M11;

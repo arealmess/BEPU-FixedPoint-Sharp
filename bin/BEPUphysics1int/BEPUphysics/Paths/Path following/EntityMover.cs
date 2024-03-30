@@ -5,6 +5,7 @@ using BEPUphysics.Entities;
 using BEPUphysics.UpdateableSystems;
 using BEPUutilities;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.Paths.PathFollowing
 {
@@ -99,7 +100,7 @@ namespace BEPUphysics.Paths.PathFollowing
         /// <param name="end">Final position.</param>
         /// <param name="dt">Time over which the angular velocity is to be applied.</param>
         /// <returns>Angular velocity to reach the goal in time.</returns>
-        public static Vector3 GetLinearVelocity(Vector3 start, Vector3 end, Fix64 dt)
+        public static Vector3 GetLinearVelocity(Vector3 start, Vector3 end, fp dt)
         {
             Vector3 offset;
             Vector3.Subtract(ref end, ref start, out offset);
@@ -127,7 +128,7 @@ namespace BEPUphysics.Paths.PathFollowing
         /// Called automatically by the space.
         /// </summary>
         /// <param name="dt">Simulation timestep.</param>
-        void IDuringForcesUpdateable.Update(Fix64 dt)
+        void IDuringForcesUpdateable.Update(fp dt)
         {
             if (Entity != LinearMotor.Entity)
                 throw new InvalidOperationException(

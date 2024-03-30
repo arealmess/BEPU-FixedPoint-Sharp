@@ -1,6 +1,7 @@
 using FixMath.NET;
 using System;
- 
+
+using Deterministic.FixedPoint;
 
 
 namespace BEPUutilities
@@ -13,47 +14,47 @@ namespace BEPUutilities
 		/// <summary>
 		/// Value at row 1, column 1 of the matrix.
 		/// </summary>
-		public Fix64 M11;
+		public fp M11;
 
 		/// <summary>
 		/// Value at row 1, column 2 of the matrix.
 		/// </summary>
-		public Fix64 M12;
+		public fp M12;
 
 		/// <summary>
 		/// Value at row 1, column 3 of the matrix.
 		/// </summary>
-		public Fix64 M13;
+		public fp M13;
 
 		/// <summary>
 		/// Value at row 2, column 1 of the matrix.
 		/// </summary>
-		public Fix64 M21;
+		public fp M21;
 
 		/// <summary>
 		/// Value at row 2, column 2 of the matrix.
 		/// </summary>
-		public Fix64 M22;
+		public fp M22;
 
 		/// <summary>
 		/// Value at row 2, column 3 of the matrix.
 		/// </summary>
-		public Fix64 M23;
+		public fp M23;
 
 		/// <summary>
 		/// Value at row 3, column 1 of the matrix.
 		/// </summary>
-		public Fix64 M31;
+		public fp M31;
 
 		/// <summary>
 		/// Value at row 3, column 2 of the matrix.
 		/// </summary>
-		public Fix64 M32;
+		public fp M32;
 
 		/// <summary>
 		/// Value at row 3, column 3 of the matrix.
 		/// </summary>
-		public Fix64 M33;
+		public fp M33;
 
 		/// <summary>
 		/// Constructs a new 3 row, 3 column matrix.
@@ -67,7 +68,7 @@ namespace BEPUutilities
 		/// <param name="m31">Value at row 3, column 1 of the matrix.</param>
 		/// <param name="m32">Value at row 3, column 2 of the matrix.</param>
 		/// <param name="m33">Value at row 3, column 3 of the matrix.</param>
-		public Matrix3x3(Fix64 m11, Fix64 m12, Fix64 m13, Fix64 m21, Fix64 m22, Fix64 m23, Fix64 m31, Fix64 m32, Fix64 m33)
+		public Matrix3x3(fp m11, fp m12, fp m13, fp m21, fp m22, fp m23, fp m31, fp m32, fp m33)
 		{
 			M11 = m11;
 			M12 = m12;
@@ -85,7 +86,7 @@ namespace BEPUutilities
 		/// </summary>
 		public static Matrix3x3 Identity
 		{
-			get { return new Matrix3x3(F64.C1, F64.C0, F64.C0, F64.C0, F64.C1, F64.C0, F64.C0, F64.C0, F64.C1); }
+			get { return new Matrix3x3(fp._1, fp._0, fp._0, fp._0, fp._1, fp._0, fp._0, fp._0, fp._1); }
 		}
 
 
@@ -247,17 +248,17 @@ namespace BEPUutilities
 		/// <param name="result">Sum of the two matrices.</param>
 		public static void Add(ref Matrix3x3 a, ref Matrix3x3 b, out Matrix3x3 result)
 		{
-			Fix64 m11 = a.M11 + b.M11;
-			Fix64 m12 = a.M12 + b.M12;
-			Fix64 m13 = a.M13 + b.M13;
+			fp m11 = a.M11 + b.M11;
+			fp m12 = a.M12 + b.M12;
+			fp m13 = a.M13 + b.M13;
 
-			Fix64 m21 = a.M21 + b.M21;
-			Fix64 m22 = a.M22 + b.M22;
-			Fix64 m23 = a.M23 + b.M23;
+			fp m21 = a.M21 + b.M21;
+			fp m22 = a.M22 + b.M22;
+			fp m23 = a.M23 + b.M23;
 
-			Fix64 m31 = a.M31 + b.M31;
-			Fix64 m32 = a.M32 + b.M32;
-			Fix64 m33 = a.M33 + b.M33;
+			fp m31 = a.M31 + b.M31;
+			fp m32 = a.M32 + b.M32;
+			fp m33 = a.M33 + b.M33;
 
 			result.M11 = m11;
 			result.M12 = m12;
@@ -280,17 +281,17 @@ namespace BEPUutilities
 		/// <param name="result">Sum of the two matrices.</param>
 		public static void Add(ref Matrix a, ref Matrix3x3 b, out Matrix3x3 result)
 		{
-			Fix64 m11 = a.M11 + b.M11;
-			Fix64 m12 = a.M12 + b.M12;
-			Fix64 m13 = a.M13 + b.M13;
+			fp m11 = a.M11 + b.M11;
+			fp m12 = a.M12 + b.M12;
+			fp m13 = a.M13 + b.M13;
 
-			Fix64 m21 = a.M21 + b.M21;
-			Fix64 m22 = a.M22 + b.M22;
-			Fix64 m23 = a.M23 + b.M23;
+			fp m21 = a.M21 + b.M21;
+			fp m22 = a.M22 + b.M22;
+			fp m23 = a.M23 + b.M23;
 
-			Fix64 m31 = a.M31 + b.M31;
-			Fix64 m32 = a.M32 + b.M32;
-			Fix64 m33 = a.M33 + b.M33;
+			fp m31 = a.M31 + b.M31;
+			fp m32 = a.M32 + b.M32;
+			fp m33 = a.M33 + b.M33;
 
 			result.M11 = m11;
 			result.M12 = m12;
@@ -313,17 +314,17 @@ namespace BEPUutilities
 		/// <param name="result">Sum of the two matrices.</param>
 		public static void Add(ref Matrix3x3 a, ref Matrix b, out Matrix3x3 result)
 		{
-			Fix64 m11 = a.M11 + b.M11;
-			Fix64 m12 = a.M12 + b.M12;
-			Fix64 m13 = a.M13 + b.M13;
+			fp m11 = a.M11 + b.M11;
+			fp m12 = a.M12 + b.M12;
+			fp m13 = a.M13 + b.M13;
 
-			Fix64 m21 = a.M21 + b.M21;
-			Fix64 m22 = a.M22 + b.M22;
-			Fix64 m23 = a.M23 + b.M23;
+			fp m21 = a.M21 + b.M21;
+			fp m22 = a.M22 + b.M22;
+			fp m23 = a.M23 + b.M23;
 
-			Fix64 m31 = a.M31 + b.M31;
-			Fix64 m32 = a.M32 + b.M32;
-			Fix64 m33 = a.M33 + b.M33;
+			fp m31 = a.M31 + b.M31;
+			fp m32 = a.M32 + b.M32;
+			fp m33 = a.M33 + b.M33;
 
 			result.M11 = m11;
 			result.M12 = m12;
@@ -346,17 +347,17 @@ namespace BEPUutilities
 		/// <param name="result">Sum of the two matrices.</param>
 		public static void Add(ref Matrix a, ref Matrix b, out Matrix3x3 result)
 		{
-			Fix64 m11 = a.M11 + b.M11;
-			Fix64 m12 = a.M12 + b.M12;
-			Fix64 m13 = a.M13 + b.M13;
+			fp m11 = a.M11 + b.M11;
+			fp m12 = a.M12 + b.M12;
+			fp m13 = a.M13 + b.M13;
 
-			Fix64 m21 = a.M21 + b.M21;
-			Fix64 m22 = a.M22 + b.M22;
-			Fix64 m23 = a.M23 + b.M23;
+			fp m21 = a.M21 + b.M21;
+			fp m22 = a.M22 + b.M22;
+			fp m23 = a.M23 + b.M23;
 
-			Fix64 m31 = a.M31 + b.M31;
-			Fix64 m32 = a.M32 + b.M32;
-			Fix64 m33 = a.M33 + b.M33;
+			fp m31 = a.M31 + b.M31;
+			fp m32 = a.M32 + b.M32;
+			fp m33 = a.M33 + b.M33;
 
 			result.M11 = m11;
 			result.M12 = m12;
@@ -378,15 +379,15 @@ namespace BEPUutilities
 		/// <param name="result">Skew-symmetric matrix result.</param>
 		public static void CreateCrossProduct(ref Vector3 v, out Matrix3x3 result)
 		{
-			result.M11 = F64.C0;
+			result.M11 = fp._0;
 			result.M12 = -v.Z;
 			result.M13 = v.Y;
 			result.M21 = v.Z;
-			result.M22 = F64.C0;
+			result.M22 = fp._0;
 			result.M23 = -v.X;
 			result.M31 = -v.Y;
 			result.M32 = v.X;
-			result.M33 = F64.C0;
+			result.M33 = fp._0;
 		}
 
 		/// <summary>
@@ -435,7 +436,7 @@ namespace BEPUutilities
 		/// </summary>
 		/// <param name="scale">Value to use in the diagonal.</param>
 		/// <param name="matrix">Scaling matrix.</param>
-		public static void CreateScale(Fix64 scale, out Matrix3x3 matrix)
+		public static void CreateScale(fp scale, out Matrix3x3 matrix)
 		{
 			matrix = new Matrix3x3 {M11 = scale, M22 = scale, M33 = scale};
 		}
@@ -445,7 +446,7 @@ namespace BEPUutilities
 		/// </summary>
 		/// <param name="scale">Value to use in the diagonal.</param>
 		/// <returns>Scaling matrix.</returns>
-		public static Matrix3x3 CreateScale(Fix64 scale)
+		public static Matrix3x3 CreateScale(fp scale)
 		{
 			var matrix = new Matrix3x3 {M11 = scale, M22 = scale, M33 = scale};
 			return matrix;
@@ -480,7 +481,7 @@ namespace BEPUutilities
 		/// <param name="y">Scaling along the y axis.</param>
 		/// <param name="z">Scaling along the z axis.</param>
 		/// <param name="matrix">Scaling matrix.</param>
-		public static void CreateScale(Fix64 x, Fix64 y, Fix64 z, out Matrix3x3 matrix)
+		public static void CreateScale(fp x, fp y, fp z, out Matrix3x3 matrix)
 		{
 			matrix = new Matrix3x3 {M11 = x, M22 = y, M33 = z};
 		}
@@ -492,7 +493,7 @@ namespace BEPUutilities
 		/// <param name="y">Scaling along the y axis.</param>
 		/// <param name="z">Scaling along the z axis.</param>
 		/// <returns>Scaling matrix.</returns>
-		public static Matrix3x3 CreateScale(Fix64 x, Fix64 y, Fix64 z)
+		public static Matrix3x3 CreateScale(fp x, fp y, fp z)
 		{
 			var matrix = new Matrix3x3 {M11 = x, M22 = y, M33 = z};
 			return matrix;
@@ -533,90 +534,90 @@ namespace BEPUutilities
 				return;
 
 			int submatrix;
-			Fix64 determinantInverse = F64.C1 / matrix.AdaptiveDeterminant(out submatrix);
-			Fix64 m11, m12, m13, m21, m22, m23, m31, m32, m33;
+			fp determinantInverse = fp._1 / matrix.AdaptiveDeterminant(out submatrix);
+			fp m11, m12, m13, m21, m22, m23, m31, m32, m33;
 			switch (submatrix)
 			{
 				case 1: //Upper left matrix, m11, m12, m21, m22.
 					m11 = matrix.M22 * determinantInverse;
 					m12 = -matrix.M12 * determinantInverse;
-					m13 = F64.C0;
+					m13 = fp._0;
 
 					m21 = -matrix.M21 * determinantInverse;
 					m22 = matrix.M11 * determinantInverse;
-					m23 = F64.C0;
+					m23 = fp._0;
 
-					m31 = F64.C0;
-					m32 = F64.C0;
-					m33 = F64.C0;
+					m31 = fp._0;
+					m32 = fp._0;
+					m33 = fp._0;
 					break;
 				case 2: //Lower right matrix, m22, m23, m32, m33.
-					m11 = F64.C0;
-					m12 = F64.C0;
-					m13 = F64.C0;
+					m11 = fp._0;
+					m12 = fp._0;
+					m13 = fp._0;
 
-					m21 = F64.C0;
+					m21 = fp._0;
 					m22 = matrix.M33 * determinantInverse;
 					m23 = -matrix.M23 * determinantInverse;
 
-					m31 = F64.C0;
+					m31 = fp._0;
 					m32 = -matrix.M32 * determinantInverse;
 					m33 = matrix.M22 * determinantInverse;
 					break;
 				case 3: //Corners, m11, m31, m13, m33.
 					m11 = matrix.M33 * determinantInverse;
-					m12 = F64.C0;
+					m12 = fp._0;
 					m13 = -matrix.M13 * determinantInverse;
 
-					m21 = F64.C0;
-					m22 = F64.C0;
-					m23 = F64.C0;
+					m21 = fp._0;
+					m22 = fp._0;
+					m23 = fp._0;
 
 					m31 = -matrix.M31 * determinantInverse;
-					m32 = F64.C0;
+					m32 = fp._0;
 					m33 = matrix.M11 * determinantInverse;
 					break;
 				case 4: //M11
-					m11 = F64.C1 / matrix.M11;
-					m12 = F64.C0;
-					m13 = F64.C0;
+					m11 = fp._1 / matrix.M11;
+					m12 = fp._0;
+					m13 = fp._0;
 
-					m21 = F64.C0;
-					m22 = F64.C0;
-					m23 = F64.C0;
+					m21 = fp._0;
+					m22 = fp._0;
+					m23 = fp._0;
 
-					m31 = F64.C0;
-					m32 = F64.C0;
-					m33 = F64.C0;
+					m31 = fp._0;
+					m32 = fp._0;
+					m33 = fp._0;
 					break;
 				case 5: //M22
-					m11 = F64.C0;
-					m12 = F64.C0;
-					m13 = F64.C0;
+					m11 = fp._0;
+					m12 = fp._0;
+					m13 = fp._0;
 
-					m21 = F64.C0;
-					m22 = F64.C1 / matrix.M22;
-					m23 = F64.C0;
+					m21 = fp._0;
+					m22 = fp._1 / matrix.M22;
+					m23 = fp._0;
 
-					m31 = F64.C0;
-					m32 = F64.C0;
-					m33 = F64.C0;
+					m31 = fp._0;
+					m32 = fp._0;
+					m33 = fp._0;
 					break;
 				case 6: //M33
-					m11 = F64.C0;
-					m12 = F64.C0;
-					m13 = F64.C0;
+					m11 = fp._0;
+					m12 = fp._0;
+					m13 = fp._0;
 
-					m21 = F64.C0;
-					m22 = F64.C0;
-					m23 = F64.C0;
+					m21 = fp._0;
+					m22 = fp._0;
+					m23 = fp._0;
 
-					m31 = F64.C0;
-					m32 = F64.C0;
-					m33 = F64.C1 / matrix.M33;
+					m31 = fp._0;
+					m32 = fp._0;
+					m33 = fp._1 / matrix.M33;
 					break;
 				default: //Completely singular.
-					m11 = F64.C0; m12 = F64.C0; m13 = F64.C0; m21 = F64.C0; m22 = F64.C0; m23 = F64.C0; m31 = F64.C0; m32 = F64.C0; m33 = F64.C0;
+					m11 = fp._0; m12 = fp._0; m13 = fp._0; m21 = fp._0; m22 = fp._0; m23 = fp._0; m31 = fp._0; m32 = fp._0; m33 = fp._0;
 					break;
 			}
 
@@ -648,17 +649,17 @@ namespace BEPUutilities
 			//2) det(M) == det(transpose(M))
 			//This organization makes it clearer that the invert's usual division by determinant drops out.
 
-			Fix64 m11 = (matrix.M22 * matrix.M33 - matrix.M23 * matrix.M32);
-			Fix64 m12 = (matrix.M13 * matrix.M32 - matrix.M33 * matrix.M12);
-			Fix64 m13 = (matrix.M12 * matrix.M23 - matrix.M22 * matrix.M13);
+			fp m11 = (matrix.M22 * matrix.M33 - matrix.M23 * matrix.M32);
+			fp m12 = (matrix.M13 * matrix.M32 - matrix.M33 * matrix.M12);
+			fp m13 = (matrix.M12 * matrix.M23 - matrix.M22 * matrix.M13);
 
-			Fix64 m21 = (matrix.M23 * matrix.M31 - matrix.M21 * matrix.M33);
-			Fix64 m22 = (matrix.M11 * matrix.M33 - matrix.M13 * matrix.M31);
-			Fix64 m23 = (matrix.M13 * matrix.M21 - matrix.M11 * matrix.M23);
+			fp m21 = (matrix.M23 * matrix.M31 - matrix.M21 * matrix.M33);
+			fp m22 = (matrix.M11 * matrix.M33 - matrix.M13 * matrix.M31);
+			fp m23 = (matrix.M13 * matrix.M21 - matrix.M11 * matrix.M23);
 
-			Fix64 m31 = (matrix.M21 * matrix.M32 - matrix.M22 * matrix.M31);
-			Fix64 m32 = (matrix.M12 * matrix.M31 - matrix.M11 * matrix.M32);
-			Fix64 m33 = (matrix.M11 * matrix.M22 - matrix.M12 * matrix.M21);
+			fp m31 = (matrix.M21 * matrix.M32 - matrix.M22 * matrix.M31);
+			fp m32 = (matrix.M12 * matrix.M31 - matrix.M11 * matrix.M32);
+			fp m33 = (matrix.M11 * matrix.M22 - matrix.M12 * matrix.M21);
 
 			//Note transposition.
 			result.M11 = m11;
@@ -707,7 +708,7 @@ namespace BEPUutilities
 		/// <param name="m">First matrix to multiply.</param>
 		/// <param name="f">Scaling value to apply to all components of the matrix.</param>
 		/// <returns>Product of the multiplication.</returns>
-		public static Matrix3x3 operator *(Matrix3x3 m, Fix64 f)
+		public static Matrix3x3 operator *(Matrix3x3 m, fp f)
 		{
 			Matrix3x3 result;
 			Multiply(ref m, f, out result);
@@ -720,7 +721,7 @@ namespace BEPUutilities
 		/// <param name="m">First matrix to multiply.</param>
 		/// <param name="f">Scaling value to apply to all components of the matrix.</param>
 		/// <returns>Product of the multiplication.</returns>
-		public static Matrix3x3 operator *(Fix64 f, Matrix3x3 m)
+		public static Matrix3x3 operator *(fp f, Matrix3x3 m)
 		{
 			Matrix3x3 result;
 			Multiply(ref m, f, out result);
@@ -735,17 +736,17 @@ namespace BEPUutilities
 		/// <param name="result">Product of the multiplication.</param>
 		public static void Multiply(ref Matrix3x3 a, ref Matrix3x3 b, out Matrix3x3 result)
 		{
-			Fix64 resultM11 = a.M11 * b.M11 + a.M12 * b.M21 + a.M13 * b.M31;
-			Fix64 resultM12 = a.M11 * b.M12 + a.M12 * b.M22 + a.M13 * b.M32;
-			Fix64 resultM13 = a.M11 * b.M13 + a.M12 * b.M23 + a.M13 * b.M33;
+			fp resultM11 = a.M11 * b.M11 + a.M12 * b.M21 + a.M13 * b.M31;
+			fp resultM12 = a.M11 * b.M12 + a.M12 * b.M22 + a.M13 * b.M32;
+			fp resultM13 = a.M11 * b.M13 + a.M12 * b.M23 + a.M13 * b.M33;
 
-			Fix64 resultM21 = a.M21 * b.M11 + a.M22 * b.M21 + a.M23 * b.M31;
-			Fix64 resultM22 = a.M21 * b.M12 + a.M22 * b.M22 + a.M23 * b.M32;
-			Fix64 resultM23 = a.M21 * b.M13 + a.M22 * b.M23 + a.M23 * b.M33;
+			fp resultM21 = a.M21 * b.M11 + a.M22 * b.M21 + a.M23 * b.M31;
+			fp resultM22 = a.M21 * b.M12 + a.M22 * b.M22 + a.M23 * b.M32;
+			fp resultM23 = a.M21 * b.M13 + a.M22 * b.M23 + a.M23 * b.M33;
 
-			Fix64 resultM31 = a.M31 * b.M11 + a.M32 * b.M21 + a.M33 * b.M31;
-			Fix64 resultM32 = a.M31 * b.M12 + a.M32 * b.M22 + a.M33 * b.M32;
-			Fix64 resultM33 = a.M31 * b.M13 + a.M32 * b.M23 + a.M33 * b.M33;
+			fp resultM31 = a.M31 * b.M11 + a.M32 * b.M21 + a.M33 * b.M31;
+			fp resultM32 = a.M31 * b.M12 + a.M32 * b.M22 + a.M33 * b.M32;
+			fp resultM33 = a.M31 * b.M13 + a.M32 * b.M23 + a.M33 * b.M33;
 
 			result.M11 = resultM11;
 			result.M12 = resultM12;
@@ -768,17 +769,17 @@ namespace BEPUutilities
 		/// <param name="result">Product of the multiplication.</param>
 		public static void Multiply(ref Matrix3x3 a, ref Matrix b, out Matrix3x3 result)
 		{
-			Fix64 resultM11 = a.M11 * b.M11 + a.M12 * b.M21 + a.M13 * b.M31;
-			Fix64 resultM12 = a.M11 * b.M12 + a.M12 * b.M22 + a.M13 * b.M32;
-			Fix64 resultM13 = a.M11 * b.M13 + a.M12 * b.M23 + a.M13 * b.M33;
+			fp resultM11 = a.M11 * b.M11 + a.M12 * b.M21 + a.M13 * b.M31;
+			fp resultM12 = a.M11 * b.M12 + a.M12 * b.M22 + a.M13 * b.M32;
+			fp resultM13 = a.M11 * b.M13 + a.M12 * b.M23 + a.M13 * b.M33;
 
-			Fix64 resultM21 = a.M21 * b.M11 + a.M22 * b.M21 + a.M23 * b.M31;
-			Fix64 resultM22 = a.M21 * b.M12 + a.M22 * b.M22 + a.M23 * b.M32;
-			Fix64 resultM23 = a.M21 * b.M13 + a.M22 * b.M23 + a.M23 * b.M33;
+			fp resultM21 = a.M21 * b.M11 + a.M22 * b.M21 + a.M23 * b.M31;
+			fp resultM22 = a.M21 * b.M12 + a.M22 * b.M22 + a.M23 * b.M32;
+			fp resultM23 = a.M21 * b.M13 + a.M22 * b.M23 + a.M23 * b.M33;
 
-			Fix64 resultM31 = a.M31 * b.M11 + a.M32 * b.M21 + a.M33 * b.M31;
-			Fix64 resultM32 = a.M31 * b.M12 + a.M32 * b.M22 + a.M33 * b.M32;
-			Fix64 resultM33 = a.M31 * b.M13 + a.M32 * b.M23 + a.M33 * b.M33;
+			fp resultM31 = a.M31 * b.M11 + a.M32 * b.M21 + a.M33 * b.M31;
+			fp resultM32 = a.M31 * b.M12 + a.M32 * b.M22 + a.M33 * b.M32;
+			fp resultM33 = a.M31 * b.M13 + a.M32 * b.M23 + a.M33 * b.M33;
 
 			result.M11 = resultM11;
 			result.M12 = resultM12;
@@ -801,17 +802,17 @@ namespace BEPUutilities
 		/// <param name="result">Product of the multiplication.</param>
 		public static void Multiply(ref Matrix a, ref Matrix3x3 b, out Matrix3x3 result)
 		{
-			Fix64 resultM11 = a.M11 * b.M11 + a.M12 * b.M21 + a.M13 * b.M31;
-			Fix64 resultM12 = a.M11 * b.M12 + a.M12 * b.M22 + a.M13 * b.M32;
-			Fix64 resultM13 = a.M11 * b.M13 + a.M12 * b.M23 + a.M13 * b.M33;
+			fp resultM11 = a.M11 * b.M11 + a.M12 * b.M21 + a.M13 * b.M31;
+			fp resultM12 = a.M11 * b.M12 + a.M12 * b.M22 + a.M13 * b.M32;
+			fp resultM13 = a.M11 * b.M13 + a.M12 * b.M23 + a.M13 * b.M33;
 
-			Fix64 resultM21 = a.M21 * b.M11 + a.M22 * b.M21 + a.M23 * b.M31;
-			Fix64 resultM22 = a.M21 * b.M12 + a.M22 * b.M22 + a.M23 * b.M32;
-			Fix64 resultM23 = a.M21 * b.M13 + a.M22 * b.M23 + a.M23 * b.M33;
+			fp resultM21 = a.M21 * b.M11 + a.M22 * b.M21 + a.M23 * b.M31;
+			fp resultM22 = a.M21 * b.M12 + a.M22 * b.M22 + a.M23 * b.M32;
+			fp resultM23 = a.M21 * b.M13 + a.M22 * b.M23 + a.M23 * b.M33;
 
-			Fix64 resultM31 = a.M31 * b.M11 + a.M32 * b.M21 + a.M33 * b.M31;
-			Fix64 resultM32 = a.M31 * b.M12 + a.M32 * b.M22 + a.M33 * b.M32;
-			Fix64 resultM33 = a.M31 * b.M13 + a.M32 * b.M23 + a.M33 * b.M33;
+			fp resultM31 = a.M31 * b.M11 + a.M32 * b.M21 + a.M33 * b.M31;
+			fp resultM32 = a.M31 * b.M12 + a.M32 * b.M22 + a.M33 * b.M32;
+			fp resultM33 = a.M31 * b.M13 + a.M32 * b.M23 + a.M33 * b.M33;
 
 			result.M11 = resultM11;
 			result.M12 = resultM12;
@@ -835,17 +836,17 @@ namespace BEPUutilities
 		/// <param name="result">Product of the multiplication.</param>
 		public static void MultiplyTransposed(ref Matrix3x3 transpose, ref Matrix3x3 matrix, out Matrix3x3 result)
 		{
-			Fix64 resultM11 = transpose.M11 * matrix.M11 + transpose.M21 * matrix.M21 + transpose.M31 * matrix.M31;
-			Fix64 resultM12 = transpose.M11 * matrix.M12 + transpose.M21 * matrix.M22 + transpose.M31 * matrix.M32;
-			Fix64 resultM13 = transpose.M11 * matrix.M13 + transpose.M21 * matrix.M23 + transpose.M31 * matrix.M33;
+			fp resultM11 = transpose.M11 * matrix.M11 + transpose.M21 * matrix.M21 + transpose.M31 * matrix.M31;
+			fp resultM12 = transpose.M11 * matrix.M12 + transpose.M21 * matrix.M22 + transpose.M31 * matrix.M32;
+			fp resultM13 = transpose.M11 * matrix.M13 + transpose.M21 * matrix.M23 + transpose.M31 * matrix.M33;
 
-			Fix64 resultM21 = transpose.M12 * matrix.M11 + transpose.M22 * matrix.M21 + transpose.M32 * matrix.M31;
-			Fix64 resultM22 = transpose.M12 * matrix.M12 + transpose.M22 * matrix.M22 + transpose.M32 * matrix.M32;
-			Fix64 resultM23 = transpose.M12 * matrix.M13 + transpose.M22 * matrix.M23 + transpose.M32 * matrix.M33;
+			fp resultM21 = transpose.M12 * matrix.M11 + transpose.M22 * matrix.M21 + transpose.M32 * matrix.M31;
+			fp resultM22 = transpose.M12 * matrix.M12 + transpose.M22 * matrix.M22 + transpose.M32 * matrix.M32;
+			fp resultM23 = transpose.M12 * matrix.M13 + transpose.M22 * matrix.M23 + transpose.M32 * matrix.M33;
 
-			Fix64 resultM31 = transpose.M13 * matrix.M11 + transpose.M23 * matrix.M21 + transpose.M33 * matrix.M31;
-			Fix64 resultM32 = transpose.M13 * matrix.M12 + transpose.M23 * matrix.M22 + transpose.M33 * matrix.M32;
-			Fix64 resultM33 = transpose.M13 * matrix.M13 + transpose.M23 * matrix.M23 + transpose.M33 * matrix.M33;
+			fp resultM31 = transpose.M13 * matrix.M11 + transpose.M23 * matrix.M21 + transpose.M33 * matrix.M31;
+			fp resultM32 = transpose.M13 * matrix.M12 + transpose.M23 * matrix.M22 + transpose.M33 * matrix.M32;
+			fp resultM33 = transpose.M13 * matrix.M13 + transpose.M23 * matrix.M23 + transpose.M33 * matrix.M33;
 
 			result.M11 = resultM11;
 			result.M12 = resultM12;
@@ -868,17 +869,17 @@ namespace BEPUutilities
 		/// <param name="result">Product of the multiplication.</param>
 		public static void MultiplyByTransposed(ref Matrix3x3 matrix, ref Matrix3x3 transpose, out Matrix3x3 result)
 		{
-			Fix64 resultM11 = matrix.M11 * transpose.M11 + matrix.M12 * transpose.M12 + matrix.M13 * transpose.M13;
-			Fix64 resultM12 = matrix.M11 * transpose.M21 + matrix.M12 * transpose.M22 + matrix.M13 * transpose.M23;
-			Fix64 resultM13 = matrix.M11 * transpose.M31 + matrix.M12 * transpose.M32 + matrix.M13 * transpose.M33;
+			fp resultM11 = matrix.M11 * transpose.M11 + matrix.M12 * transpose.M12 + matrix.M13 * transpose.M13;
+			fp resultM12 = matrix.M11 * transpose.M21 + matrix.M12 * transpose.M22 + matrix.M13 * transpose.M23;
+			fp resultM13 = matrix.M11 * transpose.M31 + matrix.M12 * transpose.M32 + matrix.M13 * transpose.M33;
 
-			Fix64 resultM21 = matrix.M21 * transpose.M11 + matrix.M22 * transpose.M12 + matrix.M23 * transpose.M13;
-			Fix64 resultM22 = matrix.M21 * transpose.M21 + matrix.M22 * transpose.M22 + matrix.M23 * transpose.M23;
-			Fix64 resultM23 = matrix.M21 * transpose.M31 + matrix.M22 * transpose.M32 + matrix.M23 * transpose.M33;
+			fp resultM21 = matrix.M21 * transpose.M11 + matrix.M22 * transpose.M12 + matrix.M23 * transpose.M13;
+			fp resultM22 = matrix.M21 * transpose.M21 + matrix.M22 * transpose.M22 + matrix.M23 * transpose.M23;
+			fp resultM23 = matrix.M21 * transpose.M31 + matrix.M22 * transpose.M32 + matrix.M23 * transpose.M33;
 
-			Fix64 resultM31 = matrix.M31 * transpose.M11 + matrix.M32 * transpose.M12 + matrix.M33 * transpose.M13;
-			Fix64 resultM32 = matrix.M31 * transpose.M21 + matrix.M32 * transpose.M22 + matrix.M33 * transpose.M23;
-			Fix64 resultM33 = matrix.M31 * transpose.M31 + matrix.M32 * transpose.M32 + matrix.M33 * transpose.M33;
+			fp resultM31 = matrix.M31 * transpose.M11 + matrix.M32 * transpose.M12 + matrix.M33 * transpose.M13;
+			fp resultM32 = matrix.M31 * transpose.M21 + matrix.M32 * transpose.M22 + matrix.M33 * transpose.M23;
+			fp resultM33 = matrix.M31 * transpose.M31 + matrix.M32 * transpose.M32 + matrix.M33 * transpose.M33;
 
 			result.M11 = resultM11;
 			result.M12 = resultM12;
@@ -899,7 +900,7 @@ namespace BEPUutilities
 		/// <param name="matrix">Matrix to scale.</param>
 		/// <param name="scale">Amount to scale.</param>
 		/// <param name="result">Scaled matrix.</param>
-		public static void Multiply(ref Matrix3x3 matrix, Fix64 scale, out Matrix3x3 result)
+		public static void Multiply(ref Matrix3x3 matrix, fp scale, out Matrix3x3 result)
 		{
 			result.M11 = matrix.M11 * scale;
 			result.M12 = matrix.M12 * scale;
@@ -942,17 +943,17 @@ namespace BEPUutilities
 		/// <param name="result">Difference of the two matrices.</param>
 		public static void Subtract(ref Matrix3x3 a, ref Matrix3x3 b, out Matrix3x3 result)
 		{
-			Fix64 m11 = a.M11 - b.M11;
-			Fix64 m12 = a.M12 - b.M12;
-			Fix64 m13 = a.M13 - b.M13;
+			fp m11 = a.M11 - b.M11;
+			fp m12 = a.M12 - b.M12;
+			fp m13 = a.M13 - b.M13;
 
-			Fix64 m21 = a.M21 - b.M21;
-			Fix64 m22 = a.M22 - b.M22;
-			Fix64 m23 = a.M23 - b.M23;
+			fp m21 = a.M21 - b.M21;
+			fp m22 = a.M22 - b.M22;
+			fp m23 = a.M23 - b.M23;
 
-			Fix64 m31 = a.M31 - b.M31;
-			Fix64 m32 = a.M32 - b.M32;
-			Fix64 m33 = a.M33 - b.M33;
+			fp m31 = a.M31 - b.M31;
+			fp m32 = a.M32 - b.M32;
+			fp m33 = a.M33 - b.M33;
 
 			result.M11 = m11;
 			result.M12 = m12;
@@ -989,13 +990,13 @@ namespace BEPUutilities
 			b.M32 = a.M32;
 			b.M33 = a.M33;
 
-			b.M44 = F64.C1;
-			b.M14 = F64.C0;
-			b.M24 = F64.C0;
-			b.M34 = F64.C0;
-			b.M41 = F64.C0;
-			b.M42 = F64.C0;
-			b.M43 = F64.C0;
+			b.M44 = fp._1;
+			b.M14 = fp._0;
+			b.M24 = fp._0;
+			b.M34 = fp._0;
+			b.M41 = fp._0;
+			b.M42 = fp._0;
+			b.M43 = fp._0;
 		}
 
 		/// <summary>
@@ -1022,13 +1023,13 @@ namespace BEPUutilities
 			b.M32 = a.M32;
 			b.M33 = a.M33;
 
-			b.M44 = F64.C1;
-			b.M14 = F64.C0;
-			b.M24 = F64.C0;
-			b.M34 = F64.C0;
-			b.M41 = F64.C0;
-			b.M42 = F64.C0;
-			b.M43 = F64.C0;
+			b.M44 = fp._1;
+			b.M14 = fp._0;
+			b.M24 = fp._0;
+			b.M34 = fp._0;
+			b.M41 = fp._0;
+			b.M42 = fp._0;
+			b.M43 = fp._0;
 			return b;
 		}
 		
@@ -1040,9 +1041,9 @@ namespace BEPUutilities
 		/// <param name="result">Product of the transformation.</param>
 		public static void Transform(ref Vector3 v, ref Matrix3x3 matrix, out Vector3 result)
 		{
-			Fix64 vX = v.X;
-			Fix64 vY = v.Y;
-			Fix64 vZ = v.Z;
+			fp vX = v.X;
+			fp vY = v.Y;
+			fp vZ = v.Z;
 #if !WINDOWS
 			result = new Vector3();
 #endif
@@ -1064,9 +1065,9 @@ namespace BEPUutilities
 #if !WINDOWS
 			result = new Vector3();
 #endif
-			Fix64 vX = v.X;
-			Fix64 vY = v.Y;
-			Fix64 vZ = v.Z;
+			fp vX = v.X;
+			fp vY = v.Y;
+			fp vZ = v.Z;
 
 			result.X = vX * matrix.M11 + vY * matrix.M21 + vZ * matrix.M31;
 			result.Y = vX * matrix.M12 + vY * matrix.M22 + vZ * matrix.M32;
@@ -1082,9 +1083,9 @@ namespace BEPUutilities
 		/// <param name="result">Product of the transformation.</param>
 		public static void TransformTranspose(ref Vector3 v, ref Matrix3x3 matrix, out Vector3 result)
 		{
-			Fix64 vX = v.X;
-			Fix64 vY = v.Y;
-			Fix64 vZ = v.Z;
+			fp vX = v.X;
+			fp vY = v.Y;
+			fp vZ = v.Z;
 #if !WINDOWS
 			result = new Vector3();
 #endif
@@ -1101,9 +1102,9 @@ namespace BEPUutilities
 		/// <returns>Product of the transformation.</returns>
 		public static Vector3 TransformTranspose(Vector3 v, Matrix3x3 matrix)
 		{
-			Fix64 vX = v.X;
-			Fix64 vY = v.Y;
-			Fix64 vZ = v.Z;
+			fp vX = v.X;
+			fp vY = v.Y;
+			fp vZ = v.Z;
 			Vector3 result;
 #if !WINDOWS
 			result = new Vector3();
@@ -1121,12 +1122,12 @@ namespace BEPUutilities
 		/// <param name="result">Transposed matrix.</param>
 		public static void Transpose(ref Matrix3x3 matrix, out Matrix3x3 result)
 		{
-			Fix64 m21 = matrix.M12;
-			Fix64 m31 = matrix.M13;
-			Fix64 m12 = matrix.M21;
-			Fix64 m32 = matrix.M23;
-			Fix64 m13 = matrix.M31;
-			Fix64 m23 = matrix.M32;
+			fp m21 = matrix.M12;
+			fp m31 = matrix.M13;
+			fp m12 = matrix.M21;
+			fp m32 = matrix.M23;
+			fp m13 = matrix.M31;
+			fp m23 = matrix.M32;
 
 			result.M11 = matrix.M11;
 			result.M12 = m12;
@@ -1146,12 +1147,12 @@ namespace BEPUutilities
 		/// <param name="result">Transposed matrix.</param>
 		public static void Transpose(ref Matrix matrix, out Matrix3x3 result)
 		{
-			Fix64 m21 = matrix.M12;
-			Fix64 m31 = matrix.M13;
-			Fix64 m12 = matrix.M21;
-			Fix64 m32 = matrix.M23;
-			Fix64 m13 = matrix.M31;
-			Fix64 m23 = matrix.M32;
+			fp m21 = matrix.M12;
+			fp m31 = matrix.M13;
+			fp m12 = matrix.M21;
+			fp m32 = matrix.M23;
+			fp m13 = matrix.M31;
+			fp m23 = matrix.M32;
 
 			result.M11 = matrix.M11;
 			result.M12 = m12;
@@ -1169,7 +1170,7 @@ namespace BEPUutilities
 		/// </summary>
 		public void Transpose()
 		{
-			Fix64 intermediate = M12;
+			fp intermediate = M12;
 			M12 = M21;
 			M21 = intermediate;
 
@@ -1201,53 +1202,53 @@ namespace BEPUutilities
 		/// 0 is the full 3x3.  1 is the upper left 2x2.  2 is the lower right 2x2.  3 is the four corners.
 		/// 4 is M11.  5 is M22.  6 is M33.</param>
 		/// <returns>The matrix's determinant.</returns>
-		internal Fix64 AdaptiveDeterminant(out int subMatrixCode)
+		internal fp AdaptiveDeterminant(out int subMatrixCode)
 		{
 			// We do not try the full matrix. This is handled by the AdaptiveInverse.
 
 			// We'll play it fast and loose here and assume the following won't overflow
 			//Try m11, m12, m21, m22.
-			Fix64 determinant = M11 * M22 - M12 * M21;
-			if (determinant != F64.C0)
+			fp determinant = M11 * M22 - M12 * M21;
+			if (determinant != fp._0)
 			{
 				subMatrixCode = 1;
 				return determinant;
 			}
 			//Try m22, m23, m32, m33.
 			determinant = M22 * M33 - M23 * M32;
-			if (determinant != F64.C0)
+			if (determinant != fp._0)
 			{
 				subMatrixCode = 2;
 				return determinant;
 			}
 			//Try m11, m13, m31, m33.
 			determinant = M11 * M33 - M13 * M12;
-			if (determinant != F64.C0)
+			if (determinant != fp._0)
 			{
 				subMatrixCode = 3;
 				return determinant;
 			}
 			//Try m11.
-			if (M11 != F64.C0)
+			if (M11 != fp._0)
 			{
 				subMatrixCode = 4;
 				return M11;
 			}
 			//Try m22.
-			if (M22 != F64.C0)
+			if (M22 != fp._0)
 			{
 				subMatrixCode = 5;
 				return M22;
 			}
 			//Try m33.
-			if (M33 != F64.C0)
+			if (M33 != fp._0)
 			{
 				subMatrixCode = 6;
 				return M33;
 			}
 			//It's completely singular!
 			subMatrixCode = -1;
-			return F64.C0;
+			return fp._0;
 		}
 		
 		/// <summary>
@@ -1257,30 +1258,30 @@ namespace BEPUutilities
 		/// <param name="result">Matrix representing the quaternion's orientation.</param>
 		public static void CreateFromQuaternion(ref Quaternion quaternion, out Matrix3x3 result)
 		{
-			Fix64 qX2 = quaternion.X + quaternion.X;
-			Fix64 qY2 = quaternion.Y + quaternion.Y;
-			Fix64 qZ2 = quaternion.Z + quaternion.Z;
-			Fix64 XX = qX2 * quaternion.X;
-			Fix64 YY = qY2 * quaternion.Y;
-			Fix64 ZZ = qZ2 * quaternion.Z;
-			Fix64 XY = qX2 * quaternion.Y;
-			Fix64 XZ = qX2 * quaternion.Z;
-			Fix64 XW = qX2 * quaternion.W;
-			Fix64 YZ = qY2 * quaternion.Z;
-			Fix64 YW = qY2 * quaternion.W;
-			Fix64 ZW = qZ2 * quaternion.W;
+			fp qX2 = quaternion.X + quaternion.X;
+			fp qY2 = quaternion.Y + quaternion.Y;
+			fp qZ2 = quaternion.Z + quaternion.Z;
+			fp XX = qX2 * quaternion.X;
+			fp YY = qY2 * quaternion.Y;
+			fp ZZ = qZ2 * quaternion.Z;
+			fp XY = qX2 * quaternion.Y;
+			fp XZ = qX2 * quaternion.Z;
+			fp XW = qX2 * quaternion.W;
+			fp YZ = qY2 * quaternion.Z;
+			fp YW = qY2 * quaternion.W;
+			fp ZW = qZ2 * quaternion.W;
 
-			result.M11 = F64.C1 - YY - ZZ;
+			result.M11 = fp._1 - YY - ZZ;
 			result.M21 = XY - ZW;
 			result.M31 = XZ + YW;
 
 			result.M12 = XY + ZW;
-			result.M22 = F64.C1 - XX - ZZ;
+			result.M22 = fp._1 - XX - ZZ;
 			result.M32 = YZ - XW;
 
 			result.M13 = XZ - YW;
 			result.M23 = YZ + XW;
-			result.M33 = F64.C1 - XX - YY;
+			result.M33 = fp._1 - XX - YY;
 		}
 
 		/// <summary>
@@ -1322,7 +1323,7 @@ namespace BEPUutilities
 		/// <param name="axis">Axis around which to rotate.</param>
 		/// <param name="angle">Amount to rotate.</param>
 		/// <returns>Matrix representing the rotation.</returns>
-		public static Matrix3x3 CreateFromAxisAngle(Vector3 axis, Fix64 angle)
+		public static Matrix3x3 CreateFromAxisAngle(Vector3 axis, fp angle)
 		{
 			Matrix3x3 toReturn;
 			CreateFromAxisAngle(ref axis, angle, out toReturn);
@@ -1335,29 +1336,29 @@ namespace BEPUutilities
 		/// <param name="axis">Axis around which to rotate.</param>
 		/// <param name="angle">Amount to rotate.</param>
 		/// <param name="result">Matrix representing the rotation.</param>
-		public static void CreateFromAxisAngle(ref Vector3 axis, Fix64 angle, out Matrix3x3 result)
+		public static void CreateFromAxisAngle(ref Vector3 axis, fp angle, out Matrix3x3 result)
 		{
-			Fix64 xx = axis.X * axis.X;
-			Fix64 yy = axis.Y * axis.Y;
-			Fix64 zz = axis.Z * axis.Z;
-			Fix64 xy = axis.X * axis.Y;
-			Fix64 xz = axis.X * axis.Z;
-			Fix64 yz = axis.Y * axis.Z;
+			fp xx = axis.X * axis.X;
+			fp yy = axis.Y * axis.Y;
+			fp zz = axis.Z * axis.Z;
+			fp xy = axis.X * axis.Y;
+			fp xz = axis.X * axis.Z;
+			fp yz = axis.Y * axis.Z;
 
-			Fix64 sinAngle = Fix64.Sin(angle);
-			Fix64 oneMinusCosAngle = F64.C1 - Fix64.Cos(angle);
+			fp sinAngle = fixmath.Sin(angle);
+			fp oneMinusCosAngle = fp._1 - fixmath.Cos(angle);
 
-			result.M11 = F64.C1 + oneMinusCosAngle * (xx - F64.C1);
+			result.M11 = fp._1 + oneMinusCosAngle * (xx - fp._1);
 			result.M21 = -axis.Z * sinAngle + oneMinusCosAngle * xy;
 			result.M31 = axis.Y * sinAngle + oneMinusCosAngle * xz;
 
 			result.M12 = axis.Z * sinAngle + oneMinusCosAngle * xy;
-			result.M22 = F64.C1 + oneMinusCosAngle * (yy - F64.C1);
+			result.M22 = fp._1 + oneMinusCosAngle * (yy - fp._1);
 			result.M32 = -axis.X * sinAngle + oneMinusCosAngle * yz;
 
 			result.M13 = -axis.Y * sinAngle + oneMinusCosAngle * xz;
 			result.M23 = axis.X * sinAngle + oneMinusCosAngle * yz;
-			result.M33 = F64.C1 + oneMinusCosAngle * (zz - F64.C1);
+			result.M33 = fp._1 + oneMinusCosAngle * (zz - fp._1);
 		}
 
 

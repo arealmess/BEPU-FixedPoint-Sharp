@@ -6,6 +6,7 @@ using BEPUutilities;
 using BEPUphysics.Materials;
 using BEPUphysics.BroadPhaseEntries;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.Vehicle
 {
@@ -299,7 +300,7 @@ namespace BEPUphysics.Vehicle
         }
 
 
-        internal void PreStep(Fix64 dt)
+        internal void PreStep(fp dt)
         {
             Matrix.CreateFromAxisAngle(ref suspension.localDirection, shape.steeringAngle, out shape.steeringTransform);
             Matrix.TransformNormal(ref localForwardDirection, ref shape.steeringTransform, out worldForwardDirection);
@@ -502,17 +503,17 @@ namespace BEPUphysics.Vehicle
         }
 
 
-        internal void UpdateAtEndOfFrame(Fix64 dt)
+        internal void UpdateAtEndOfFrame(fp dt)
         {
             shape.UpdateWorldTransform();
         }
 
-        internal void UpdateAtEndOfUpdate(Fix64 dt)
+        internal void UpdateAtEndOfUpdate(fp dt)
         {
             shape.UpdateSpin(dt);
         }
 
-        internal void UpdateDuringForces(Fix64 dt)
+        internal void UpdateDuringForces(fp dt)
         {
             suspension.ComputeWorldSpaceData();
             shape.UpdateDetectorPosition();

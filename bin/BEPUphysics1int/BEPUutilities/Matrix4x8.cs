@@ -1,17 +1,18 @@
 ﻿using FixMath.NET;
 using System;
+using Deterministic.FixedPoint;
 
 namespace BEPUutilities
 {
 	static class Matrix4x8
 	{
-		[ThreadStatic] private static Fix64[,] Matrix;
+		[ThreadStatic] private static fp[,] Matrix;
 
 		public static bool Invert(ref Matrix m, out Matrix r)
 		{
 			if (Matrix == null)
-				Matrix = new Fix64[4, 8];
-			Fix64[,] M = Matrix;
+				Matrix = new fp[4, 8];
+			fp[,] M = Matrix;
 
 			M[0, 0] = m.M11;
 			M[0, 1] = m.M12;

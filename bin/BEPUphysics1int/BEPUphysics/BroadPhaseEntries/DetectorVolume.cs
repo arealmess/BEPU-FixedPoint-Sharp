@@ -11,6 +11,7 @@ using BEPUphysics.CollisionShapes.ConvexShapes;
 using BEPUphysics.CollisionRuleManagement;
 using BEPUphysics.NarrowPhaseSystems.Pairs;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.BroadPhaseEntries
 {
@@ -192,7 +193,7 @@ namespace BEPUphysics.BroadPhaseEntries
             var ray = new Ray(point, rayDirection);
             triangleMesh.Tree.GetOverlaps(ray, triangles);
 
-            Fix64 minimumT = Fix64.MaxValue;
+            fp minimumT = Fix64.MaxValue;
             bool minimumIsClockwise = false;
 
             for (int i = 0; i < triangles.Count; i++)
@@ -233,7 +234,7 @@ namespace BEPUphysics.BroadPhaseEntries
             get { return false; }
         }
 
-        public override bool RayCast(Ray ray, Fix64 maximumLength, out RayHit rayHit)
+        public override bool RayCast(Ray ray, fp maximumLength, out RayHit rayHit)
         {
             return triangleMesh.RayCast(ray, maximumLength, TriangleSidedness.DoubleSided, out rayHit);
         }
@@ -259,13 +260,13 @@ namespace BEPUphysics.BroadPhaseEntries
                     Vector3.Subtract(ref tri.vB, ref center, out tri.vB);
                     Vector3.Subtract(ref tri.vC, ref center, out tri.vC);
                     tri.MaximumRadius = tri.vA.LengthSquared();
-					Fix64 radius = tri.vB.LengthSquared();
+					fp radius = tri.vB.LengthSquared();
                     if (tri.MaximumRadius < radius)
                         tri.MaximumRadius = radius;
                     radius = tri.vC.LengthSquared();
                     if (tri.MaximumRadius < radius)
                         tri.MaximumRadius = radius;
-                    tri.MaximumRadius = Fix64.Sqrt(tri.MaximumRadius);
+                    tri.MaximumRadius = fixmath.Sqrt(tri.MaximumRadius);
                     tri.collisionMargin = F64.C0;
                     var triangleTransform = new RigidTransform { Orientation = Quaternion.Identity, Position = center };
                     RayHit tempHit;
@@ -309,7 +310,7 @@ namespace BEPUphysics.BroadPhaseEntries
             var triangles = CommonResources.GetIntList();
             triangleMesh.Tree.GetOverlaps(ray, triangles);
 
-			Fix64 minimumT = Fix64.MaxValue;
+			fp minimumT = Fix64.MaxValue;
 
             for (int i = 0; i < triangles.Count; i++)
             {

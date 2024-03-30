@@ -8,6 +8,7 @@ using BEPUphysics.CollisionShapes.ConvexShapes;
 using BEPUphysics.CollisionTests.CollisionAlgorithms;
 using BEPUphysics.OtherSpaceStages;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.BroadPhaseEntries
 {
@@ -177,7 +178,7 @@ namespace BEPUphysics.BroadPhaseEntries
         /// <param name="maximumLength">Maximum length, in units of the ray's direction's length, to test.</param>
         /// <param name="rayHit">Hit location of the ray on the entry, if any.</param>
         /// <returns>Whether or not the ray hit the entry.</returns>
-        public override bool RayCast(Ray ray, Fix64 maximumLength, out RayHit rayHit)
+        public override bool RayCast(Ray ray, fp maximumLength, out RayHit rayHit)
         {
             return mesh.RayCast(ray, maximumLength, sidedness, out rayHit);
         }
@@ -211,13 +212,13 @@ namespace BEPUphysics.BroadPhaseEntries
                     Vector3.Subtract(ref tri.vB, ref center, out tri.vB);
                     Vector3.Subtract(ref tri.vC, ref center, out tri.vC);
                     tri.MaximumRadius = tri.vA.LengthSquared();
-                    Fix64 radius = tri.vB.LengthSquared();
+                    fp radius = tri.vB.LengthSquared();
                     if (tri.MaximumRadius < radius)
                         tri.MaximumRadius = radius;
                     radius = tri.vC.LengthSquared(); 
                     if (tri.MaximumRadius < radius)
                         tri.MaximumRadius = radius;
-                    tri.MaximumRadius = Fix64.Sqrt(tri.MaximumRadius);
+                    tri.MaximumRadius = fixmath.Sqrt(tri.MaximumRadius);
                     tri.collisionMargin = F64.C0;
                     var triangleTransform = new RigidTransform {Orientation = Quaternion.Identity, Position = center};
                     RayHit tempHit;
@@ -244,7 +245,7 @@ namespace BEPUphysics.BroadPhaseEntries
         ///<param name="sidedness">Sidedness to use when raycasting.  Doesn't have to be the same as the mesh's own sidedness.</param>
         ///<param name="rayHit">Data about the ray's intersection with the mesh, if any.</param>
         ///<returns>Whether or not the ray hit the mesh.</returns>
-        public bool RayCast(Ray ray, Fix64 maximumLength, TriangleSidedness sidedness, out RayHit rayHit)
+        public bool RayCast(Ray ray, fp maximumLength, TriangleSidedness sidedness, out RayHit rayHit)
         {
             return mesh.RayCast(ray, maximumLength, sidedness, out rayHit);
         }

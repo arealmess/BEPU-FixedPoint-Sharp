@@ -1,8 +1,5 @@
-﻿using FixMath.NET;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using FixMath.NET; 
+using Deterministic.FixedPoint;
 
 namespace BEPUutilities
 {    
@@ -14,7 +11,7 @@ namespace BEPUutilities
         /// <summary>
         /// Radius of the sphere.
         /// </summary>
-        public Fix64 Radius;
+        public fp Radius;
         /// <summary>
         /// Location of the center of the sphere.
         /// </summary>
@@ -25,7 +22,7 @@ namespace BEPUutilities
         /// </summary>
         /// <param name="center">Location of the center of the sphere.</param>
         /// <param name="radius">Radius of the sphere.</param>
-        public BoundingSphere(Vector3 center, Fix64 radius)
+        public BoundingSphere(Vector3 center, fp radius)
         {
             this.Center = center;
             this.Radius = radius;

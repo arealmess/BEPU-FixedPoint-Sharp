@@ -3,6 +3,7 @@ using BEPUphysics.Constraints.TwoEntity.Motors;
 using BEPUphysics.Entities;
 using BEPUutilities;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.Constraints.SingleEntity
 {
@@ -18,15 +19,15 @@ namespace BEPUphysics.Constraints.SingleEntity
         private Vector3 accumulatedImpulse;
 
 
-        private Fix64 angle;
+        private fp angle;
         private Vector3 axis;
 
         private Vector3 biasVelocity;
         private Matrix3x3 effectiveMassMatrix;
 
-        private Fix64 maxForceDt;
-        private Fix64 maxForceDtSquared;
-        private Fix64 usedSoftness;
+        private fp maxForceDt;
+        private fp maxForceDtSquared;
+        private fp usedSoftness;
 
         /// <summary>
         /// Constructs a new constraint which attempts to restrict the angular velocity or orientation to a goal.
@@ -103,7 +104,7 @@ namespace BEPUphysics.Constraints.SingleEntity
         /// <summary>
         /// Applies the corrective impulses required by the constraint.
         /// </summary>
-        public override Fix64 SolveIteration()
+        public override fp SolveIteration()
         {
 #if !WINDOWS
             Vector3 lambda = new Vector3();
@@ -121,12 +122,12 @@ namespace BEPUphysics.Constraints.SingleEntity
             accumulatedImpulse.X += lambda.X;
             accumulatedImpulse.Y += lambda.Y;
             accumulatedImpulse.Z += lambda.Z;
-            Fix64 sumLengthSquared = accumulatedImpulse.LengthSquared();
+            fp sumLengthSquared = accumulatedImpulse.LengthSquared();
 
             if (sumLengthSquared > maxForceDtSquared)
             {
                 //max / impulse gives some value 0 < x < 1.  Basically, normalize the vector (divide by the length) and scale by the maximum.
-                Fix64 multiplier = maxForceDt / Fix64.Sqrt(sumLengthSquared);
+                fp multiplier = maxForceDt / fixmath.Sqrt(sumLengthSquared);
                 accumulatedImpulse.X *= multiplier;
                 accumulatedImpulse.Y *= multiplier;
                 accumulatedImpulse.Z *= multiplier;
@@ -148,12 +149,12 @@ namespace BEPUphysics.Constraints.SingleEntity
         /// Initializes the constraint for the current frame.
         /// </summary>
         /// <param name="dt">Time between frames.</param>
-        public override void Update(Fix64 dt)
+        public override void Update(fp dt)
         {
             basis.rotationMatrix = entity.orientationMatrix;
             basis.ComputeWorldSpaceAxes();
 
-            Fix64 updateRate = F64.C1 / dt;
+            fp updateRate = F64.C1 / dt;
             if (settings.mode == MotorMode.Servomechanism) //Only need to do the bulk of this work if it's a servo.
             {
                 Quaternion currentRelativeOrientation;
@@ -167,7 +168,7 @@ namespace BEPUphysics.Constraints.SingleEntity
                 Quaternion.Multiply(ref settings.servo.goal, ref errorOrientation, out errorOrientation);
 
 
-                Fix64 errorReduction;
+                fp errorReduction;
                 settings.servo.springSettings.ComputeErrorReductionAndSoftness(dt, updateRate, out errorReduction, out usedSoftness);
 
                 //Turn this into an axis-angle representation.
@@ -176,7 +177,7 @@ namespace BEPUphysics.Constraints.SingleEntity
                 //Scale the axis by the desired velocity if the angle is sufficiently large (epsilon).
                 if (angle > Toolbox.BigEpsilon)
                 {
-                    Fix64 velocity = MathHelper.Min(settings.servo.baseCorrectiveSpeed, angle * updateRate) + angle * errorReduction;
+                    fp velocity = MathHelper.Min(settings.servo.baseCorrectiveSpeed, angle * updateRate) + angle * errorReduction;
 
                     biasVelocity.X = axis.X * velocity;
                     biasVelocity.Y = axis.Y * velocity;
@@ -184,10 +185,10 @@ namespace BEPUphysics.Constraints.SingleEntity
 
 
                     //Ensure that the corrective velocity doesn't exceed the max.
-                    Fix64 length = biasVelocity.LengthSquared();
+                    fp length = biasVelocity.LengthSquared();
                     if (length > settings.servo.maxCorrectiveVelocitySquared)
                     {
-                        Fix64 multiplier = settings.servo.maxCorrectiveVelocity / Fix64.Sqrt(length);
+                        fp multiplier = settings.servo.maxCorrectiveVelocity / fixmath.Sqrt(length);
                         biasVelocity.X *= multiplier;
                         biasVelocity.Y *= multiplier;
                         biasVelocity.Z *= multiplier;
@@ -235,7 +236,7 @@ namespace BEPUphysics.Constraints.SingleEntity
         /// <summary>
         /// Computes the maxForceDt and maxForceDtSquared fields.
         /// </summary>
-        private void ComputeMaxForces(Fix64 maxForce, Fix64 dt)
+        private void ComputeMaxForces(fp maxForce, fp dt)
         {
             //Determine maximum force
             if (maxForce < Fix64.MaxValue)

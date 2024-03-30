@@ -38,22 +38,16 @@ namespace BEPUphysics.NarrowPhaseSystems.Pairs
             }
 
             base.Initialize(entryA, entryB);
-        }
-
+        } 
 
         ///<summary>
         /// Cleans up the pair handler.
         ///</summary>
         public override void CleanUp()
-        {
-
+        { 
             base.CleanUp();
-            mesh = null;
-
-
-        }
-
-
+            mesh = null; 
+        } 
 
         protected override void UpdateContainedPairs()
         {
@@ -66,14 +60,7 @@ namespace BEPUphysics.NarrowPhaseSystems.Pairs
                 TryToAdd(overlappedElements.Elements[i].CollisionInformation, mesh, overlappedElements.Elements[i].Material, mesh.material);
             }
 
-            PhysicsResources.GiveBack(overlappedElements);
-
-
-
-        }
-
-
-
-
+            PhysicsResources.GiveBack(overlappedElements); 
+        } 
     }
 }

@@ -7,6 +7,7 @@ using BEPUutilities;
 using BEPUutilities.DataStructures;
 using BEPUutilities.ResourceManagement;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.CollisionShapes.ConvexShapes
 {
@@ -27,8 +28,8 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
         }
         Vector3[] vertices;
 
-        private readonly Fix64 unexpandedMinimumRadius;
-        private readonly Fix64 unexpandedMaximumRadius;
+        private readonly fp unexpandedMinimumRadius;
+        private readonly fp unexpandedMaximumRadius;
 
         ///<summary>
         /// Constructs a new convex hull shape.
@@ -152,7 +153,7 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
         /// Each group of 3 indices represents a triangle on the surface of the hull.</param>
         /// <param name="outputUniqueSurfaceVertices">Computed nonredundant list of vertices composing the outer shell of the input point set. Recentered on the local origin.</param>
         /// <returns>Description required to define a convex shape.</returns>
-        public static ConvexShapeDescription ComputeDescription(IList<Vector3> vertices, Fix64 collisionMargin, out Vector3 center, IList<int> outputHullTriangleIndices, IList<Vector3> outputUniqueSurfaceVertices)
+        public static ConvexShapeDescription ComputeDescription(IList<Vector3> vertices, fp collisionMargin, out Vector3 center, IList<int> outputHullTriangleIndices, IList<Vector3> outputUniqueSurfaceVertices)
         {
             if (outputHullTriangleIndices.Count != 0 || outputUniqueSurfaceVertices.Count != 0)
                 throw new ArgumentException("Output lists must start empty.");
@@ -182,18 +183,18 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
         /// <param name="localSurfaceVertices">Surface vertices of the convex hull.</param>
         /// <param name="collisionMargin">Collision margin of the shape.</param>
         /// <returns>Maximum radius of the convex hull.</returns>
-        public static Fix64 ComputeMaximumRadius(IList<Vector3> localSurfaceVertices, Fix64 collisionMargin)
+        public static fp ComputeMaximumRadius(IList<Vector3> localSurfaceVertices, fp collisionMargin)
         {
-            Fix64 longestLengthSquared = F64.C0;
+            fp longestLengthSquared = F64.C0;
             for (int i = 0; i < localSurfaceVertices.Count; ++i)
             {
-                Fix64 lengthCandidate = localSurfaceVertices[i].LengthSquared();
+                fp lengthCandidate = localSurfaceVertices[i].LengthSquared();
                 if (lengthCandidate > longestLengthSquared)
                 {
                     longestLengthSquared = lengthCandidate;
                 }
             }
-            return Fix64.Sqrt(longestLengthSquared) + collisionMargin;
+            return fixmath.Sqrt(longestLengthSquared) + collisionMargin;
         }
 
 
@@ -213,9 +214,9 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
             Matrix3x3 o;
             Matrix3x3.CreateFromQuaternion(ref shapeTransform.Orientation, out o);
 
-            Fix64 minX, maxX;
-            Fix64 minY, maxY;
-            Fix64 minZ, maxZ;
+            fp minX, maxX;
+            fp minY, maxY;
+            fp minZ, maxZ;
             var right = new Vector3(o.M11, o.M21, o.M31);
             var up = new Vector3(o.M12, o.M22, o.M32);
             var backward = new Vector3(o.M13, o.M23, o.M33);
@@ -233,7 +234,7 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
             int maxZIndex = 0;
             for (int i = 1; i < vertices.Length; ++i)
             {
-                Fix64 dot;
+                fp dot;
                 Vector3.Dot(ref vertices[i], ref right, out dot);
                 if (dot < minX)
                 {
@@ -289,12 +290,12 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
 
         public override void GetLocalExtremePointWithoutMargin(ref Vector3 direction, out Vector3 extremePoint)
         {
-            Fix64 max;
+            fp max;
             Vector3.Dot(ref vertices[0], ref direction, out max);
             int maxIndex = 0;
             for (int i = 1; i < vertices.Length; i++)
             {
-                Fix64 dot;
+                fp dot;
                 Vector3.Dot(ref vertices[i], ref direction, out dot);
                 if (dot > max)
                 {

@@ -12,6 +12,7 @@ using BEPUphysics.CollisionTests.CollisionAlgorithms;
 using BEPUphysics.CollisionShapes.ConvexShapes;
 using BEPUphysics.CollisionTests.Manifolds;
 using BEPUutilities;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.NarrowPhaseSystems.Pairs
 {

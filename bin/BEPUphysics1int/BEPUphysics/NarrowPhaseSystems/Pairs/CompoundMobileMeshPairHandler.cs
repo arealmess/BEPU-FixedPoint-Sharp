@@ -53,12 +53,7 @@ namespace BEPUphysics.NarrowPhaseSystems.Pairs
             base.CleanUp();
 
             mesh = null;
-        }
-
-
-
-    
-
+        } 
 
         protected override void UpdateContainedPairs()
         {
@@ -74,7 +69,6 @@ namespace BEPUphysics.NarrowPhaseSystems.Pairs
 
             PhysicsResources.GiveBack(overlappedElements);
 
-        }
-
+        } 
     }
 }

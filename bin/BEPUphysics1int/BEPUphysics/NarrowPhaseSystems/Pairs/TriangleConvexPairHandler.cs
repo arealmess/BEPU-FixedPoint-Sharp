@@ -12,6 +12,8 @@ using BEPUphysics.Settings;
 using BEPUphysics.CollisionShapes.ConvexShapes;
 using BEPUutilities;
 using FixMath.NET;
+using Deterministic.FixedPoint;
+
 
 namespace BEPUphysics.NarrowPhaseSystems.Pairs
 {
@@ -90,17 +92,14 @@ namespace BEPUphysics.NarrowPhaseSystems.Pairs
             triangle = null;
             convex = null;
 
-        }
-
-
-
+        } 
 
         ///<summary>
         /// Updates the time of impact for the pair.
         ///</summary>
         ///<param name="requester">Collidable requesting the update.</param>
         ///<param name="dt">Timestep duration.</param>
-        public override void UpdateTimeOfImpact(Collidable requester, Fix64 dt)
+        public override void UpdateTimeOfImpact(Collidable requester, fp dt)
         {
             var overlap = BroadPhaseOverlap;
             var triangleMode = triangle.entity == null ? PositionUpdateMode.Discrete : triangle.entity.PositionUpdateMode;
@@ -140,7 +139,7 @@ namespace BEPUphysics.NarrowPhaseSystems.Pairs
                     Vector3.Subtract(ref triangle.entity.linearVelocity, ref convex.entity.linearVelocity, out velocity);
                 }
                 Vector3.Multiply(ref velocity, dt, out velocity);
-                Fix64 velocitySquared = velocity.LengthSquared();
+                fp velocitySquared = velocity.LengthSquared();
 
                 var minimumRadiusA = convex.Shape.MinimumRadius * MotionSettings.CoreShapeScaling;
                 timeOfImpact = F64.C1;
@@ -160,7 +159,7 @@ namespace BEPUphysics.NarrowPhaseSystems.Pairs
                             Vector3 normal;
                             Vector3.Cross(ref AB, ref AC, out normal);
 
-                            Fix64 dot;
+                            fp dot;
                             Vector3.Dot(ref rayHit.Normal, ref normal, out dot);
                             if (triangle.Shape.sidedness == TriangleSidedness.Counterclockwise && dot < F64.C0 ||
                                 triangle.Shape.sidedness == TriangleSidedness.Clockwise && dot > F64.C0)
@@ -186,7 +185,7 @@ namespace BEPUphysics.NarrowPhaseSystems.Pairs
                 //    {
                 //        if (triangle.Shape.sidedness != TriangleSidedness.DoubleSided)
                 //        {
-                //            Fix64 dot;
+                //            fp dot;
                 //            Vector3.Dot(ref rayHit.Normal, ref normal, out dot);
                 //            if (dot > 0)
                 //            {

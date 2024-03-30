@@ -3,6 +3,7 @@ using BEPUphysics.BroadPhaseEntries.MobileCollidables;
 using BEPUutilities.ResourceManagement;
 using BEPUutilities;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.NarrowPhaseSystems.Pairs
 {
@@ -44,7 +45,7 @@ namespace BEPUphysics.NarrowPhaseSystems.Pairs
             base.CleanUpCollidable(collidable);
         }
 
-        protected override void ConfigureCollidable(TriangleEntry entry, Fix64 dt)
+        protected override void ConfigureCollidable(TriangleEntry entry, fp dt)
         {
             var shape = entry.Collidable.Shape;
             mesh.Shape.TriangleMesh.Data.GetTriangle(entry.Index, out shape.vA, out shape.vB, out shape.vC);
@@ -100,7 +101,7 @@ namespace BEPUphysics.NarrowPhaseSystems.Pairs
 
 
 
-        protected override void UpdateContainedPairs(Fix64 dt)
+        protected override void UpdateContainedPairs(fp dt)
         {
             var overlappedElements = CommonResources.GetIntList();
             BoundingBox localBoundingBox;

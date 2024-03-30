@@ -4,6 +4,7 @@ using BEPUphysics.EntityStateManagement;
 using BEPUphysics.CollisionShapes.ConvexShapes;
 using BEPUutilities;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.Entities.Prefabs
 {
@@ -13,12 +14,12 @@ namespace BEPUphysics.Entities.Prefabs
 	public class Box : Entity<ConvexCollidable<BoxShape>>
 	{
 
-		private Box(Fix64 width, Fix64 height, Fix64 length)
+		private Box(fp width, fp height, fp length)
 			:base(new ConvexCollidable<BoxShape>(new BoxShape(width, height, length)))
 		{
 		}
 
-		private Box(Fix64 width, Fix64 height, Fix64 length, Fix64 mass)
+		private Box(fp width, fp height, fp length, fp mass)
 			:base(new ConvexCollidable<BoxShape>(new BoxShape(width, height, length)), mass)
 		{
 		}
@@ -31,7 +32,7 @@ namespace BEPUphysics.Entities.Prefabs
 		/// <param name="length">Length of the box.</param>
 		/// <param name="height">Height of the box.</param>
 		/// <param name="mass">Mass of the object.</param>
-		public Box(Vector3 pos, Fix64 width, Fix64 height, Fix64 length, Fix64 mass)
+		public Box(Vector3 pos, fp width, fp height, fp length, fp mass)
 			: this(width, height, length, mass)
 		{
 			Position = pos;
@@ -44,7 +45,7 @@ namespace BEPUphysics.Entities.Prefabs
 		/// <param name="width">Width of the box.</param>
 		/// <param name="length">Length of the box.</param>
 		/// <param name="height">Height of the box.</param>
-		public Box(Vector3 pos, Fix64 width, Fix64 height, Fix64 length)
+		public Box(Vector3 pos, fp width, fp height, fp length)
 			: this(width, height, length)
 		{
 			Position = pos;
@@ -58,7 +59,7 @@ namespace BEPUphysics.Entities.Prefabs
 		/// <param name="length">Length of the box.</param>
 		/// <param name="height">Height of the box.</param>
 		/// <param name="mass">Mass of the object.</param>
-		public Box(MotionState motionState, Fix64 width, Fix64 height, Fix64 length, Fix64 mass)
+		public Box(MotionState motionState, fp width, fp height, fp length, fp mass)
 			: this(width, height, length, mass)
 		{
 			MotionState = motionState;
@@ -73,7 +74,7 @@ namespace BEPUphysics.Entities.Prefabs
 		/// <param name="width">Width of the box.</param>
 		/// <param name="length">Length of the box.</param>
 		/// <param name="height">Height of the box.</param>
-		public Box(MotionState motionState, Fix64 width, Fix64 height, Fix64 length)
+		public Box(MotionState motionState, fp width, fp height, fp length)
 			: this(width, height, length)
 		{
 			MotionState = motionState;
@@ -82,7 +83,7 @@ namespace BEPUphysics.Entities.Prefabs
 		/// <summary>
 		/// Width of the box divided by two.
 		/// </summary>
-		public Fix64 HalfWidth
+		public fp HalfWidth
 		{
 			get { return CollisionInformation.Shape.HalfWidth; }
 			set { CollisionInformation.Shape.HalfWidth = value; }
@@ -92,7 +93,7 @@ namespace BEPUphysics.Entities.Prefabs
 		/// <summary>
 		/// Height of the box divided by two.
 		/// </summary>
-		public Fix64 HalfHeight
+		public fp HalfHeight
 		{
 			get { return CollisionInformation.Shape.HalfHeight; }
 			set { CollisionInformation.Shape.HalfHeight = value; }
@@ -101,7 +102,7 @@ namespace BEPUphysics.Entities.Prefabs
 		/// <summary>
 		/// Length of the box divided by two.
 		/// </summary>
-		public Fix64 HalfLength
+		public fp HalfLength
 		{
 			get { return CollisionInformation.Shape.HalfLength; }
 			set { CollisionInformation.Shape.HalfLength = value; }
@@ -112,7 +113,7 @@ namespace BEPUphysics.Entities.Prefabs
 		/// <summary>
 		/// Width of the box.
 		/// </summary>
-		public Fix64 Width
+		public fp Width
 		{
 			get { return CollisionInformation.Shape.Width; }
 			set { CollisionInformation.Shape.Width = value; }
@@ -121,7 +122,7 @@ namespace BEPUphysics.Entities.Prefabs
 		/// <summary>
 		/// Height of the box.
 		/// </summary>
-		public Fix64 Height
+		public fp Height
 		{
 			get { return CollisionInformation.Shape.Height; }
 			set { CollisionInformation.Shape.Height = value; }
@@ -130,7 +131,7 @@ namespace BEPUphysics.Entities.Prefabs
 		/// <summary>
 		/// Length of the box.
 		/// </summary>
-		public Fix64 Length
+		public fp Length
 		{
 			get { return CollisionInformation.Shape.Length; }
 			set { CollisionInformation.Shape.Length = value; }

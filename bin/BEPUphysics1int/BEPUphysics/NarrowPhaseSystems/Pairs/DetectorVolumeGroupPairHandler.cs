@@ -3,6 +3,7 @@ using BEPUphysics.CollisionRuleManagement;
 using BEPUutilities.DataStructures;
 using BEPUphysics.BroadPhaseEntries.MobileCollidables;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.NarrowPhaseSystems.Pairs
 {
@@ -71,7 +72,7 @@ namespace BEPUphysics.NarrowPhaseSystems.Pairs
 
 		protected abstract void UpdateContainedPairs();
 
-		public override void UpdateCollision(Fix64 dt)
+		public override void UpdateCollision(fp dt)
 		{
 			WasContaining = Containing;
 			WasTouching = Touching;

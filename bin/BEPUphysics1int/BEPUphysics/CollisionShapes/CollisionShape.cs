@@ -18,9 +18,6 @@ namespace BEPUphysics.CollisionShapes
         {
             if (ShapeChanged != null)
                 ShapeChanged(this);
-        }
-
-
-
+        } 
     }
 }

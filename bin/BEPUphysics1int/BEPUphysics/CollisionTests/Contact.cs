@@ -1,5 +1,6 @@
 ﻿using System;
 using BEPUutilities;
+using Deterministic.FixedPoint;
 using FixMath.NET;
 
 namespace BEPUphysics.CollisionTests
@@ -12,7 +13,7 @@ namespace BEPUphysics.CollisionTests
         /// <summary>
         /// Amount of penetration between the two objects.
         /// </summary>
-        public Fix64 PenetrationDepth;
+        public fp PenetrationDepth;
 
         /// <summary>
         /// Identifier used to link contact data with existing contacts and categorize members of a manifold.
@@ -22,16 +23,12 @@ namespace BEPUphysics.CollisionTests
         /// <summary>
         /// Normal direction of the surface at the contact point.
         /// </summary>
-        public Vector3 Normal;
-
+        public Vector3 Normal; 
 
         /// <summary>
         /// Position of the contact point.
         /// </summary>
-        public Vector3 Position;
-
- 
-
+        public Vector3 Position; 
 
         ///<summary>
         /// Sets up the contact with new information.
@@ -53,9 +50,6 @@ namespace BEPUphysics.CollisionTests
         public override string ToString()
         {
             return "Position: " + Position + " Normal: " + Normal + " Depth: " + PenetrationDepth;
-        }
-
-
-
+        } 
     }
 }

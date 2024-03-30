@@ -8,6 +8,7 @@ using BEPUphysics.Materials;
 using BEPUphysics.CollisionRuleManagement;
 using System;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.BroadPhaseEntries.MobileCollidables
 {
@@ -185,12 +186,7 @@ namespace BEPUphysics.BroadPhaseEntries.MobileCollidables
             hierarchy = new CompoundHierarchy(this);
 
 
-        }
-
-
-
-
-
+        } 
 
         internal CompoundHierarchy hierarchy;
         ///<summary>
@@ -222,7 +218,7 @@ namespace BEPUphysics.BroadPhaseEntries.MobileCollidables
             }
         }
 
-        protected internal override void UpdateBoundingBoxInternal(Fix64 dt)
+        protected internal override void UpdateBoundingBoxInternal(fp dt)
         {
             for (int i = 0; i < children.Count; i++)
             {
@@ -241,7 +237,7 @@ namespace BEPUphysics.BroadPhaseEntries.MobileCollidables
         /// <param name="maximumLength">Maximum length, in units of the ray's direction's length, to test.</param>
         /// <param name="rayHit">Hit location of the ray on the collidable, if any.</param>
         /// <returns>Whether or not the ray hit the collidable.</returns>
-        public override bool RayCast(Ray ray, Fix64 maximumLength, out RayHit rayHit)
+        public override bool RayCast(Ray ray, fp maximumLength, out RayHit rayHit)
         {
             CompoundChild hitChild;
             bool hit = RayCast(ray, maximumLength, out rayHit, out hitChild);
@@ -255,7 +251,7 @@ namespace BEPUphysics.BroadPhaseEntries.MobileCollidables
         /// <param name="maximumLength">Maximum length, in units of the ray's direction's length, to test.</param>
         /// <param name="rayHit">Hit data and the hit child collidable, if any.</param>
         /// <returns>Whether or not the ray hit the entry.</returns>
-        public bool RayCast(Ray ray, Fix64 maximumLength, out RayCastResult rayHit)
+        public bool RayCast(Ray ray, fp maximumLength, out RayCastResult rayHit)
         {
             RayHit hitData;
             CompoundChild hitChild;
@@ -272,7 +268,7 @@ namespace BEPUphysics.BroadPhaseEntries.MobileCollidables
         /// <param name="rayHit">Hit data, if any.</param>
         /// <param name="hitChild">Child collidable hit by the ray, if any.</param>
         /// <returns>Whether or not the ray hit the entry.</returns>
-        public bool RayCast(Ray ray, Fix64 maximumLength, out RayHit rayHit, out CompoundChild hitChild)
+        public bool RayCast(Ray ray, fp maximumLength, out RayHit rayHit, out CompoundChild hitChild)
         {
             rayHit = new RayHit();
             hitChild = null;
@@ -306,7 +302,7 @@ namespace BEPUphysics.BroadPhaseEntries.MobileCollidables
         /// in the entry, this filter will be passed into inner ray casts.</param>
         /// <param name="rayHit">Hit location of the ray on the collidable, if any.</param>
         /// <returns>Whether or not the ray hit the collidable.</returns>
-        public override bool RayCast(Ray ray, Fix64 maximumLength, Func<BroadPhaseEntry, bool> filter, out RayHit rayHit)
+        public override bool RayCast(Ray ray, fp maximumLength, Func<BroadPhaseEntry, bool> filter, out RayHit rayHit)
         {
             CompoundChild hitChild;
             bool hit = RayCast(ray, maximumLength, filter, out rayHit, out hitChild);
@@ -322,7 +318,7 @@ namespace BEPUphysics.BroadPhaseEntries.MobileCollidables
         /// <param name="filter">Test to apply to the entry. If it returns true, the entry is processed, otherwise the entry is ignored. If a collidable hierarchy is present
         /// in the entry, this filter will be passed into inner ray casts.</param>
         /// <returns>Whether or not the ray hit the entry.</returns>
-        public bool RayCast(Ray ray, Fix64 maximumLength, Func<BroadPhaseEntry, bool> filter, out RayCastResult rayHit)
+        public bool RayCast(Ray ray, fp maximumLength, Func<BroadPhaseEntry, bool> filter, out RayCastResult rayHit)
         {
             RayHit hitData;
             CompoundChild hitChild;
@@ -341,7 +337,7 @@ namespace BEPUphysics.BroadPhaseEntries.MobileCollidables
         /// <param name="rayHit">Hit location of the ray on the collidable, if any.</param>
         /// <param name="hitChild">Child hit by the ray.</param>
         /// <returns>Whether or not the ray hit the collidable.</returns>
-        public bool RayCast(Ray ray, Fix64 maximumLength, Func<BroadPhaseEntry, bool> filter, out RayHit rayHit, out CompoundChild hitChild)
+        public bool RayCast(Ray ray, fp maximumLength, Func<BroadPhaseEntry, bool> filter, out RayHit rayHit, out CompoundChild hitChild)
         {
             rayHit = new RayHit();
             hitChild = null;

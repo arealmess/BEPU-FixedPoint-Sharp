@@ -2,6 +2,7 @@
 using BEPUphysics.Entities;
 using BEPUutilities;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.Constraints.SingleEntity
 {
@@ -10,16 +11,16 @@ namespace BEPUphysics.Constraints.SingleEntity
     /// </summary>
     public class MaximumLinearSpeedConstraint : SingleEntityConstraint, I3DImpulseConstraint
     {
-        private Fix64 effectiveMassMatrix;
-        private Fix64 maxForceDt = Fix64.MaxValue;
-        private Fix64 maxForceDtSquared = Fix64.MaxValue;
+        private fp effectiveMassMatrix;
+        private fp maxForceDt = Fix64.MaxValue;
+        private fp maxForceDtSquared = Fix64.MaxValue;
         private Vector3 accumulatedImpulse;
-        private Fix64 maximumForce = Fix64.MaxValue;
-        private Fix64 maximumSpeed;
-        private Fix64 maximumSpeedSquared;
+        private fp maximumForce = Fix64.MaxValue;
+        private fp maximumSpeed;
+        private fp maximumSpeedSquared;
 
-        private Fix64 softness = (Fix64).00001m;
-        private Fix64 usedSoftness;
+        private fp softness = (fp).00001m;
+        private fp usedSoftness;
 
         /// <summary>
         /// Constructs a maximum speed constraint.
@@ -36,7 +37,7 @@ namespace BEPUphysics.Constraints.SingleEntity
         /// </summary>
         /// <param name="e">Affected entity.</param>
         /// <param name="maxSpeed">Maximum linear speed allowed.</param>
-        public MaximumLinearSpeedConstraint(Entity e, Fix64 maxSpeed)
+        public MaximumLinearSpeedConstraint(Entity e, fp maxSpeed)
         {
             Entity = e;
             MaximumSpeed = maxSpeed;
@@ -46,7 +47,7 @@ namespace BEPUphysics.Constraints.SingleEntity
         /// Gets and sets the maximum impulse that the constraint will attempt to apply when satisfying its requirements.
         /// This field can be used to simulate friction in a constraint.
         /// </summary>
-        public Fix64 MaximumForce
+        public fp MaximumForce
         {
             get
             {
@@ -62,7 +63,7 @@ namespace BEPUphysics.Constraints.SingleEntity
         /// <summary>
         /// Gets or sets the maximum linear speed that this constraint allows.
         /// </summary>
-        public Fix64 MaximumSpeed
+        public fp MaximumSpeed
         {
             get { return maximumSpeed; }
             set
@@ -79,7 +80,7 @@ namespace BEPUphysics.Constraints.SingleEntity
         /// Sometimes, if a joint system is unstable, increasing the softness of the involved constraints will make it settle down.
         /// For motors, softness can be used to implement damping.  For a damping constant k, the appropriate softness is 1/k.
         /// </summary>
-        public Fix64 Softness
+        public fp Softness
         {
             get { return softness; }
             set { softness = MathHelper.Max(F64.C0, value); }
@@ -111,12 +112,12 @@ namespace BEPUphysics.Constraints.SingleEntity
         /// Calculates and applies corrective impulses.
         /// Called automatically by space.
         /// </summary>
-        public override Fix64 SolveIteration()
+        public override fp SolveIteration()
         {
-            Fix64 linearSpeed = entity.linearVelocity.LengthSquared();
+            fp linearSpeed = entity.linearVelocity.LengthSquared();
             if (linearSpeed > maximumSpeedSquared)
             {
-                linearSpeed = Fix64.Sqrt(linearSpeed);
+                linearSpeed = fixmath.Sqrt(linearSpeed);
                 Vector3 impulse;
                 //divide by linearSpeed to normalize the velocity.
                 //Multiply by linearSpeed - maximumSpeed to get the 'velocity change vector.'
@@ -134,11 +135,11 @@ namespace BEPUphysics.Constraints.SingleEntity
                 //Accumulate
                 Vector3 previousAccumulatedImpulse = accumulatedImpulse;
                 Vector3.Add(ref accumulatedImpulse, ref impulse, out accumulatedImpulse);
-                Fix64 forceMagnitude = accumulatedImpulse.LengthSquared();
+                fp forceMagnitude = accumulatedImpulse.LengthSquared();
                 if (forceMagnitude > maxForceDtSquared)
                 {
                     //max / impulse gives some value 0 < x < 1.  Basically, normalize the vector (divide by the length) and scale by the maximum.
-                    Fix64 multiplier = maxForceDt / Fix64.Sqrt(forceMagnitude);
+                    fp multiplier = maxForceDt / fixmath.Sqrt(forceMagnitude);
                     accumulatedImpulse.X *= multiplier;
                     accumulatedImpulse.Y *= multiplier;
                     accumulatedImpulse.Z *= multiplier;
@@ -164,7 +165,7 @@ namespace BEPUphysics.Constraints.SingleEntity
         /// Called automatically by space.
         /// </summary>
         /// <param name="dt">Time in seconds since the last update.</param>
-        public override void Update(Fix64 dt)
+        public override void Update(fp dt)
         {
             usedSoftness = softness / dt;
 

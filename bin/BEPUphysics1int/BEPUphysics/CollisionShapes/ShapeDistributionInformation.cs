@@ -1,5 +1,7 @@
 ﻿using BEPUutilities;
 using FixMath.NET;
+using Deterministic.FixedPoint;
+
 
 namespace BEPUphysics.CollisionShapes
 {
@@ -20,7 +22,7 @@ namespace BEPUphysics.CollisionShapes
         /// <summary>
         /// The volume of a shape.
         /// </summary>
-        public Fix64 Volume;
+        public fp Volume;
 
     }
 }

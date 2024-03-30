@@ -10,6 +10,7 @@ using BEPUphysics.Settings;
 using BEPUutilities.DataStructures;
 using FixMath.NET;
 using BEPUutilities;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.NarrowPhaseSystems.Pairs
 {
@@ -157,7 +158,7 @@ namespace BEPUphysics.NarrowPhaseSystems.Pairs
 		/// Updates the pair handler's contacts.
 		///</summary>
 		///<param name="dt">Timestep duration.</param>
-		protected virtual void UpdateContacts(Fix64 dt)
+		protected virtual void UpdateContacts(fp dt)
 		{
 
 			UpdateContainedPairs();
@@ -192,7 +193,7 @@ namespace BEPUphysics.NarrowPhaseSystems.Pairs
 		/// Updates the pair handler.
 		///</summary>
 		///<param name="dt">Timestep duration.</param>
-		public override void UpdateCollision(Fix64 dt)
+		public override void UpdateCollision(fp dt)
 		{
 
 			if (!suppressEvents)
@@ -238,7 +239,7 @@ namespace BEPUphysics.NarrowPhaseSystems.Pairs
 		///</summary>
 		///<param name="requester">Collidable requesting the update.</param>
 		///<param name="dt">Timestep duration.</param>
-		public override void UpdateTimeOfImpact(Collidable requester, Fix64 dt)
+		public override void UpdateTimeOfImpact(Collidable requester, fp dt)
 		{
 			timeOfImpact = F64.C1;
 			foreach (CollidablePairHandler pair in subPairs.Values)
