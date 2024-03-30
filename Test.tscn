@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://oe0bg85kejtu"]
 
-[ext_resource type="Script" path="res://Test.cs" id="1_nqapb"]
+[ext_resource type="Script" path="res://TestBoxes/Test.cs" id="1_d025i"]
 
 [node name="Test" type="Node"]
-script = ExtResource("1_nqapb")
+script = ExtResource("1_d025i")

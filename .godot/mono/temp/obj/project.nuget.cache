@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "lqZZRd93N16XKmh5DF+LEpOJAAPlMSjXLx+eG8/fVI14U/KnqjARnL/by6+h0bMZHK+6FGuuK3iXzcR5PXZEiQ==",
+  "dgSpecHash": "2G7vAyIljS4HQdCOmHXZShaTtBTPOOOLSH8JQAXngWWKfemO1CV+WitHBvtDi3zXcT9yEBUGQYPjKpepHCUVTg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot-Base-Project\\BEPUphysics1int-Godot-Base-Project.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Rocky.000\\.nuget\\packages\\godot.sourcegenerators\\4.2.0\\godot.sourcegenerators.4.2.0.nupkg.sha512",
-    "C:\\Users\\Rocky.000\\.nuget\\packages\\godotsharp\\4.2.0\\godotsharp.4.2.0.nupkg.sha512",
-    "C:\\Users\\Rocky.000\\.nuget\\packages\\godotsharpeditor\\4.2.0\\godotsharpeditor.4.2.0.nupkg.sha512",
+    "C:\\Users\\Rocky.000\\.nuget\\packages\\godot.sourcegenerators\\4.2.1\\godot.sourcegenerators.4.2.1.nupkg.sha512",
+    "C:\\Users\\Rocky.000\\.nuget\\packages\\godotsharp\\4.2.1\\godotsharp.4.2.1.nupkg.sha512",
+    "C:\\Users\\Rocky.000\\.nuget\\packages\\godotsharpeditor\\4.2.1\\godotsharpeditor.4.2.1.nupkg.sha512",
     "C:\\Users\\Rocky.000\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Rocky.000\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\7.0.0\\microsoft.bcl.asyncinterfaces.7.0.0.nupkg.sha512",
     "C:\\Users\\Rocky.000\\.nuget\\packages\\microsoft.codeanalysis\\4.9.0-2.final\\microsoft.codeanalysis.4.9.0-2.final.nupkg.sha512",
@@ -109,8 +109,8 @@
     "C:\\Users\\Rocky.000\\.nuget\\packages\\xunit.core\\2.6.5\\xunit.core.2.6.5.nupkg.sha512",
     "C:\\Users\\Rocky.000\\.nuget\\packages\\xunit.extensibility.core\\2.6.5\\xunit.extensibility.core.2.6.5.nupkg.sha512",
     "C:\\Users\\Rocky.000\\.nuget\\packages\\xunit.extensibility.execution\\2.6.5\\xunit.extensibility.execution.2.6.5.nupkg.sha512",
-    "C:\\Users\\Rocky.000\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.27\\microsoft.windowsdesktop.app.ref.6.0.27.nupkg.sha512",
     "C:\\Users\\Rocky.000\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.27\\microsoft.netcore.app.ref.6.0.27.nupkg.sha512",
+    "C:\\Users\\Rocky.000\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.27\\microsoft.windowsdesktop.app.ref.6.0.27.nupkg.sha512",
     "C:\\Users\\Rocky.000\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.27\\microsoft.aspnetcore.app.ref.6.0.27.nupkg.sha512"
   ],
   "logs": []

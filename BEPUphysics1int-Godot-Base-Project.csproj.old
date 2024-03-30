@@ -1,0 +1,35 @@
+<Project Sdk="Godot.NET.Sdk/4.2.0">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net7.0</TargetFramework>
+    <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'ios' ">net8.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <RootNamespace>ProjectCrescent</RootNamespace>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="bin\BEPUphysics1int\BEPUik\**" />
+    <Compile Remove="bin\BEPUphysics1int\Fix64Analyzer\**" />
+    <Compile Remove="bin\BEPUphysics1int\FixedMath.Net\**" />
+    <EmbeddedResource Remove="bin\BEPUphysics1int\BEPUik\**" />
+    <EmbeddedResource Remove="bin\BEPUphysics1int\Fix64Analyzer\**" />
+    <EmbeddedResource Remove="bin\BEPUphysics1int\FixedMath.Net\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\BEPUphysics1int\FixedMath.Net - Copy\LICENSE.txt" />
+    <Content Include="bin\BEPUphysics1int\FixedMath.Net - Copy\README.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\BEPUphysics1int\FixedMath.Net - Copy\src\FixedMath.NET.csproj" />
+    <None Include="bin\BEPUphysics1int\FixedMath.Net - Copy\src\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="bin\BEPUphysics1int\FixedMath.Net - Copy\src\obj\Debug\FixedMath.NET.csproj.AssemblyReference.cache" />
+    <None Include="bin\BEPUphysics1int\FixedMath.Net - Copy\src\packages.config" />
+    <None Include="FixedPointSharp\FixedPointSharp.csproj" />
+    <None Include="LUTGenerator\LUTGenerator.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis" Version="4.9.0-2.final" />
+    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303" />
+    <PackageReference Include="xunit" Version="2.6.5" />
+  </ItemGroup>
+</Project>
