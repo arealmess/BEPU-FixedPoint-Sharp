@@ -3,6 +3,7 @@ using BEPUphysics.Settings;
  
 using BEPUutilities.DataStructures;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.CollisionTests
 {
@@ -33,7 +34,7 @@ namespace BEPUphysics.CollisionTests
                 //Compute the horizontal offset.
                 Vector3 ab;
                 Vector3.Subtract(ref newPosB, ref newPosA, out ab);
-                Fix64 dot;
+                fp dot;
                 Vector3.Dot(ref ab, ref contacts.Elements[k].Normal, out dot);
                 Vector3 temp;
                 Vector3.Multiply(ref contacts.Elements[k].Normal, dot, out temp);

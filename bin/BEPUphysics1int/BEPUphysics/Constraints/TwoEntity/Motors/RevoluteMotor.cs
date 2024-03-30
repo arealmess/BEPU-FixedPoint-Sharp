@@ -3,6 +3,7 @@ using BEPUphysics.Entities;
  
 using BEPUutilities;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.Constraints.TwoEntity.Motors
 {
@@ -13,16 +14,16 @@ namespace BEPUphysics.Constraints.TwoEntity.Motors
     {
         private readonly JointBasis2D basis = new JointBasis2D();
         private readonly MotorSettings1D settings;
-        private Fix64 accumulatedImpulse;
-        protected Fix64 biasVelocity;
+        private fp accumulatedImpulse;
+        protected fp biasVelocity;
         private Vector3 jacobianA, jacobianB;
-        private Fix64 error;
+        private fp error;
 
         private Vector3 localTestAxis;
 
 
         private Vector3 worldTestAxis;
-        private Fix64 velocityToImpulse;
+        private fp velocityToImpulse;
 
         /// <summary>
         /// Constructs a new constraint tries to rotate two entities so that they reach a specified relative orientation around an axis.
@@ -102,11 +103,11 @@ namespace BEPUphysics.Constraints.TwoEntity.Motors
         /// <summary>
         /// Gets the current relative velocity between the connected entities with respect to the constraint.
         /// </summary>
-        public Fix64 RelativeVelocity
+        public fp RelativeVelocity
         {
             get
             {
-                Fix64 velocityA, velocityB;
+                fp velocityA, velocityB;
                 Vector3.Dot(ref connectionA.angularVelocity, ref jacobianA, out velocityA);
                 Vector3.Dot(ref connectionB.angularVelocity, ref jacobianB, out velocityB);
                 return velocityA + velocityB;
@@ -116,7 +117,7 @@ namespace BEPUphysics.Constraints.TwoEntity.Motors
         /// <summary>
         /// Gets the total impulse applied by this constraint.
         /// </summary>
-        public Fix64 TotalImpulse
+        public fp TotalImpulse
         {
             get { return accumulatedImpulse; }
         }
@@ -125,7 +126,7 @@ namespace BEPUphysics.Constraints.TwoEntity.Motors
         /// Gets the current constraint error.
         /// If the motor is in velocity only mode, the error is zero.
         /// </summary>
-        public Fix64 Error
+        public fp Error
         {
             get { return error; }
         }
@@ -174,7 +175,7 @@ namespace BEPUphysics.Constraints.TwoEntity.Motors
         /// Gets the mass matrix of the constraint.
         /// </summary>
         /// <param name="outputMassMatrix">Constraint's mass matrix.</param>
-        public void GetMassMatrix(out Fix64 outputMassMatrix)
+        public void GetMassMatrix(out fp outputMassMatrix)
         {
             outputMassMatrix = velocityToImpulse;
         }
@@ -190,7 +191,7 @@ namespace BEPUphysics.Constraints.TwoEntity.Motors
             //Compute a vector which is perpendicular to the axis.  It'll be added in local space to both connections.
             Vector3 xAxis;
             Vector3.Cross(ref motorizedAxis, ref Toolbox.UpVector, out xAxis);
-            Fix64 length = xAxis.LengthSquared();
+            fp length = xAxis.LengthSquared();
             if (length < Toolbox.Epsilon)
             {
                 Vector3.Cross(ref motorizedAxis, ref Toolbox.RightVector, out xAxis);
@@ -209,30 +210,30 @@ namespace BEPUphysics.Constraints.TwoEntity.Motors
         /// Performs the frame's configuration step.
         ///</summary>
         ///<param name="dt">Timestep duration.</param>
-        public override void Update(Fix64 dt)
+        public override void Update(fp dt)
         {
             //Transform the axes into world space.
             basis.rotationMatrix = connectionA.orientationMatrix;
             basis.ComputeWorldSpaceAxes();
             Matrix3x3.Transform(ref localTestAxis, ref connectionB.orientationMatrix, out worldTestAxis);
 
-            Fix64 updateRate = F64.C1 / dt;
+            fp updateRate = F64.C1 / dt;
             if (settings.mode == MotorMode.Servomechanism)
             {
-                Fix64 y, x;
+                fp y, x;
                 Vector3 yAxis;
                 Vector3.Cross(ref basis.primaryAxis, ref basis.xAxis, out yAxis);
                 Vector3.Dot(ref worldTestAxis, ref yAxis, out y);
                 Vector3.Dot(ref worldTestAxis, ref basis.xAxis, out x);
-                var angle = Fix64.FastAtan2(y, x);
+                var angle = fixmath.Atan2(y, x);
 
                 //****** VELOCITY BIAS ******//
                 //Compute the correction velocity.
                 error = GetDistanceFromGoal(angle);
 
 
-                Fix64 absErrorOverDt = Fix64.Abs(error * updateRate);
-                Fix64 errorReduction;
+                fp absErrorOverDt = Fix64.Abs(error * updateRate);
+                fp errorReduction;
                 settings.servo.springSettings.ComputeErrorReductionAndSoftness(dt, updateRate, out errorReduction, out usedSoftness);
                 biasVelocity = Fix64.Sign(error) * MathHelper.Min(settings.servo.baseCorrectiveSpeed, absErrorOverDt) + error * errorReduction;
 
@@ -255,7 +256,7 @@ namespace BEPUphysics.Constraints.TwoEntity.Motors
 
             //****** EFFECTIVE MASS MATRIX ******//
             //Connection A's contribution to the mass matrix
-            Fix64 entryA;
+            fp entryA;
             Vector3 transformedAxis;
             if (connectionA.isDynamic)
             {
@@ -266,7 +267,7 @@ namespace BEPUphysics.Constraints.TwoEntity.Motors
                 entryA = F64.C0;
 
             //Connection B's contribution to the mass matrix
-            Fix64 entryB;
+            fp entryB;
             if (connectionB.isDynamic)
             {
                 Matrix3x3.Transform(ref jacobianB, ref connectionB.inertiaTensorInverse, out transformedAxis);
@@ -312,20 +313,20 @@ namespace BEPUphysics.Constraints.TwoEntity.Motors
         /// Computes one iteration of the constraint to meet the solver updateable's goal.
         /// </summary>
         /// <returns>The rough applied impulse magnitude.</returns>
-        public override Fix64 SolveIteration()
+        public override fp SolveIteration()
         {
-            Fix64 velocityA, velocityB;
+            fp velocityA, velocityB;
             //Find the velocity contribution from each connection
             Vector3.Dot(ref connectionA.angularVelocity, ref jacobianA, out velocityA);
             Vector3.Dot(ref connectionB.angularVelocity, ref jacobianB, out velocityB);
             //Add in the constraint space bias velocity
-            Fix64 lambda = -(velocityA + velocityB) - biasVelocity - usedSoftness * accumulatedImpulse;
+            fp lambda = -(velocityA + velocityB) - biasVelocity - usedSoftness * accumulatedImpulse;
 
             //Transform to an impulse
             lambda *= velocityToImpulse;
 
             //Accumulate the impulse
-            Fix64 previousAccumulatedImpulse = accumulatedImpulse;
+            fp previousAccumulatedImpulse = accumulatedImpulse;
             accumulatedImpulse = MathHelper.Clamp(accumulatedImpulse + lambda, -maxForceDt, maxForceDt);
             lambda = accumulatedImpulse - previousAccumulatedImpulse;
 
@@ -347,11 +348,11 @@ namespace BEPUphysics.Constraints.TwoEntity.Motors
 
 
 
-        private Fix64 GetDistanceFromGoal(Fix64 angle)
+        private fp GetDistanceFromGoal(fp angle)
         {
 
-            Fix64 forwardDistance;
-            Fix64 goalAngle = MathHelper.WrapAngle(settings.servo.goal);
+            fp forwardDistance;
+            fp goalAngle = MathHelper.WrapAngle(settings.servo.goal);
             if (goalAngle > F64.C0)
             {
                 if (angle > goalAngle)

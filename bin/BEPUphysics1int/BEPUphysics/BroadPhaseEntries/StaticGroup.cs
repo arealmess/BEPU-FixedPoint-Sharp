@@ -7,6 +7,7 @@ using BEPUphysics.OtherSpaceStages;
 using System.Collections.Generic;
 using RigidTransform = BEPUutilities.RigidTransform;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.BroadPhaseEntries
 {
@@ -91,7 +92,7 @@ namespace BEPUphysics.BroadPhaseEntries
         /// <param name="maximumLength">Maximum length, in units of the ray's direction's length, to test.</param>
         /// <param name="rayHit">Hit location of the ray on the entry, if any.</param>
         /// <returns>Whether or not the ray hit the entry.</returns>
-        public override bool RayCast(Ray ray, Fix64 maximumLength, out RayHit rayHit)
+        public override bool RayCast(Ray ray, fp maximumLength, out RayHit rayHit)
         {
             RayCastResult result;
             bool toReturn = Shape.RayCast(ray, maximumLength, out result);
@@ -108,7 +109,7 @@ namespace BEPUphysics.BroadPhaseEntries
         /// in the entry, this filter will be passed into inner ray casts.</param>
         /// <param name="rayHit">Hit location of the ray on the entry, if any.</param>
         /// <returns>Whether or not the ray hit the entry.</returns>
-        public override bool RayCast(Ray ray, Fix64 maximumLength, Func<BroadPhaseEntry, bool> filter, out RayHit rayHit)
+        public override bool RayCast(Ray ray, fp maximumLength, Func<BroadPhaseEntry, bool> filter, out RayHit rayHit)
         {
             RayCastResult result;
             bool toReturn = Shape.RayCast(ray, maximumLength, filter, out result);

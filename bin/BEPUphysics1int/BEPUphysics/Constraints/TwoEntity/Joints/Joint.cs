@@ -1,4 +1,5 @@
 ﻿using BEPUutilities;
+using Deterministic.FixedPoint;
 using FixMath.NET;
 using System;
 
@@ -12,14 +13,14 @@ namespace BEPUphysics.Constraints.TwoEntity.Joints
         /// <summary>
         /// Maximum extra velocity that the constraint will apply in an effort to correct constraint error.
         /// </summary>
-        protected Fix64 maxCorrectiveVelocity = Fix64.MaxValue;
+        protected fp maxCorrectiveVelocity = Fix64.MaxValue;
 
         /// <summary>
         /// Squared maximum extra velocity that the constraint will apply in an effort to correct constraint error.
         /// </summary>
-        protected Fix64 maxCorrectiveVelocitySquared = Fix64.MaxValue;
+        protected fp maxCorrectiveVelocitySquared = Fix64.MaxValue;
 
-        protected Fix64 softness;
+        protected fp softness;
 
         /// <summary>
         /// Spring settings define how a constraint responds to velocity and position error.
@@ -29,7 +30,7 @@ namespace BEPUphysics.Constraints.TwoEntity.Joints
         /// <summary>
         /// Gets or sets the maximum extra velocity that the constraint will apply in an effort to correct any constraint error.
         /// </summary>
-        public Fix64 MaxCorrectiveVelocity
+        public fp MaxCorrectiveVelocity
         {
             get { return maxCorrectiveVelocity; }
             set

@@ -9,6 +9,7 @@ using BEPUphysics.Settings;
 using BEPUutilities.DataStructures;
 using BEPUutilities.ResourceManagement;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.CollisionShapes
 {
@@ -19,12 +20,12 @@ namespace BEPUphysics.CollisionShapes
     ///</summary>
     public class MobileMeshShape : EntityShape
     {
-        private Fix64 meshCollisionMargin = CollisionDetectionSettings.DefaultMargin;
+        private fp meshCollisionMargin = CollisionDetectionSettings.DefaultMargin;
         /// <summary>
         /// Gets or sets the margin of the mobile mesh to use when colliding with other meshes.
         /// When colliding with non-mesh shapes, the mobile mesh has no margin.
         /// </summary>
-        public Fix64 MeshCollisionMargin
+        public fp MeshCollisionMargin
         {
             get
             {
@@ -187,7 +188,7 @@ namespace BEPUphysics.CollisionShapes
         /// <param name="sidednessWhenSolid">Triangle sidedness to use when the shape is solid.</param>
         /// <param name="collisionMargin">Collision margin used to expand the mesh triangles.</param>
         /// <param name="volumeDescription">Description of the volume and its distribution in the shape. Assumed to be correct; no processing or validation is performed.</param>
-        public MobileMeshShape(TransformableMeshData meshData, IList<Vector3> hullVertices, MobileMeshSolidity solidity, TriangleSidedness sidednessWhenSolid, Fix64 collisionMargin, EntityShapeVolumeDescription volumeDescription)
+        public MobileMeshShape(TransformableMeshData meshData, IList<Vector3> hullVertices, MobileMeshSolidity solidity, TriangleSidedness sidednessWhenSolid, fp collisionMargin, EntityShapeVolumeDescription volumeDescription)
         {
             triangleMesh = new TriangleMesh(meshData);
             this.hullVertices = new RawList<Vector3>(hullVertices);
@@ -251,7 +252,7 @@ namespace BEPUphysics.CollisionShapes
         /// <summary>
         /// The difference in t parameters in a ray cast under which two hits are considered to be redundant.
         /// </summary>
-        public static Fix64 MeshHitUniquenessThreshold = F64.C1em5;
+        public static fp MeshHitUniquenessThreshold = F64.C1em5;
 
         internal bool IsHitUnique(RawList<RayHit> hits, ref RayHit hit)
         {
@@ -302,8 +303,8 @@ namespace BEPUphysics.CollisionShapes
                 //Identify the first and last hits.
                 int minimum = 0;
                 int maximum = 0;
-                Fix64 minimumT = Fix64.MaxValue;
-                Fix64 maximumT = -1;
+                fp minimumT = Fix64.MaxValue;
+                fp maximumT = -1;
                 for (int i = 0; i < hitList.Count; i++)
                 {
                     triangleMesh.Data.GetTriangle(hitList[i], out vA, out vB, out vC);
@@ -438,7 +439,7 @@ namespace BEPUphysics.CollisionShapes
             }
             shapeInformation.Center = new Vector3();
             shapeInformation.VolumeDistribution = new Matrix3x3();
-            Fix64 totalWeight = F64.C0;
+            fp totalWeight = F64.C0;
             for (int i = 0; i < data.indices.Length; i += 3)
             {
                 //Compute the center contribution.
@@ -450,10 +451,10 @@ namespace BEPUphysics.CollisionShapes
                 Vector3.Subtract(ref vC, ref vA, out vAvC);
                 Vector3 cross;
                 Vector3.Cross(ref vAvB, ref vAvC, out cross);
-                Fix64 weight = cross.Length();
+                fp weight = cross.Length();
                 totalWeight += weight;
 
-                Fix64 perVertexWeight = weight * F64.OneThird;
+                fp perVertexWeight = weight * F64.OneThird;
                 shapeInformation.Center += perVertexWeight * (vA + vB + vC);
 
                 //Compute the inertia contribution of this triangle.
@@ -497,11 +498,11 @@ namespace BEPUphysics.CollisionShapes
             var backDirection = new Vector3(o.M13, o.M23, o.M33);
 
             int right = 0, left = 0, up = 0, down = 0, backward = 0, forward = 0;
-            Fix64 minX = Fix64.MaxValue, maxX = -Fix64.MaxValue, minY = Fix64.MaxValue, maxY = -Fix64.MaxValue, minZ = Fix64.MaxValue, maxZ = -Fix64.MaxValue;
+            fp minX = Fix64.MaxValue, maxX = -Fix64.MaxValue, minY = Fix64.MaxValue, maxY = -Fix64.MaxValue, minZ = Fix64.MaxValue, maxZ = -Fix64.MaxValue;
 
             for (int i = 0; i < hullVertices.Count; i++)
             {
-                Fix64 dotX, dotY, dotZ;
+                fp dotX, dotY, dotZ;
                 Vector3.Dot(ref rightDirection, ref hullVertices.Elements[i], out dotX);
                 Vector3.Dot(ref upDirection, ref hullVertices.Elements[i], out dotY);
                 Vector3.Dot(ref backDirection, ref hullVertices.Elements[i], out dotZ);
@@ -541,9 +542,9 @@ namespace BEPUphysics.CollisionShapes
             }
 
             //Incorporate the collision margin.
-            Vector3.Multiply(ref rightDirection, meshCollisionMargin / Fix64.Sqrt(rightDirection.Length()), out rightDirection);
-            Vector3.Multiply(ref upDirection, meshCollisionMargin / Fix64.Sqrt(upDirection.Length()), out upDirection);
-            Vector3.Multiply(ref backDirection, meshCollisionMargin / Fix64.Sqrt(backDirection.Length()), out backDirection);
+            Vector3.Multiply(ref rightDirection, meshCollisionMargin / fixmath.Sqrt(rightDirection.Length()), out rightDirection);
+            Vector3.Multiply(ref upDirection, meshCollisionMargin / fixmath.Sqrt(upDirection.Length()), out upDirection);
+            Vector3.Multiply(ref backDirection, meshCollisionMargin / fixmath.Sqrt(backDirection.Length()), out backDirection);
 
             var rightElement = hullVertices.Elements[right];
             var leftElement = hullVertices.Elements[left];

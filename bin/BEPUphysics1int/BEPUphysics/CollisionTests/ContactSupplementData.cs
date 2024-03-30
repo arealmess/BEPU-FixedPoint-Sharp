@@ -2,6 +2,7 @@
 
 using BEPUutilities;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.CollisionTests
 {
@@ -22,6 +23,6 @@ namespace BEPUphysics.CollisionTests
         /// <summary>
         /// Original penetration depth computed at the associatd contact.
         /// </summary>
-        public Fix64 BasePenetrationDepth;
+        public fp BasePenetrationDepth;
     }
 }

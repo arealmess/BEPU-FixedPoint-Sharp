@@ -2,6 +2,7 @@
 using BEPUphysics.Entities;
 using BEPUutilities;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.Constraints.TwoEntity.Joints
 {
@@ -163,7 +164,7 @@ namespace BEPUphysics.Constraints.TwoEntity.Joints
         /// <summary>
         /// Applies the corrective impulses required by the constraint.
         /// </summary>
-        public override Fix64 SolveIteration()
+        public override fp SolveIteration()
         {
             Vector3 velocityDifference;
             Vector3.Subtract(ref connectionB.angularVelocity, ref connectionA.angularVelocity, out velocityDifference);
@@ -194,7 +195,7 @@ namespace BEPUphysics.Constraints.TwoEntity.Joints
         /// Initializes the constraint for the current frame.
         /// </summary>
         /// <param name="dt">Time between frames.</param>
-        public override void Update(Fix64 dt)
+        public override void Update(fp dt)
         {
             Quaternion quaternionA;
             Quaternion.Multiply(ref connectionA.orientation, ref initialQuaternionConjugateA, out quaternionA);
@@ -205,7 +206,7 @@ namespace BEPUphysics.Constraints.TwoEntity.Joints
             Quaternion.Multiply(ref quaternionA, ref quaternionB, out intermediate);
 
 
-            Fix64 angle;
+            fp angle;
             Vector3 axis;
             Quaternion.GetAxisAngleFromQuaternion(ref intermediate, out axis, out angle);
 
@@ -213,7 +214,7 @@ namespace BEPUphysics.Constraints.TwoEntity.Joints
             error.Y = axis.Y * angle;
             error.Z = axis.Z * angle;
 
-            Fix64 errorReduction;
+            fp errorReduction;
             springSettings.ComputeErrorReductionAndSoftness(dt, F64.C1 / dt, out errorReduction, out softness);
             errorReduction = -errorReduction;
             biasVelocity.X = errorReduction * error.X;
@@ -221,10 +222,10 @@ namespace BEPUphysics.Constraints.TwoEntity.Joints
             biasVelocity.Z = errorReduction * error.Z;
 
             //Ensure that the corrective velocity doesn't exceed the max.
-            Fix64 length = biasVelocity.LengthSquared();
+            fp length = biasVelocity.LengthSquared();
             if (length > maxCorrectiveVelocitySquared)
             {
-                Fix64 multiplier = maxCorrectiveVelocity / Fix64.Sqrt(length);
+                fp multiplier = maxCorrectiveVelocity / fixmath.Sqrt(length);
                 biasVelocity.X *= multiplier;
                 biasVelocity.Y *= multiplier;
                 biasVelocity.Z *= multiplier;

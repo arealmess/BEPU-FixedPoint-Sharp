@@ -1,6 +1,7 @@
 ﻿using FixMath.NET;
 using System;
 using System.Diagnostics;
+using Deterministic.FixedPoint;
 
 namespace BEPUutilities
 {
@@ -14,7 +15,7 @@ namespace BEPUutilities
         /// </summary>
         /// <param name="f">Value to validate.</param>
         /// <returns>True if the value is invalid, false if it is valid.</returns>
-        private static bool IsInvalid(Fix64 f)
+        private static bool IsInvalid(fp f)
         {
 			// Fixed-point library does not have NaN or Infinity representation.
 			// We keep this dummy function around for completeness sake
@@ -27,7 +28,7 @@ namespace BEPUutilities
         /// This is only run when the CHECKMATH symbol is defined.
         /// </summary>
         [Conditional("CHECKMATH")]
-        public static void Validate(this Fix64 f)
+        public static void Validate(this fp f)
         {
             if (IsInvalid(f))
             {

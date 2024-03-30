@@ -5,6 +5,7 @@ using BEPUutilities.DataStructures;
 using BEPUphysics.UpdateableSystems;
 using FixMath.NET;
 using BEPUutilities;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.Vehicle
 {
@@ -125,7 +126,7 @@ namespace BEPUphysics.Vehicle
         /// Performs the end-of-frame update component.
         /// </summary>
         /// <param name="dt">Time since last frame in simulation seconds.</param>
-        void IEndOfFrameUpdateable.Update(Fix64 dt)
+        void IEndOfFrameUpdateable.Update(fp dt)
         {
             //Graphics should be updated at the end of each frame.
             foreach (Wheel wheel in Wheels)
@@ -138,7 +139,7 @@ namespace BEPUphysics.Vehicle
         /// Performs the end-of-update update component.
         /// </summary>
         /// <param name="dt">Time since last frame in simulation seconds.</param>
-        void IEndOfTimeStepUpdateable.Update(Fix64 dt)
+        void IEndOfTimeStepUpdateable.Update(fp dt)
         {
             //Graphics should be updated at the end of each frame.
             foreach (Wheel wheel in Wheels)
@@ -147,7 +148,7 @@ namespace BEPUphysics.Vehicle
             }
         }
 
-        void IBeforeNarrowPhaseUpdateable.Update(Fix64 dt)
+        void IBeforeNarrowPhaseUpdateable.Update(fp dt)
         {
             //After broadphase, test for supports.
             foreach (Wheel wheel in wheels)
@@ -157,7 +158,7 @@ namespace BEPUphysics.Vehicle
             OnInvolvedEntitiesChanged();
         }
 
-        void IDuringForcesUpdateable.Update(Fix64 dt)
+        void IDuringForcesUpdateable.Update(fp dt)
         {
             foreach (Wheel wheel in wheels)
             {
@@ -200,7 +201,7 @@ namespace BEPUphysics.Vehicle
         /// Updates the vehicle.
         /// Called automatically when needed by the owning Space.
         /// </summary>
-        public override Fix64 SolveIteration()
+        public override fp SolveIteration()
         {
             int numActive = 0;
             foreach (Wheel wheel in Wheels)
@@ -236,7 +237,7 @@ namespace BEPUphysics.Vehicle
         /// Called once before the iteration loop.
         /// </summary>
         /// <param name="dt">Time since previous frame in simulation seconds.</param>
-        public override void Update(Fix64 dt)
+        public override void Update(fp dt)
         {
             //TODO: to help balance multithreading, what if each wheel were its own SolverUpdateable
             //(no more CombinedUpdateable, basically)

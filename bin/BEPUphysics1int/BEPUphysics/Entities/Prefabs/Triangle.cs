@@ -4,6 +4,7 @@ using BEPUphysics.EntityStateManagement;
 using BEPUphysics.CollisionShapes.ConvexShapes;
 using BEPUutilities;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.Entities.Prefabs
 {
@@ -121,7 +122,7 @@ namespace BEPUphysics.Entities.Prefabs
         /// <param name="v2">Position of the second vertex.</param>
         /// <param name="v3">Position of the third vertex.</param>
         /// <param name="mass">Mass of the object.</param>
-        public Triangle(Vector3 v1, Vector3 v2, Vector3 v3, Fix64 mass)
+        public Triangle(Vector3 v1, Vector3 v2, Vector3 v3, fp mass)
         {
             Vector3 center;
             var shape = new TriangleShape(v1, v2, v3, out center);
@@ -151,7 +152,7 @@ namespace BEPUphysics.Entities.Prefabs
         /// <param name="v2">Position of the second vertex.</param>
         /// <param name="v3">Position of the third vertex.</param>
         /// <param name="mass">Mass of the object.</param>
-        public Triangle(Vector3 pos, Vector3 v1, Vector3 v2, Vector3 v3, Fix64 mass)
+        public Triangle(Vector3 pos, Vector3 v1, Vector3 v2, Vector3 v3, fp mass)
             : this(v1, v2, v3, mass)
         {
             Position = pos;
@@ -178,7 +179,7 @@ namespace BEPUphysics.Entities.Prefabs
         /// <param name="v2">Position of the second vertex.</param>
         /// <param name="v3">Position of the third vertex.</param>
         /// <param name="mass">Mass of the object.</param>
-        public Triangle(MotionState motionState, Vector3 v1, Vector3 v2, Vector3 v3, Fix64 mass)
+        public Triangle(MotionState motionState, Vector3 v1, Vector3 v2, Vector3 v3, fp mass)
             : this(v1, v2, v3, mass)
         {
             MotionState = motionState;

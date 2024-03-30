@@ -1,8 +1,7 @@
 ﻿using FixMath.NET;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Collections.Generic; 
+using Deterministic.FixedPoint;
 
 namespace BEPUutilities
 {
@@ -115,7 +114,7 @@ namespace BEPUutilities
             else
                 clampedLocation.Z = boundingSphere.Center.Z;
 
-			Fix64 distanceSquared;
+			fp distanceSquared;
             Vector3.DistanceSquared(ref clampedLocation, ref boundingSphere.Center, out distanceSquared);
             intersects = distanceSquared <= boundingSphere.Radius * boundingSphere.Radius;
 

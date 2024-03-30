@@ -5,6 +5,7 @@ using BEPUphysics.Entities;
 using BEPUphysics.Materials;
 using BEPUutilities;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.Vehicle
 {
@@ -33,34 +34,34 @@ namespace BEPUphysics.Vehicle
         /// <param name="usingKineticFriction">True if the friction coefficients passed into the blender are kinetic coefficients, false otherwise.</param>
         /// <param name="wheel">Wheel being blended.</param>
         /// <returns>Blended friction coefficient.</returns>
-        public static Fix64 BlendFriction(Fix64 wheelFriction, Fix64 materialFriction, bool usingKineticFriction, Wheel wheel)
+        public static fp BlendFriction(fp wheelFriction, fp materialFriction, bool usingKineticFriction, Wheel wheel)
         {
             return wheelFriction * materialFriction;
         }
 
         #endregion
 
-        internal Fix64 accumulatedImpulse;
+        internal fp accumulatedImpulse;
 
-        //Fix64 linearBX, linearBY, linearBZ;
-        private Fix64 angularAX, angularAY, angularAZ;
-        private Fix64 angularBX, angularBY, angularBZ;
+        //fp linearBX, linearBY, linearBZ;
+        private fp angularAX, angularAY, angularAZ;
+        private fp angularBX, angularBY, angularBZ;
         internal bool isActive = true;
-        private Fix64 linearAX, linearAY, linearAZ;
-        private Fix64 blendedCoefficient;
-        private Fix64 kineticBrakingFrictionCoefficient;
+        private fp linearAX, linearAY, linearAZ;
+        private fp blendedCoefficient;
+        private fp kineticBrakingFrictionCoefficient;
         private WheelFrictionBlender frictionBlender = DefaultRollingFrictionBlender;
         private bool isBraking;
-        private Fix64 rollingFrictionCoefficient;
+        private fp rollingFrictionCoefficient;
         internal SolverSettings solverSettings = new SolverSettings();
-        private Fix64 staticBrakingFrictionCoefficient;
-        private Fix64 staticFrictionVelocityThreshold = F64.C5;
+        private fp staticBrakingFrictionCoefficient;
+        private fp staticFrictionVelocityThreshold = F64.C5;
         private Wheel wheel;
         internal int numIterationsAtZeroImpulse;
         private Entity vehicleEntity, supportEntity;
 
         //Inverse effective mass matrix
-        private Fix64 velocityToImpulse;
+        private fp velocityToImpulse;
         private bool supportIsDynamic;
 
 
@@ -70,7 +71,7 @@ namespace BEPUphysics.Vehicle
         /// <param name="dynamicBrakingFrictionCoefficient">Coefficient of dynamic friction of the wheel for friction when the brake is active.</param>
         /// <param name="staticBrakingFrictionCoefficient">Coefficient of static friction of the wheel for friction when the brake is active.</param>
         /// <param name="rollingFrictionCoefficient">Coefficient of friction of the wheel for rolling friction when the brake isn't active.</param>
-        public WheelBrake(Fix64 dynamicBrakingFrictionCoefficient, Fix64 staticBrakingFrictionCoefficient, Fix64 rollingFrictionCoefficient)
+        public WheelBrake(fp dynamicBrakingFrictionCoefficient, fp staticBrakingFrictionCoefficient, fp rollingFrictionCoefficient)
         {
             KineticBrakingFrictionCoefficient = dynamicBrakingFrictionCoefficient;
             StaticBrakingFrictionCoefficient = staticBrakingFrictionCoefficient;
@@ -86,7 +87,7 @@ namespace BEPUphysics.Vehicle
         /// Gets the coefficient of rolling friction between the wheel and support.
         /// This coefficient is the blended result of the supporting entity's friction and the wheel's friction.
         /// </summary>
-        public Fix64 BlendedCoefficient
+        public fp BlendedCoefficient
         {
             get { return blendedCoefficient; }
         }
@@ -98,7 +99,7 @@ namespace BEPUphysics.Vehicle
         /// This coefficient is used instead of the rollingFrictionCoefficient when 
         /// isBraking is true.
         /// </summary>
-        public Fix64 KineticBrakingFrictionCoefficient
+        public fp KineticBrakingFrictionCoefficient
         {
             get { return kineticBrakingFrictionCoefficient; }
             set { kineticBrakingFrictionCoefficient = MathHelper.Max(value, F64.C0); }
@@ -139,7 +140,7 @@ namespace BEPUphysics.Vehicle
         /// This coefficient is used instead of the brakingFrictionCoefficient when 
         /// isBraking is false.
         /// </summary>
-        public Fix64 RollingFrictionCoefficient
+        public fp RollingFrictionCoefficient
         {
             get { return rollingFrictionCoefficient; }
             set { rollingFrictionCoefficient = MathHelper.Max(value, F64.C0); }
@@ -152,7 +153,7 @@ namespace BEPUphysics.Vehicle
         /// This coefficient is used instead of the rollingFrictionCoefficient when 
         /// isBraking is true.
         /// </summary>
-        public Fix64 StaticBrakingFrictionCoefficient
+        public fp StaticBrakingFrictionCoefficient
         {
             get { return staticBrakingFrictionCoefficient; }
             set { staticBrakingFrictionCoefficient = MathHelper.Max(value, F64.C0); }
@@ -161,7 +162,7 @@ namespace BEPUphysics.Vehicle
         /// <summary>
         /// Gets or sets the velocity under which the coefficient of static friction will be used instead of the dynamic one.
         /// </summary>
-        public Fix64 StaticFrictionVelocityThreshold
+        public fp StaticFrictionVelocityThreshold
         {
             get { return staticFrictionVelocityThreshold; }
             set { staticFrictionVelocityThreshold = Fix64.Abs(value); }
@@ -170,7 +171,7 @@ namespace BEPUphysics.Vehicle
         /// <summary>
         /// Gets the force 
         /// </summary>
-        public Fix64 TotalImpulse
+        public fp TotalImpulse
         {
             get { return accumulatedImpulse; }
         }
@@ -199,11 +200,11 @@ namespace BEPUphysics.Vehicle
         ///<summary>
         /// Gets the relative velocity along the braking direction at the wheel contact.
         ///</summary>
-        public Fix64 RelativeVelocity
+        public fp RelativeVelocity
         {
             get
             {
-                Fix64 velocity = vehicleEntity.linearVelocity.X * linearAX + vehicleEntity.linearVelocity.Y * linearAY + vehicleEntity.linearVelocity.Z * linearAZ +
+                fp velocity = vehicleEntity.linearVelocity.X * linearAX + vehicleEntity.linearVelocity.Y * linearAY + vehicleEntity.linearVelocity.Z * linearAZ +
                             vehicleEntity.angularVelocity.X * angularAX + vehicleEntity.angularVelocity.Y * angularAY + vehicleEntity.angularVelocity.Z * angularAZ;
                 if (supportEntity != null)
                     velocity += -supportEntity.linearVelocity.X * linearAX - supportEntity.linearVelocity.Y * linearAY - supportEntity.linearVelocity.Z * linearAZ +
@@ -212,15 +213,15 @@ namespace BEPUphysics.Vehicle
             }
         }
 
-        internal Fix64 ApplyImpulse()
+        internal fp ApplyImpulse()
         {
             //Compute relative velocity and convert to impulse
-            Fix64 lambda = RelativeVelocity * velocityToImpulse;
+            fp lambda = RelativeVelocity * velocityToImpulse;
 
 
             //Clamp accumulated impulse
-            Fix64 previousAccumulatedImpulse = accumulatedImpulse;
-            Fix64 maxForce = -blendedCoefficient * wheel.suspension.accumulatedImpulse;
+            fp previousAccumulatedImpulse = accumulatedImpulse;
+            fp maxForce = -blendedCoefficient * wheel.suspension.accumulatedImpulse;
             accumulatedImpulse = MathHelper.Clamp(accumulatedImpulse + lambda, -maxForce, maxForce);
             lambda = accumulatedImpulse - previousAccumulatedImpulse;
 
@@ -257,7 +258,7 @@ namespace BEPUphysics.Vehicle
             return lambda;
         }
 
-        internal void PreStep(Fix64 dt)
+        internal void PreStep(fp dt)
         {
             vehicleEntity = wheel.Vehicle.Body;
             supportEntity = wheel.SupportingEntity;

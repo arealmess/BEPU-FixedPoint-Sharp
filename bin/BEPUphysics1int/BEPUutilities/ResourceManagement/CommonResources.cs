@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using BEPUutilities.DataStructures;
 using BEPUutilities;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUutilities.ResourceManagement
 {
@@ -19,7 +20,7 @@ namespace BEPUutilities.ResourceManagement
 		{
 			SubPoolIntList = new LockingResourcePool<RawList<int>>();
 			SubPoolIntSet = new LockingResourcePool<BEPUutilities.DataStructures.HashSet<int>>();
-			SubPoolFloatList = new LockingResourcePool<RawList<Fix64>>();
+			SubPoolFloatList = new LockingResourcePool<RawList<fp>>();
 			SubPoolVectorList = new LockingResourcePool<RawList<Vector3>>();
 			SubPoolRayHitList = new LockingResourcePool<RawList<RayHit>>();
 
@@ -28,7 +29,7 @@ namespace BEPUutilities.ResourceManagement
 		static LockingResourcePool<RawList<RayHit>> SubPoolRayHitList;
 		static LockingResourcePool<RawList<int>> SubPoolIntList;
 		static LockingResourcePool<BEPUutilities.DataStructures.HashSet<int>> SubPoolIntSet;
-		static LockingResourcePool<RawList<Fix64>> SubPoolFloatList;
+		static LockingResourcePool<RawList<fp>> SubPoolFloatList;
 		static LockingResourcePool<RawList<Vector3>> SubPoolVectorList;
 
 		/// <summary>
@@ -94,7 +95,7 @@ namespace BEPUutilities.ResourceManagement
 		/// Retrieves a float list from the resource pool.
 		/// </summary>
 		/// <returns>Empty float list.</returns>
-		public static RawList<Fix64> GetFloatList()
+		public static RawList<fp> GetFloatList()
 		{
 			return SubPoolFloatList.Take();
 		}
@@ -103,7 +104,7 @@ namespace BEPUutilities.ResourceManagement
 		/// Returns a resource to the pool.
 		/// </summary>
 		/// <param name="list">List to return.</param>
-		public static void GiveBack(RawList<Fix64> list)
+		public static void GiveBack(RawList<fp> list)
 		{
 			list.Clear();
 			SubPoolFloatList.GiveBack(list);

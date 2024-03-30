@@ -1,6 +1,7 @@
 ﻿using FixMath.NET;
 using System;
 using System.Collections.Generic;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.Materials
 {
@@ -27,17 +28,17 @@ namespace BEPUphysics.Materials
         /// Default coefficient of kinetic friction. 
         /// Defaults to 0.8.
         ///</summary>
-        public static Fix64 DefaultKineticFriction = (Fix64).8m;
+        public static fp DefaultKineticFriction = (fp).8m;
         ///<summary>
         /// Default coefficient of static friction.
         /// Defaults to 1.
         ///</summary>
-        public static Fix64 DefaultStaticFriction = Fix64.One;
+        public static fp DefaultStaticFriction = Fix64.One;
         ///<summary>
         /// Default coefficient of restitution.
         /// Defaults to 0.
         ///</summary>
-        public static Fix64 DefaultBounciness;
+        public static fp DefaultBounciness;
 
         static MaterialManager()
         {

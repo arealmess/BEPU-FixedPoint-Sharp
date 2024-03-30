@@ -2,6 +2,7 @@
 using BEPUphysics.BroadPhaseEntries;
 using BEPUutilities;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.BroadPhaseSystems.Hierarchies
 {
@@ -70,7 +71,7 @@ namespace BEPUphysics.BroadPhaseSystems.Hierarchies
         /// <param name="ray">Ray to test against the structure.</param>
         /// <param name="maximumLength">Maximum length of the ray in units of the ray's direction's length.</param>
         /// <param name="entries">Entries which have bounding boxes that overlap the ray.</param>
-        public bool RayCast(Ray ray, Fix64 maximumLength, IList<BroadPhaseEntry> entries)
+        public bool RayCast(Ray ray, fp maximumLength, IList<BroadPhaseEntry> entries)
         {
             if (hierarchy.root != null)
             {

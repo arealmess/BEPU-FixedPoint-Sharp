@@ -2,6 +2,7 @@
 using BEPUphysics.CollisionTests;
 using BEPUutilities;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.NarrowPhaseSystems.Pairs
 {
@@ -24,14 +25,14 @@ namespace BEPUphysics.NarrowPhaseSystems.Pairs
         /// <summary>
         /// Normal impulse applied between the objects at the contact point.
         /// </summary>
-        public Fix64 NormalImpulse;
+        public fp NormalImpulse;
 
         /// <summary>
         /// Friction impulse applied between the objects at the contact point.
         /// This is sometimes an approximation due to the varying ways in which
         /// friction is calculated.
         /// </summary>
-        public Fix64 FrictionImpulse;
+        public fp FrictionImpulse;
         
         ///<summary>
         /// Relative velocity of the colliding objects at the position of the contact.
