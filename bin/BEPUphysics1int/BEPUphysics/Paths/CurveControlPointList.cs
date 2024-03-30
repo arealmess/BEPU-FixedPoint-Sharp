@@ -108,8 +108,6 @@ namespace BEPUphysics.Paths
             CurveControlPoint<TValue> removed = list[index];
             list.RemoveAt(index);
             Curve.ControlPointRemoved(removed, index);
-        }
-
-
+        } 
     }
 }
