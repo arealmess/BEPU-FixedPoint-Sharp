@@ -534,7 +534,7 @@ namespace BEPUutilities
 				return;
 
 			int submatrix;
-			fp determinantInverse = fp._1 / matrix.AdaptiveDeterminant(out submatrix);
+			fp determinantInverse = F64.C1 / matrix.AdaptiveDeterminant(out submatrix);
 			fp m11, m12, m13, m21, m22, m23, m31, m32, m33;
 			switch (submatrix)
 			{
