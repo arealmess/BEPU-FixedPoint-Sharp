@@ -9,14 +9,14 @@ namespace ProjectCrescent.Workshop
   public partial class Test : gd.Node
   {
 		Space space = new();
-		Box box = new(new bepu.Vector3(1, 1, 1), 1, 1, 1, 8);
+		Box box = new(new bepu.Vector3(0,0,0), 1, 1, 1, 8);
 		Box ground = new(bepu.Vector3.Zero, 30, 1, 30);
 
 		public override void _Ready()
 		{
 			space.Add(box);
 			space.Add(ground);
-			space.ForceUpdater.Gravity = new bepu.Vector3(0, 10, 0);
+			space.ForceUpdater.Gravity = new bepu.Vector3(0,10,0);
 		}
 
 		public override void _PhysicsProcess(double delta)

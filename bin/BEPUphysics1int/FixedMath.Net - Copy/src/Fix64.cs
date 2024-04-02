@@ -7,7 +7,7 @@ namespace FixMath.NET
 {
 
     /// <summary>
-    /// Represents a Q31.32 fixed-point number.
+    /// Represents a Q31.32 fixed-point number. (leftovers from the switch to fp)
     /// </summary>
     public partial struct Fix64 //: IEquatable<Fix64>, IComparable<Fix64> 
   {
@@ -42,7 +42,7 @@ namespace FixMath.NET
 		static readonly fp LutInterval = (fp)(LUT_SIZE - 1) / PiOver2;
         const long MAX_VALUE = long.MaxValue;
         const long MIN_VALUE = long.MinValue;
-        const int NUM_BITS = 64;
+        //const int NUM_BITS = 64;
         const int FRACTIONAL_PLACES = 16;
         const long ONE = 1L << FRACTIONAL_PLACES;
         const long PI_TIMES_2 = 0x6487ED511;
@@ -493,483 +493,485 @@ namespace FixMath.NET
 			return new fp(sum);
 		}
 
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)] 
-        //static int CountLeadingZeroes(ulong x) {
-        //    int result = 0;
-        //    while ((x & 0xF000000000000000) == 0) { result += 4; x <<= 4; }
-        //    while ((x & 0x8000000000000000) == 0) { result += 1; x <<= 1; }
-        //    return result;
-        //}
-
-    //    public static fp operator /(fp x, fp y) {
-    //        var xl = x.value;
-    //        var yl = y.value;
-
-    //        if (yl == 0) {
-				//return MaxValue;
-    //            //throw new DivideByZeroException();
-    //        }
-
-    //        var remainder = (ulong)(xl >= 0 ? xl : -xl);
-    //        var divider = (ulong)(yl >= 0 ? yl : -yl);
-    //        var quotient = 0UL;
-    //        var bitPos = NUM_BITS / 2 + 1;
-
-
-    //        // If the divider is divisible by 2^n, take advantage of it.
-    //        while ((divider & 0xF) == 0 && bitPos >= 4) {
-    //            divider >>= 4;
-    //            bitPos -= 4;
-    //        }
-
-    //        while (remainder != 0 && bitPos >= 0) {
-    //            int shift = CountLeadingZeroes(remainder);
-    //            if (shift > bitPos) {
-    //                shift = bitPos;
-    //            }
-    //            remainder <<= shift;
-    //            bitPos -= shift;
-
-    //            var div = remainder / divider;
-    //            remainder = remainder % divider;
-    //            quotient += div << bitPos;
-
-    //            // Detect overflow
-    //            if ((div & ~(0xFFFFFFFFFFFFFFFF >> bitPos)) != 0) {
-    //                return ((xl ^ yl) & MIN_VALUE) == 0 ? MaxValue : MinValue;
-    //            }
-
-    //            remainder <<= 1;
-    //            --bitPos;
-    //        }
-
-    //        // rounding
-    //        ++quotient;
-    //        var result = (long)(quotient >> 1);
-    //        if (((xl ^ yl) & MIN_VALUE) != 0) {
-    //            result = -result;
-    //        }
-
-    //        return new fp(result);
-    //    }
-
-        //public static Fix64 operator %(Fix64 x, Fix64 y) {
-        //    return new Fix64(
-        //        x.RawValue == MIN_VALUE & y.RawValue == -1 ? 
-        //        0 :
-        //        x.RawValue % y.RawValue);
-        //}
-
-        /// <summary>
-        /// Performs modulo as fast as possible; throws if x == MinValue and y == -1.
-        /// Use the operator (%) for a more reliable but slower modulo.
-        /// </summary>
-        //public static Fix64 FastMod(Fix64 x, Fix64 y) {
-        //    return new Fix64(x.RawValue % y.RawValue);
-        //}
-
-        ////public static Fix64 operator -(Fix64 x) {
-        ////    return x.RawValue == MIN_VALUE ? MaxValue : new Fix64(-x.RawValue);
-        ////}
-
-        //public static bool operator ==(Fix64 x, Fix64 y) {
-        //    return x.RawValue == y.RawValue;
-        //}
-
-        //public static bool operator !=(Fix64 x, Fix64 y) {
-        //    return x.RawValue != y.RawValue;
-        //}
-
-        //public static bool operator >(Fix64 x, Fix64 y) {
-        //    return x.RawValue > y.RawValue;
-        //}
-
-        //public static bool operator <(Fix64 x, Fix64 y) {
-        //    return x.RawValue < y.RawValue;
-        //}
-
-        //public static bool operator >=(Fix64 x, Fix64 y) {
-        //    return x.RawValue >= y.RawValue;
-        //}
-
-        //public static bool operator <=(Fix64 x, Fix64 y) {
-        //    return x.RawValue <= y.RawValue;
-        //}
-
-
-        ///// <summary>
-        ///// Returns the square root of a specified number.
-        ///// </summary>
-        ///// <exception cref="ArgumentOutOfRangeException">
-        ///// The argument was negative.
-        ///// </exception>
-        //public static Fix64 Sqrt(Fix64 x) {
-        //    var xl = x.RawValue;
-        //    if (xl < 0) {
-        //        // We cannot represent infinities like Single and Double, and Sqrt is
-        //        // mathematically undefined for x < 0. So we just throw an exception.
-        //        throw new ArgumentOutOfRangeException("Negative value passed to Sqrt", "x");
-        //    }
-
-        //    var num = (ulong)xl;
-        //    var result = 0UL;
-
-        //    // second-to-top bit
-        //    var bit = 1UL << (NUM_BITS - 2);
-
-        //    while (bit > num) {
-        //        bit >>= 2;
-        //    }
-
-        //    // The main part is executed twice, in order to avoid
-        //    // using 128 bit values in computations.
-        //    for (var i = 0; i < 2; ++i) {
-        //        // First we get the top 48 bits of the answer.
-        //        while (bit != 0) {
-        //            if (num >= result + bit) {
-        //                num -= result + bit;
-        //                result = (result >> 1) + bit;
-        //            }
-        //            else {
-        //                result = result >> 1;
-        //            }
-        //            bit >>= 2;
-        //        }
-
-        //        if (i == 0) {
-        //            // Then process it again to get the lowest 16 bits.
-        //            if (num > (1UL << (NUM_BITS / 2)) - 1) {
-        //                // The remainder 'num' is too large to be shifted left
-        //                // by 32, so we have to add 1 to result manually and
-        //                // adjust 'num' accordingly.
-        //                // num = a - (result + 0.5)^2
-        //                //       = num + result^2 - (result + 0.5)^2
-        //                //       = num - result - 0.5
-        //                num -= result;
-        //                num = (num << (NUM_BITS / 2)) - 0x80000000UL;
-        //                result = (result << (NUM_BITS / 2)) + 0x80000000UL;
-        //            }
-        //            else {
-        //                num <<= (NUM_BITS / 2);
-        //                result <<= (NUM_BITS / 2);
-        //            }
-
-        //            bit = 1UL << (NUM_BITS / 2 - 2);
-        //        }
-        //    }
-        //    // Finally, if next bit would have been 1, round the result upwards.
-        //    if (num > result) {
-        //        ++result;
-        //    }
-        //    return new Fix64((long)result);
-        //}
-
-        /// <summary>
-        /// Returns the Sine of x.
-        /// This function has about 9 decimals of accuracy for small values of x.
-        /// It may lose accuracy as the value of x grows.
-        /// Performance: about 25% slower than Math.Sin() in x64, and 200% slower in x86.
-        /// </summary>
-        //public static Fix64 Sin(Fix64 x) {
-        //    bool flipHorizontal, flipVertical;
-        //    var clampedL = ClampSinValue(x.RawValue, out flipHorizontal, out flipVertical);
-        //    var clamped = new Fix64(clampedL);
-
-        //    // Find the two closest values in the LUT and perform linear interpolation
-        //    // This is what kills the performance of this function on x86 - x64 is fine though
-        //    var rawIndex = clamped * LutInterval;
-        //    var roundedIndex = Round(rawIndex); 
-        //    var indexError = rawIndex - roundedIndex;
-
-        //    var nearestValue = new Fix64(SinLut[flipHorizontal ? 
-        //        SinLut.Length - 1 - (int)roundedIndex : 
-        //        (int)roundedIndex]);
-        //    var secondNearestValue = new Fix64(SinLut[flipHorizontal ? 
-        //        SinLut.Length - 1 - (int)roundedIndex - SignI(indexError) : 
-        //        (int)roundedIndex + SignI(indexError)]);
-
-        //    var delta = (indexError * Abs(nearestValue - secondNearestValue)).RawValue;
-        //    var interpolatedValue = nearestValue.RawValue + (flipHorizontal ? -delta : delta);
-        //    var finalValue = flipVertical ? -interpolatedValue : interpolatedValue;
-        //    return new Fix64(finalValue);
-        //}
-
-        /// <summary>
-        /// Returns a rough approximation of the Sine of x.
-        /// This is at least 3 times faster than Sin() on x86 and slightly faster than Math.Sin(),
-        /// however its accuracy is limited to 4-5 decimals, for small enough values of x.
-        /// </summary>
-        //public static Fix64 FastSin(Fix64 x) {
-        //    bool flipHorizontal, flipVertical;
-        //    var clampedL = ClampSinValue(x.RawValue, out flipHorizontal, out flipVertical);
-
-        //    // Here we use the fact that the SinLut table has a number of entries
-        //    // equal to (PI_OVER_2 >> 15) to use the angle to index directly into it
-        //    var rawIndex = (uint)(clampedL >> 15);
-        //    if (rawIndex >= LUT_SIZE) {
-        //        rawIndex = LUT_SIZE - 1;
-        //    }
-        //    var nearestValue = SinLut[flipHorizontal ?
-        //        SinLut.Length - 1 - (int)rawIndex :
-        //        (int)rawIndex];
-        //    return new Fix64(flipVertical ? -nearestValue : nearestValue);
-        //}
-
-
-
-        //[MethodImplAttribute(MethodImplOptions.AggressiveInlining)] 
-        //static long ClampSinValue(long angle, out bool flipHorizontal, out bool flipVertical) {
-        //    // Clamp value to 0 - 2*PI using modulo; this is very slow but there's no better way AFAIK
-        //    var clamped2Pi = angle % PI_TIMES_2;
-        //    if (angle < 0) {
-        //        clamped2Pi += PI_TIMES_2;
-        //    }
-
-        //    // The LUT contains values for 0 - PiOver2; every other value must be obtained by
-        //    // vertical or horizontal mirroring
-        //    flipVertical = clamped2Pi >= PI;
-        //    // obtain (angle % PI) from (angle % 2PI) - much faster than doing another modulo
-        //    var clampedPi = clamped2Pi;
-        //    while (clampedPi >= PI) {
-        //        clampedPi -= PI;
-        //    }
-        //    flipHorizontal = clampedPi >= PI_OVER_2;
-        //    // obtain (angle % PI_OVER_2) from (angle % PI) - much faster than doing another modulo
-        //    var clampedPiOver2 = clampedPi;
-        //    if (clampedPiOver2 >= PI_OVER_2) {
-        //        clampedPiOver2 -= PI_OVER_2;
-        //    }
-        //    return clampedPiOver2;
-        //}
-
-        /// <summary>
-        /// Returns the cosine of x.
-        /// See Sin() for more details.
-        /// </summary>
-        //public static Fix64 Cos(Fix64 x) {
-        //    var xl = x.RawValue;
-        //    var rawAngle = xl + (xl > 0 ? -PI - PI_OVER_2 : PI_OVER_2);
-        //    return fixmath.Sin(new fp(rawAngle));
-        //}
-
-        /// <summary>
-        /// Returns a rough approximation of the cosine of x.
-        /// See FastSin for more details.
-        /// </summary>
-        //public static Fix64 FastCos(Fix64 x) {
-        //    var xl = x.RawValue;
-        //    var rawAngle = xl + (xl > 0 ? -PI - PI_OVER_2 : PI_OVER_2);
-        //    return FastSin(new Fix64(rawAngle));
-        //}
-
-        /// <summary>
-        /// Returns the tangent of x.
-        /// </summary>
-        /// <remarks>
-        /// This function is not well-tested. It may be wildly inaccurate.
-        /// </remarks>
-        //public static Fix64 Tan(Fix64 x) {
-        //    var clampedPi = x.RawValue % PI;
-        //    var flip = false;
-        //    if (clampedPi < 0) {
-        //        clampedPi = -clampedPi;
-        //        flip = true;
-        //    }
-        //    if (clampedPi > PI_OVER_2) {
-        //        flip = !flip;
-        //        clampedPi = PI_OVER_2 - (clampedPi - PI_OVER_2);
-        //    }
-
-        //    var clamped = new Fix64(clampedPi);
-
-        //    // Find the two closest values in the LUT and perform linear interpolation
-        //    var rawIndex = clamped * LutInterval;
-        //    var roundedIndex = Round(rawIndex);
-        //    var indexError = rawIndex - roundedIndex;
-
-        //    var nearestValue = new Fix64(TanLut[(int)roundedIndex]);
-        //    var secondNearestValue = new Fix64(TanLut[(int)roundedIndex + SignI(indexError)]);
-
-        //    var delta = (indexError * Abs(nearestValue - secondNearestValue)).RawValue;
-        //    var interpolatedValue = nearestValue.RawValue + delta;
-        //    var finalValue = flip ? -interpolatedValue : interpolatedValue;
-        //    return new Fix64(finalValue);
-        //}
-
-        //public static Fix64 FastAtan2(fp y, fp x) {
-        //    var yl = y.value;
-        //    var xl = x.value;
-        //    if (xl == 0) {
-        //        if (yl > 0) {
-        //            return PiOver2;
-        //        }
-        //        if (yl == 0) {
-        //            return Zero;
-        //        }
-        //        return -PiOver2;
-        //    }
-        //    Fix64 atan;
-        //    var z = y / x;
-
-			// Deal with overflow
-			//if (SafeAdd(One, SafeMul(SafeMul(C0p28, z), z)) == MaxValue) {
-			//	return y.RawValue < 0 ? -PiOver2 : PiOver2;
-   //         }
-
-   //         if (Abs(z) < One) {
-   //             atan = z / (One + C0p28 * z * z);
-   //             if (xl < 0) {
-   //                 if (yl < 0) {
-   //                     return atan - Pi;
-   //                 }
-   //                 return atan + Pi;
-   //             }
-   //         }
-   //         else {
-   //             atan = PiOver2 - z / (z * z + C0p28);
-   //             if (yl < 0) {
-   //                 return atan - Pi;
-   //             }
-   //         }
-   //         return atan;
-   //     }
-
-		/// <summary>
-		/// Returns the arctan of of the specified number, calculated using Euler series
-		/// </summary>
-		//public static Fix64 Atan(Fix64 z)
-		//{
-		//	if (z.RawValue == 0)
-		//		return Zero;
-
-		//	// Force positive values for argument
-		//	// Atan(-z) = -Atan(z).
-		//	bool neg = (z.RawValue < 0);
-		//	if (neg) z = -z;
-
-		//	Fix64 result;
-
-		//	if (z == One)
-		//		result = PiOver4;
-		//	else
-		//	{
-		//		bool invert = z > One;
-		//		if (invert) z = One / z;
-				
-		//		result = One;
-		//		Fix64 term = One;
-				
-		//		Fix64 zSq = z * z;
-		//		Fix64 zSq2 = zSq * Two;
-		//		Fix64 zSqPlusOne = zSq + One;
-		//		Fix64 zSq12 = zSqPlusOne * Two;
-		//		Fix64 dividend = zSq2;
-		//		Fix64 divisor = zSqPlusOne * Three;
-
-		//		for (int i = 2; i < 30; i++)
-		//		{
-		//			term *= dividend / divisor;
-		//			result += term;
-
-		//			dividend += zSq2;
-		//			divisor += zSq12;
-
-		//			if (term.RawValue == 0)
-		//				break;
-		//		}
-
-		//		result = result * z / zSqPlusOne;
-
-		//		if (invert)
-		//			result = PiOver2 - result;
-		//	}
-
-		//	if (neg) result = -result;
-		//	return result;
-		//}
-
-		//public static Fix64 Atan2(Fix64 y, Fix64 x)
-		//{
-		//	var yl = y.RawValue;
-		//	var xl = x.RawValue;
-		//	if (xl == 0)
-		//	{
-		//		if (yl > 0)
-		//			return PiOver2;
-		//		if (yl == 0)
-		//			return Zero;
-		//		return -PiOver2;
-		//	}
-
-		//	var z = y / x;
-
-		//	// Deal with overflow
-		//	if (SafeAdd(One, SafeMul(SafeMul((Fix64)0.28M, z), z)) == MaxValue)
-		//	{
-		//		return y.RawValue < 0 ? -PiOver2 : PiOver2;
-		//	}
-		//	Fix64 atan = Atan(z);
-
-		//	if (xl < 0)
-		//	{
-		//		if (yl < 0)
-		//			return atan - Pi;
-		//		return atan + Pi;
-		//	}
-
-		//	return atan;
-		//}
-
-		//public static implicit operator Fix64(int value)
-		//{
-		//	return new Fix64(value);
-		//}
-		//public static explicit operator Fix64(long value) {
-  //          return new Fix64(value * ONE);
-  //      }
-  //      public static explicit operator long(Fix64 value) {
-  //          return value.RawValue >> FRACTIONAL_PLACES;
-  //      }
-  //      public static explicit operator Fix64(float value) {
-  //          return new Fix64((long)(value * ONE));
-  //      }
-  //      public static explicit operator float(Fix64 value) {
-  //          return (float)value.RawValue / ONE;
-  //      }
-  //      public static explicit operator Fix64(double value) {
-  //          return new Fix64((long)(value * ONE));
-  //      }
-  //      public static explicit operator double(Fix64 value) {
-  //          return (double)value.RawValue / ONE;
-  //      }
-  //      public static implicit operator Fix64(decimal value) {
-  //          return new Fix64((long)(value * ONE));
-  //      }
-  //      public static explicit operator decimal(Fix64 value) {
-  //          return (decimal)value.RawValue / ONE;
-  //      }
-
-  //      public override bool Equals(object obj) {
-  //          return obj is Fix64 && ((Fix64)obj).RawValue == RawValue;
-  //      }
-
-        //public override int GetHashCode() {
-        //    return RawValue.GetHashCode();
-        //}
-
-        //public bool Equals(Fix64 other) {
-        //    return RawValue == other.RawValue;
-        //}
-
-        //public int CompareTo(Fix64 other) {
-        //    return RawValue.CompareTo(other.RawValue);
-        //}
-
-        //public override string ToString() {
-        //    return ((decimal)this).ToString();
-        //}
-
-        public static fp FromRaw(long rawValue) {
+    //[MethodImpl(MethodImplOptions.AggressiveInlining)] 
+    //static int CountLeadingZeroes(ulong x) {
+    //    int result = 0;
+    //    while ((x & 0xF000000000000000) == 0) { result += 4; x <<= 4; }
+    //    while ((x & 0x8000000000000000) == 0) { result += 1; x <<= 1; }
+    //    return result;
+    //}
+
+    //public static fp operator /(fp x, fp y)
+    //{
+    //  var xl = x.value;
+    //  var yl = y.value;
+
+    //  if (yl == 0)
+    //  {
+    //    return MaxValue;
+    //    throw new DivideByZeroException();
+    //  }
+
+      //        var remainder = (ulong)(xl >= 0 ? xl : -xl);
+      //        var divider = (ulong)(yl >= 0 ? yl : -yl);
+      //        var quotient = 0UL;
+      //        var bitPos = NUM_BITS / 2 + 1;
+
+
+      //        // If the divider is divisible by 2^n, take advantage of it.
+      //        while ((divider & 0xF) == 0 && bitPos >= 4) {
+      //            divider >>= 4;
+      //            bitPos -= 4;
+      //        }
+
+      //        while (remainder != 0 && bitPos >= 0) {
+      //            int shift = CountLeadingZeroes(remainder);
+      //            if (shift > bitPos) {
+      //                shift = bitPos;
+      //            }
+      //            remainder <<= shift;
+      //            bitPos -= shift;
+
+      //            var div = remainder / divider;
+      //            remainder = remainder % divider;
+      //            quotient += div << bitPos;
+
+      //            // Detect overflow
+      //            if ((div & ~(0xFFFFFFFFFFFFFFFF >> bitPos)) != 0) {
+      //                return ((xl ^ yl) & MIN_VALUE) == 0 ? MaxValue : MinValue;
+      //            }
+
+      //            remainder <<= 1;
+      //            --bitPos;
+      //        }
+
+      //        // rounding
+      //        ++quotient;
+      //        var result = (long)(quotient >> 1);
+      //        if (((xl ^ yl) & MIN_VALUE) != 0) {
+      //            result = -result;
+      //        }
+
+      //        return new fp(result);
+      //    }
+
+      //public static Fix64 operator %(Fix64 x, Fix64 y) {
+      //    return new Fix64(
+      //        x.RawValue == MIN_VALUE & y.RawValue == -1 ? 
+      //        0 :
+      //        x.RawValue % y.RawValue);
+      //}
+
+      /// <summary>
+      /// Performs modulo as fast as possible; throws if x == MinValue and y == -1.
+      /// Use the operator (%) for a more reliable but slower modulo.
+      /// </summary>
+      //public static Fix64 FastMod(Fix64 x, Fix64 y) {
+      //    return new Fix64(x.RawValue % y.RawValue);
+      //}
+
+      ////public static Fix64 operator -(Fix64 x) {
+      ////    return x.RawValue == MIN_VALUE ? MaxValue : new Fix64(-x.RawValue);
+      ////}
+
+      //public static bool operator ==(Fix64 x, Fix64 y) {
+      //    return x.RawValue == y.RawValue;
+      //}
+
+      //public static bool operator !=(Fix64 x, Fix64 y) {
+      //    return x.RawValue != y.RawValue;
+      //}
+
+      //public static bool operator >(Fix64 x, Fix64 y) {
+      //    return x.RawValue > y.RawValue;
+      //}
+
+      //public static bool operator <(Fix64 x, Fix64 y) {
+      //    return x.RawValue < y.RawValue;
+      //}
+
+      //public static bool operator >=(Fix64 x, Fix64 y) {
+      //    return x.RawValue >= y.RawValue;
+      //}
+
+      //public static bool operator <=(Fix64 x, Fix64 y) {
+      //    return x.RawValue <= y.RawValue;
+      //}
+
+
+      ///// <summary>
+      ///// Returns the square root of a specified number.
+      ///// </summary>
+      ///// <exception cref="ArgumentOutOfRangeException">
+      ///// The argument was negative.
+      ///// </exception>
+      //public static Fix64 Sqrt(Fix64 x) {
+      //    var xl = x.RawValue;
+      //    if (xl < 0) {
+      //        // We cannot represent infinities like Single and Double, and Sqrt is
+      //        // mathematically undefined for x < 0. So we just throw an exception.
+      //        throw new ArgumentOutOfRangeException("Negative value passed to Sqrt", "x");
+      //    }
+
+      //    var num = (ulong)xl;
+      //    var result = 0UL;
+
+      //    // second-to-top bit
+      //    var bit = 1UL << (NUM_BITS - 2);
+
+      //    while (bit > num) {
+      //        bit >>= 2;
+      //    }
+
+      //    // The main part is executed twice, in order to avoid
+      //    // using 128 bit values in computations.
+      //    for (var i = 0; i < 2; ++i) {
+      //        // First we get the top 48 bits of the answer.
+      //        while (bit != 0) {
+      //            if (num >= result + bit) {
+      //                num -= result + bit;
+      //                result = (result >> 1) + bit;
+      //            }
+      //            else {
+      //                result = result >> 1;
+      //            }
+      //            bit >>= 2;
+      //        }
+
+      //        if (i == 0) {
+      //            // Then process it again to get the lowest 16 bits.
+      //            if (num > (1UL << (NUM_BITS / 2)) - 1) {
+      //                // The remainder 'num' is too large to be shifted left
+      //                // by 32, so we have to add 1 to result manually and
+      //                // adjust 'num' accordingly.
+      //                // num = a - (result + 0.5)^2
+      //                //       = num + result^2 - (result + 0.5)^2
+      //                //       = num - result - 0.5
+      //                num -= result;
+      //                num = (num << (NUM_BITS / 2)) - 0x80000000UL;
+      //                result = (result << (NUM_BITS / 2)) + 0x80000000UL;
+      //            }
+      //            else {
+      //                num <<= (NUM_BITS / 2);
+      //                result <<= (NUM_BITS / 2);
+      //            }
+
+      //            bit = 1UL << (NUM_BITS / 2 - 2);
+      //        }
+      //    }
+      //    // Finally, if next bit would have been 1, round the result upwards.
+      //    if (num > result) {
+      //        ++result;
+      //    }
+      //    return new Fix64((long)result);
+      //}
+
+      /// <summary>
+      /// Returns the Sine of x.
+      /// This function has about 9 decimals of accuracy for small values of x.
+      /// It may lose accuracy as the value of x grows.
+      /// Performance: about 25% slower than Math.Sin() in x64, and 200% slower in x86.
+      /// </summary>
+      //public static Fix64 Sin(Fix64 x) {
+      //    bool flipHorizontal, flipVertical;
+      //    var clampedL = ClampSinValue(x.RawValue, out flipHorizontal, out flipVertical);
+      //    var clamped = new Fix64(clampedL);
+
+      //    // Find the two closest values in the LUT and perform linear interpolation
+      //    // This is what kills the performance of this function on x86 - x64 is fine though
+      //    var rawIndex = clamped * LutInterval;
+      //    var roundedIndex = Round(rawIndex); 
+      //    var indexError = rawIndex - roundedIndex;
+
+      //    var nearestValue = new Fix64(SinLut[flipHorizontal ? 
+      //        SinLut.Length - 1 - (int)roundedIndex : 
+      //        (int)roundedIndex]);
+      //    var secondNearestValue = new Fix64(SinLut[flipHorizontal ? 
+      //        SinLut.Length - 1 - (int)roundedIndex - SignI(indexError) : 
+      //        (int)roundedIndex + SignI(indexError)]);
+
+      //    var delta = (indexError * Abs(nearestValue - secondNearestValue)).RawValue;
+      //    var interpolatedValue = nearestValue.RawValue + (flipHorizontal ? -delta : delta);
+      //    var finalValue = flipVertical ? -interpolatedValue : interpolatedValue;
+      //    return new Fix64(finalValue);
+      //}
+
+      /// <summary>
+      /// Returns a rough approximation of the Sine of x.
+      /// This is at least 3 times faster than Sin() on x86 and slightly faster than Math.Sin(),
+      /// however its accuracy is limited to 4-5 decimals, for small enough values of x.
+      /// </summary>
+      //public static Fix64 FastSin(Fix64 x) {
+      //    bool flipHorizontal, flipVertical;
+      //    var clampedL = ClampSinValue(x.RawValue, out flipHorizontal, out flipVertical);
+
+      //    // Here we use the fact that the SinLut table has a number of entries
+      //    // equal to (PI_OVER_2 >> 15) to use the angle to index directly into it
+      //    var rawIndex = (uint)(clampedL >> 15);
+      //    if (rawIndex >= LUT_SIZE) {
+      //        rawIndex = LUT_SIZE - 1;
+      //    }
+      //    var nearestValue = SinLut[flipHorizontal ?
+      //        SinLut.Length - 1 - (int)rawIndex :
+      //        (int)rawIndex];
+      //    return new Fix64(flipVertical ? -nearestValue : nearestValue);
+      //}
+
+
+
+      //[MethodImplAttribute(MethodImplOptions.AggressiveInlining)] 
+      //static long ClampSinValue(long angle, out bool flipHorizontal, out bool flipVertical) {
+      //    // Clamp value to 0 - 2*PI using modulo; this is very slow but there's no better way AFAIK
+      //    var clamped2Pi = angle % PI_TIMES_2;
+      //    if (angle < 0) {
+      //        clamped2Pi += PI_TIMES_2;
+      //    }
+
+      //    // The LUT contains values for 0 - PiOver2; every other value must be obtained by
+      //    // vertical or horizontal mirroring
+      //    flipVertical = clamped2Pi >= PI;
+      //    // obtain (angle % PI) from (angle % 2PI) - much faster than doing another modulo
+      //    var clampedPi = clamped2Pi;
+      //    while (clampedPi >= PI) {
+      //        clampedPi -= PI;
+      //    }
+      //    flipHorizontal = clampedPi >= PI_OVER_2;
+      //    // obtain (angle % PI_OVER_2) from (angle % PI) - much faster than doing another modulo
+      //    var clampedPiOver2 = clampedPi;
+      //    if (clampedPiOver2 >= PI_OVER_2) {
+      //        clampedPiOver2 -= PI_OVER_2;
+      //    }
+      //    return clampedPiOver2;
+      //}
+
+      /// <summary>
+      /// Returns the cosine of x.
+      /// See Sin() for more details.
+      /// </summary>
+      //public static Fix64 Cos(Fix64 x) {
+      //    var xl = x.RawValue;
+      //    var rawAngle = xl + (xl > 0 ? -PI - PI_OVER_2 : PI_OVER_2);
+      //    return fixmath.Sin(new fp(rawAngle));
+      //}
+
+      /// <summary>
+      /// Returns a rough approximation of the cosine of x.
+      /// See FastSin for more details.
+      /// </summary>
+      //public static Fix64 FastCos(Fix64 x) {
+      //    var xl = x.RawValue;
+      //    var rawAngle = xl + (xl > 0 ? -PI - PI_OVER_2 : PI_OVER_2);
+      //    return FastSin(new Fix64(rawAngle));
+      //}
+
+      /// <summary>
+      /// Returns the tangent of x.
+      /// </summary>
+      /// <remarks>
+      /// This function is not well-tested. It may be wildly inaccurate.
+      /// </remarks>
+      //public static Fix64 Tan(Fix64 x) {
+      //    var clampedPi = x.RawValue % PI;
+      //    var flip = false;
+      //    if (clampedPi < 0) {
+      //        clampedPi = -clampedPi;
+      //        flip = true;
+      //    }
+      //    if (clampedPi > PI_OVER_2) {
+      //        flip = !flip;
+      //        clampedPi = PI_OVER_2 - (clampedPi - PI_OVER_2);
+      //    }
+
+      //    var clamped = new Fix64(clampedPi);
+
+      //    // Find the two closest values in the LUT and perform linear interpolation
+      //    var rawIndex = clamped * LutInterval;
+      //    var roundedIndex = Round(rawIndex);
+      //    var indexError = rawIndex - roundedIndex;
+
+      //    var nearestValue = new Fix64(TanLut[(int)roundedIndex]);
+      //    var secondNearestValue = new Fix64(TanLut[(int)roundedIndex + SignI(indexError)]);
+
+      //    var delta = (indexError * Abs(nearestValue - secondNearestValue)).RawValue;
+      //    var interpolatedValue = nearestValue.RawValue + delta;
+      //    var finalValue = flip ? -interpolatedValue : interpolatedValue;
+      //    return new Fix64(finalValue);
+      //}
+
+      //public static Fix64 FastAtan2(fp y, fp x) {
+      //    var yl = y.value;
+      //    var xl = x.value;
+      //    if (xl == 0) {
+      //        if (yl > 0) {
+      //            return PiOver2;
+      //        }
+      //        if (yl == 0) {
+      //            return Zero;
+      //        }
+      //        return -PiOver2;
+      //    }
+      //    Fix64 atan;
+      //    var z = y / x;
+
+      // Deal with overflow
+      //if (SafeAdd(One, SafeMul(SafeMul(C0p28, z), z)) == MaxValue) {
+      //	return y.RawValue < 0 ? -PiOver2 : PiOver2;
+      //         }
+
+      //         if (Abs(z) < One) {
+      //             atan = z / (One + C0p28 * z * z);
+      //             if (xl < 0) {
+      //                 if (yl < 0) {
+      //                     return atan - Pi;
+      //                 }
+      //                 return atan + Pi;
+      //             }
+      //         }
+      //         else {
+      //             atan = PiOver2 - z / (z * z + C0p28);
+      //             if (yl < 0) {
+      //                 return atan - Pi;
+      //             }
+      //         }
+      //         return atan;
+      //     }
+
+      /// <summary>
+      /// Returns the arctan of of the specified number, calculated using Euler series
+      /// </summary>
+      //public static Fix64 Atan(Fix64 z)
+      //{
+      //	if (z.RawValue == 0)
+      //		return Zero;
+
+      //	// Force positive values for argument
+      //	// Atan(-z) = -Atan(z).
+      //	bool neg = (z.RawValue < 0);
+      //	if (neg) z = -z;
+
+      //	Fix64 result;
+
+      //	if (z == One)
+      //		result = PiOver4;
+      //	else
+      //	{
+      //		bool invert = z > One;
+      //		if (invert) z = One / z;
+
+      //		result = One;
+      //		Fix64 term = One;
+
+      //		Fix64 zSq = z * z;
+      //		Fix64 zSq2 = zSq * Two;
+      //		Fix64 zSqPlusOne = zSq + One;
+      //		Fix64 zSq12 = zSqPlusOne * Two;
+      //		Fix64 dividend = zSq2;
+      //		Fix64 divisor = zSqPlusOne * Three;
+
+      //		for (int i = 2; i < 30; i++)
+      //		{
+      //			term *= dividend / divisor;
+      //			result += term;
+
+      //			dividend += zSq2;
+      //			divisor += zSq12;
+
+      //			if (term.RawValue == 0)
+      //				break;
+      //		}
+
+      //		result = result * z / zSqPlusOne;
+
+      //		if (invert)
+      //			result = PiOver2 - result;
+      //	}
+
+      //	if (neg) result = -result;
+      //	return result;
+      //}
+
+      //public static Fix64 Atan2(Fix64 y, Fix64 x)
+      //{
+      //	var yl = y.RawValue;
+      //	var xl = x.RawValue;
+      //	if (xl == 0)
+      //	{
+      //		if (yl > 0)
+      //			return PiOver2;
+      //		if (yl == 0)
+      //			return Zero;
+      //		return -PiOver2;
+      //	}
+
+      //	var z = y / x;
+
+      //	// Deal with overflow
+      //	if (SafeAdd(One, SafeMul(SafeMul((Fix64)0.28M, z), z)) == MaxValue)
+      //	{
+      //		return y.RawValue < 0 ? -PiOver2 : PiOver2;
+      //	}
+      //	Fix64 atan = Atan(z);
+
+      //	if (xl < 0)
+      //	{
+      //		if (yl < 0)
+      //			return atan - Pi;
+      //		return atan + Pi;
+      //	}
+
+      //	return atan;
+      //}
+
+      //public static implicit operator Fix64(int value)
+      //{
+      //	return new Fix64(value);
+      //}
+      //public static explicit operator Fix64(long value) {
+      //          return new Fix64(value * ONE);
+      //      }
+      //      public static explicit operator long(Fix64 value) {
+      //          return value.RawValue >> FRACTIONAL_PLACES;
+      //      }
+      //      public static explicit operator Fix64(float value) {
+      //          return new Fix64((long)(value * ONE));
+      //      }
+      //      public static explicit operator float(Fix64 value) {
+      //          return (float)value.RawValue / ONE;
+      //      }
+      //      public static explicit operator Fix64(double value) {
+      //          return new Fix64((long)(value * ONE));
+      //      }
+      //      public static explicit operator double(Fix64 value) {
+      //          return (double)value.RawValue / ONE;
+      //      }
+            //public static implicit operator Fix64(decimal value) {
+            //    return new Fix64((long)(value * ONE));
+            //}
+      //      public static explicit operator decimal(Fix64 value) {
+      //          return (decimal)value.RawValue / ONE;
+      //      }
+
+      //      public override bool Equals(object obj) {
+      //          return obj is Fix64 && ((Fix64)obj).RawValue == RawValue;
+      //      }
+
+      //public override int GetHashCode() {
+      //    return RawValue.GetHashCode();
+      //}
+
+      //public bool Equals(Fix64 other) {
+      //    return RawValue == other.RawValue;
+      //}
+
+      //public int CompareTo(Fix64 other) {
+      //    return RawValue.CompareTo(other.RawValue);
+      //}
+
+      //public override string ToString() {
+      //    return ((decimal)this).ToString();
+      //}
+
+      public static fp FromRaw(long rawValue) {
             return new fp(rawValue);
         }
 

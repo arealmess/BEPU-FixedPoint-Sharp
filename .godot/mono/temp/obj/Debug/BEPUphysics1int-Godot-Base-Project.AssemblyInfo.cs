@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BEPUphysics1int-Godot-Base-Project")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+843b037defeb731e7301fc5f844350e463c482a5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d6c6951c4d33e779a3376d2a4909e28054a53f58")]
 [assembly: System.Reflection.AssemblyProductAttribute("BEPUphysics1int-Godot-Base-Project")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BEPUphysics1int-Godot-Base-Project")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -9,8 +9,9 @@ namespace Deterministic.FixedPoint {
 	[StructLayout(LayoutKind.Explicit, Size = SIZE)]
 	public struct fp : IEquatable<fp>, IComparable<fp> {
 		public const int SIZE = 8;
+    const int NUM_BITS = 64;
 
-		public static readonly fp max        = new fp(long.MaxValue);
+    public static readonly fp max        = new fp(long.MaxValue);
 		public static readonly fp min        = new fp(long.MinValue);
 		public static readonly fp usable_max = new fp(2147483648L);
 		public static readonly fp usable_min = -usable_max;
@@ -141,10 +142,78 @@ namespace Deterministic.FixedPoint {
 			return b;
 		}
 
+		//[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		//public static fp operator /(fp a, fp b) {
+		//	a.value = (a.value << fixlut.PRECISION) / b.value;
+		//	return a;
+		//}
+
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static fp operator /(fp a, fp b) {
-			a.value = (a.value << fixlut.PRECISION) / b.value;
-			return a;
+		static int CountLeadingZeroes(ulong x)
+		{
+			int result = 0;
+			while ((x & 0xF000000000000000) == 0) { result += 4; x <<= 4; }
+			while ((x & 0x8000000000000000) == 0) { result += 1; x <<= 1; }
+			return result;
+		}
+
+		public static fp operator /(fp x, fp y)
+		{
+			var xl = x.value;
+			var yl = y.value;
+
+			if (yl == 0)
+			{
+				return max;
+				throw new DivideByZeroException();
+			}
+
+			var remainder = (ulong)(xl >= 0 ? xl : -xl);
+			var divider = (ulong)(yl >= 0 ? yl : -yl);
+			var quotient = 0UL;
+			var bitPos = NUM_BITS / 2 + 1;
+
+
+			// If the divider is divisible by 2^n, take advantage of it.
+			while ((divider & 0xF) == 0 && bitPos >= 4)
+			{
+				divider >>= 4;
+				bitPos -= 4;
+			}
+
+			while (remainder != 0 && bitPos >= 0)
+			{
+				int shift = CountLeadingZeroes(remainder);
+				if (shift > bitPos)
+				{
+					shift = bitPos;
+				}
+				remainder <<= shift;
+				bitPos -= shift;
+
+				var div = remainder / divider;
+				remainder = remainder % divider;
+				quotient += div << bitPos;
+
+				// Detect overflow
+				if ((div & ~(0xFFFFFFFFFFFFFFFF >> bitPos)) != 0)
+				{
+					return ((xl ^ yl) & long.MinValue) == 0 ? max : min;
+				}
+
+				remainder <<= 1;
+				--bitPos;
+			}
+
+			// Rounding
+			++quotient;
+			var result = (long)(quotient >> 1);
+			if (((xl ^ yl) & long.MinValue) != 0)
+			{
+				result = -result;
+			}
+
+			return new fp(result);
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -159,10 +228,27 @@ namespace Deterministic.FixedPoint {
 			return b;
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static fp operator %(fp a, fp b) {
-			a.value %= b.value;
-			return a;
+		//[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		//public static fp operator %(fp a, fp b) {
+		//	a.value %= b.value;
+		//	return a;
+		//}
+
+		public static fp operator %(fp x, fp y)
+		{
+			return new fp(
+					x.value == long.MinValue & y.value == -1 ?
+					0 :
+					x.value % y.value);
+		}
+
+    // <summary>
+    // Performs modulo as fast as possible; throws if x == MinValue and y == -1.
+    // Use the operator (%) for a more reliable but slower modulo.
+    // </summary> 
+		public static fp FastMod(fp x, fp y)
+		{
+			return new fp(x.value % y.value);
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
