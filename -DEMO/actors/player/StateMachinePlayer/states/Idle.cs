@@ -7,6 +7,7 @@ using BEPUphysics;
 using BEPUphysics.Entities;
 using BEPUutilities;
 using BEPUphysics.BroadPhaseEntries.MobileCollidables;
+using Deterministic.FixedPoint;
 
 
 public partial class Idle : StatePlayer
@@ -58,10 +59,10 @@ public partial class Idle : StatePlayer
 
 		// Calculate Y Velocity
 		if (owner.IsGrounded && !owner.IsJumping) {
-			velocity.Y = -owner.physicsHandler.Gravity.Y * (Fix64)(1/60m); // Don't push the character towards the ground if they are grounded
+			velocity.Y = -owner.physicsHandler.Gravity.Y * (fp)(1/60m); // Don't push the character towards the ground if they are grounded
 		}
 		else {
-			velocity.Y = owner.Body.LinearVelocity.Y + (owner.Weight * owner.physicsHandler.Gravity.Y * (Fix64)(1/60m) - owner.physicsHandler.Gravity.Y * (Fix64)(1/60m));
+			velocity.Y = owner.Body.LinearVelocity.Y + (owner.Weight * owner.physicsHandler.Gravity.Y * (fp)(1/60m) - owner.physicsHandler.Gravity.Y * (fp)(1/60m));
 		}
 
 		// Apply velocity

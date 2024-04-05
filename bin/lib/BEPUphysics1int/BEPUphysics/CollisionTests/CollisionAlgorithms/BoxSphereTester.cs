@@ -4,6 +4,7 @@ using BEPUutilities;
  
 using BEPUphysics.Settings;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.CollisionTests.CollisionAlgorithms
 {
@@ -40,7 +41,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
 
             Vector3 offset;
             Vector3.Subtract(ref spherePosition, ref contact.Position, out offset);
-            Fix64 offsetLength = offset.LengthSquared();
+            fp offsetLength = offset.LengthSquared();
 
             if (offsetLength > (sphere.collisionMargin + CollisionDetectionSettings.maximumContactDistance) * (sphere.collisionMargin + CollisionDetectionSettings.maximumContactDistance))
             {
@@ -50,7 +51,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
             //Colliding.
             if (offsetLength > Toolbox.Epsilon)
             {
-                offsetLength = Fix64.Sqrt(offsetLength);
+                offsetLength = fixmath.Sqrt(offsetLength);
                 //Outside of the box.
                 Vector3.Divide(ref offset, offsetLength, out contact.Normal);
                 contact.PenetrationDepth = sphere.collisionMargin - offsetLength;

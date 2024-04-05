@@ -1,5 +1,6 @@
 ﻿using BEPUphysics.Materials;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.Vehicle
 {
@@ -11,7 +12,7 @@ namespace BEPUphysics.Vehicle
     /// <param name="usingKineticFriction">True if the friction coefficients passed into the blender are kinetic coefficients, false otherwise.</param>
     /// <param name="wheel">Wheel being blended.</param>
     /// <returns>Blended friction coefficient.</returns>
-    public delegate Fix64 WheelFrictionBlender(Fix64 wheelFriction, Fix64 materialFriction, bool usingKineticFriction, Wheel wheel);
+    public delegate fp WheelFrictionBlender(fp wheelFriction, fp materialFriction, bool usingKineticFriction, Wheel wheel);
 
 
 }

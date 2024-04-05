@@ -6,6 +6,7 @@ using BEPUphysics;
 using BEPUphysics.Entities;
 using BEPUutilities;
 using BEPUphysics.BroadPhaseEntries.MobileCollidables;
+using Deterministic.FixedPoint;
 
 
 public partial class cameraRigPlayer : Node3D
@@ -16,7 +17,7 @@ public partial class cameraRigPlayer : Node3D
 	public BEPUutilities.Vector2 cameraRotation = new BEPUutilities.Vector2();
 	public BEPUutilities.Vector2 cameraDir = new BEPUutilities.Vector2();
 
-	Fix64 sensitivity = 1.6m;
+	fp sensitivity = (fp)1.6m;
 	BEPUutilities.Vector2 rotationLimit = new BEPUutilities.Vector2(90, 360);
 
 	Node3D Pivot;
@@ -30,8 +31,8 @@ public partial class cameraRigPlayer : Node3D
 	public override void _PhysicsProcess(double delta)
 	{
 		inputDirRight = inputHandler.GetJoyAxisRight();
-		cameraDir.X = (Fix64)Pivot.GlobalTransform.Basis.Z.X;
-		cameraDir.Y = (Fix64)Pivot.GlobalTransform.Basis.Z.Y;
+		cameraDir.X = (fp)Pivot.GlobalTransform.Basis.Z.X;
+		cameraDir.Y = (fp)Pivot.GlobalTransform.Basis.Z.Y;
 
 		MoveCamera();
 	}
@@ -46,17 +47,17 @@ public partial class cameraRigPlayer : Node3D
 		cameraRotation += rotAmount;
 
 		// Correct rotation if it goes past 360 degrees
-		if (cameraRotation.X >= (Fix64)360) {
-			cameraRotation.X -= (Fix64)360;
+		if (cameraRotation.X >= (fp)360) {
+			cameraRotation.X -= (fp)360;
 		}
-		if (cameraRotation.X <= (Fix64)(-360)) {
-			cameraRotation.X += (Fix64)360;
+		if (cameraRotation.X <= (fp)(-360)) {
+			cameraRotation.X += (fp)360;
 		}
-		if (cameraRotation.Y >= (Fix64)360) {
-			cameraRotation.Y -= (Fix64)360;
+		if (cameraRotation.Y >= (fp)360) {
+			cameraRotation.Y -= (fp)360;
 		}
-		if (cameraRotation.Y <= (Fix64)(-360)) {
-			cameraRotation.Y += (Fix64)360;
+		if (cameraRotation.Y <= (fp)(-360)) {
+			cameraRotation.Y += (fp)360;
 		}
 
 		// Limit rotation
@@ -73,8 +74,8 @@ public partial class cameraRigPlayer : Node3D
 			cameraRotation.Y = -rotationLimit.Y;
 		}
 
-		Set("rotation", new Godot.Vector3(0,(float)(cameraRotation.Y * (Fix64)0.0174533m),0));
-		Pivot.Set("rotation", new Godot.Vector3((float)(cameraRotation.X * (Fix64)0.0174533m),0,0));
+		Set("rotation", new Godot.Vector3(0,(float)(cameraRotation.Y * (fp)0.0174533m),0));
+		Pivot.Set("rotation", new Godot.Vector3((float)(cameraRotation.X * (fp)0.0174533m),0,0));
 	}
 }
 

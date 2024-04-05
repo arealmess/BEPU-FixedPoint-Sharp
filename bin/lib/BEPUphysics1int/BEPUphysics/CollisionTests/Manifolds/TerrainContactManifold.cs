@@ -5,6 +5,7 @@ using BEPUphysics.CollisionShapes.ConvexShapes;
 using BEPUutilities;
 using BEPUutilities.DataStructures;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.CollisionTests.Manifolds
 {
@@ -28,7 +29,7 @@ namespace BEPUphysics.CollisionTests.Manifolds
             }
         }
 
-        protected internal override int FindOverlappingTriangles(Fix64 dt)
+        protected internal override int FindOverlappingTriangles(fp dt)
         {
             BoundingBox boundingBox;
             convex.Shape.GetLocalBoundingBox(ref convex.worldTransform, ref terrain.worldTransform, out boundingBox);
@@ -113,7 +114,7 @@ namespace BEPUphysics.CollisionTests.Manifolds
                 {
                     //Found a hit!
                     rayHit.Normal.Normalize();
-                    Fix64 dot;
+                    fp dot;
                     Vector3.Dot(ref ray.Direction, ref rayHit.Normal, out dot);
 
                     var newContact = new ContactData

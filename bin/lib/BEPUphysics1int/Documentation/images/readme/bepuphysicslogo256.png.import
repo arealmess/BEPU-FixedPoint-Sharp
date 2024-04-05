@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bjlsos8ct7cr4"
-path="res://.godot/imported/bepuphysicslogo256.png-2c32599c0d6cb4121ff457a7fffa9e89.ctex"
+path="res://.godot/imported/bepuphysicslogo256.png-a72f05b5b96d467770b2a7dd9157f198.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://bin/lib/BEPUphysics1int/Documentation/images/readme/bepuphysicslogo256.png"
-dest_files=["res://.godot/imported/bepuphysicslogo256.png-2c32599c0d6cb4121ff457a7fffa9e89.ctex"]
+source_file="res://bin/BEPUphysics1int/Documentation/images/readme/bepuphysicslogo256.png"
+dest_files=["res://.godot/imported/bepuphysicslogo256.png-a72f05b5b96d467770b2a7dd9157f198.ctex"]
 
 [params]
 

@@ -3,6 +3,7 @@ using System;
 
 using FixMath.NET;
 using BEPUutilities;
+using Deterministic.FixedPoint;
 
 [Tool]
 public partial class ColShapeMesh : Shape
@@ -74,9 +75,9 @@ public partial class ColShapeMesh : Shape
 
 		// Extract the 3 points from each vertex, convert to raw 64bit values
 		for (int i = 0; i < verticesFloat.Length; i++) {
-			points[(3*i)] = ((Fix64)verticesFloat[i].X).RawValue;
-			points[(3*i)+1] = ((Fix64)verticesFloat[i].Y).RawValue;
-			points[(3*i)+2] = ((Fix64)verticesFloat[i].Z).RawValue;
+			points[(3*i)] = ((fp)verticesFloat[i].X).value;
+			points[(3*i)+1] = ((fp)verticesFloat[i].Y).value;
+			points[(3*i)+2] = ((fp)verticesFloat[i].Z).value;
 		}
 
 		return points;

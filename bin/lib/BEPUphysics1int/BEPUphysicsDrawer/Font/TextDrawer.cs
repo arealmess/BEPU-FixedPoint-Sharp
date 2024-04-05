@@ -3,6 +3,7 @@ using System.Globalization;
 using FixMath.NET;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysicsDrawer.Font
 {
@@ -86,7 +87,7 @@ namespace BEPUphysicsDrawer.Font
 		/// <param name="text">Text to draw.</param>
 		/// <param name="value">Number to draw.</param>
 		/// <param name="position">Position to draw the text at.</param>
-		public void Draw(string text, Fix64 value, Vector2 position)
+		public void Draw(string text, fp value, Vector2 position)
 		{
 			Draw(text, (double)value, position);
 		}

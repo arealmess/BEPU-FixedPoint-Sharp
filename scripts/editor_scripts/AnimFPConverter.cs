@@ -11,7 +11,7 @@ using BEPUphysics.BroadPhaseEntries.MobileCollidables;
 
 
 [Tool]
-public partial class AnimFix64Converter : EditorScript
+public partial class AnimFPConverter : EditorScript
 {
 	// Folder path takes precedence over anim path
 	string animPath = "";
@@ -110,9 +110,9 @@ public partial class AnimFix64Converter : EditorScript
 
 			// Get value for each individual frame before the keyframe
 			Godot.Vector3 keyFrameValue = (((Godot.Vector3)anim.TrackGetKeyValue(trackIdx, i)) / frameWindow) * 60;
-			long x = Util.Float64ToFix64Raw(keyFrameValue.X);
-			long y = Util.Float64ToFix64Raw(keyFrameValue.Y);
-			long z = Util.Float64ToFix64Raw(keyFrameValue.Z);
+			long x = Util.Float64ToFPRaw(keyFrameValue.X);
+			long y = Util.Float64ToFPRaw(keyFrameValue.Y);
+			long z = Util.Float64ToFPRaw(keyFrameValue.Z);
 
 			Godot.Collections.Dictionary frameValue = new Godot.Collections.Dictionary();
 			Godot.Collections.Array valueArray = new Godot.Collections.Array();

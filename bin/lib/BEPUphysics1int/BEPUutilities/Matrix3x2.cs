@@ -1,6 +1,7 @@
 ﻿
 
 
+using Deterministic.FixedPoint;
 using FixMath.NET;
 
 namespace BEPUutilities
@@ -13,32 +14,32 @@ namespace BEPUutilities
         /// <summary>
         /// Value at row 1, column 1 of the matrix.
         /// </summary>
-        public Fix64 M11;
+        public fp M11;
 
         /// <summary>
         /// Value at row 1, column 2 of the matrix.
         /// </summary>
-        public Fix64 M12;
+        public fp M12;
 
         /// <summary>
         /// Value at row 2, column 1 of the matrix.
         /// </summary>
-        public Fix64 M21;
+        public fp M21;
 
         /// <summary>
         /// Value at row 2, column 2 of the matrix.
         /// </summary>
-        public Fix64 M22;
+        public fp M22;
 
         /// <summary>
         /// Value at row 3, column 1 of the matrix.
         /// </summary>
-        public Fix64 M31;
+        public fp M31;
 
         /// <summary>
         /// Value at row 3, column 2 of the matrix.
         /// </summary>
-        public Fix64 M32;
+        public fp M32;
 
 
         /// <summary>
@@ -50,7 +51,7 @@ namespace BEPUutilities
         /// <param name="m22">Value at row 2, column 2 of the matrix.</param>
         /// <param name="m31">Value at row 2, column 1 of the matrix.</param>
         /// <param name="m32">Value at row 2, column 2 of the matrix.</param>
-        public Matrix3x2(Fix64 m11, Fix64 m12, Fix64 m21, Fix64 m22, Fix64 m31, Fix64 m32)
+        public Matrix3x2(fp m11, fp m12, fp m21, fp m22, fp m31, fp m32)
         {
             M11 = m11;
             M12 = m12;
@@ -69,14 +70,14 @@ namespace BEPUutilities
         /// <param name="result">Sum of the two matrices.</param>
         public static void Add(ref Matrix3x2 a, ref Matrix3x2 b, out Matrix3x2 result)
         {
-            Fix64 m11 = a.M11 + b.M11;
-            Fix64 m12 = a.M12 + b.M12;
+            fp m11 = a.M11 + b.M11;
+            fp m12 = a.M12 + b.M12;
 
-            Fix64 m21 = a.M21 + b.M21;
-            Fix64 m22 = a.M22 + b.M22;
+            fp m21 = a.M21 + b.M21;
+            fp m22 = a.M22 + b.M22;
 
-            Fix64 m31 = a.M31 + b.M31;
-            Fix64 m32 = a.M32 + b.M32;
+            fp m31 = a.M31 + b.M31;
+            fp m32 = a.M32 + b.M32;
 
             result.M11 = m11;
             result.M12 = m12;
@@ -96,14 +97,14 @@ namespace BEPUutilities
         /// <param name="result">Product of the multiplication.</param>
         public static void Multiply(ref Matrix3x3 a, ref Matrix3x2 b, out Matrix3x2 result)
         {
-            Fix64 resultM11 = a.M11 * b.M11 + a.M12 * b.M21 + a.M13 * b.M31;
-            Fix64 resultM12 = a.M11 * b.M12 + a.M12 * b.M22 + a.M13 * b.M32;
+            fp resultM11 = a.M11 * b.M11 + a.M12 * b.M21 + a.M13 * b.M31;
+            fp resultM12 = a.M11 * b.M12 + a.M12 * b.M22 + a.M13 * b.M32;
 
-            Fix64 resultM21 = a.M21 * b.M11 + a.M22 * b.M21 + a.M23 * b.M31;
-            Fix64 resultM22 = a.M21 * b.M12 + a.M22 * b.M22 + a.M23 * b.M32;
+            fp resultM21 = a.M21 * b.M11 + a.M22 * b.M21 + a.M23 * b.M31;
+            fp resultM22 = a.M21 * b.M12 + a.M22 * b.M22 + a.M23 * b.M32;
 
-            Fix64 resultM31 = a.M31 * b.M11 + a.M32 * b.M21 + a.M33 * b.M31;
-            Fix64 resultM32 = a.M31 * b.M12 + a.M32 * b.M22 + a.M33 * b.M32;
+            fp resultM31 = a.M31 * b.M11 + a.M32 * b.M21 + a.M33 * b.M31;
+            fp resultM32 = a.M31 * b.M12 + a.M32 * b.M22 + a.M33 * b.M32;
 
             result.M11 = resultM11;
             result.M12 = resultM12;
@@ -123,14 +124,14 @@ namespace BEPUutilities
         /// <param name="result">Product of the multiplication.</param>
         public static void Multiply(ref Matrix a, ref Matrix3x2 b, out Matrix3x2 result)
         {
-            Fix64 resultM11 = a.M11 * b.M11 + a.M12 * b.M21 + a.M13 * b.M31;
-            Fix64 resultM12 = a.M11 * b.M12 + a.M12 * b.M22 + a.M13 * b.M32;
+            fp resultM11 = a.M11 * b.M11 + a.M12 * b.M21 + a.M13 * b.M31;
+            fp resultM12 = a.M11 * b.M12 + a.M12 * b.M22 + a.M13 * b.M32;
 
-            Fix64 resultM21 = a.M21 * b.M11 + a.M22 * b.M21 + a.M23 * b.M31;
-            Fix64 resultM22 = a.M21 * b.M12 + a.M22 * b.M22 + a.M23 * b.M32;
+            fp resultM21 = a.M21 * b.M11 + a.M22 * b.M21 + a.M23 * b.M31;
+            fp resultM22 = a.M21 * b.M12 + a.M22 * b.M22 + a.M23 * b.M32;
 
-            Fix64 resultM31 = a.M31 * b.M11 + a.M32 * b.M21 + a.M33 * b.M31;
-            Fix64 resultM32 = a.M31 * b.M12 + a.M32 * b.M22 + a.M33 * b.M32;
+            fp resultM31 = a.M31 * b.M11 + a.M32 * b.M21 + a.M33 * b.M31;
+            fp resultM32 = a.M31 * b.M12 + a.M32 * b.M22 + a.M33 * b.M32;
 
             result.M11 = resultM11;
             result.M12 = resultM12;
@@ -149,14 +150,14 @@ namespace BEPUutilities
         /// <param name="result">Negated matrix.</param>
         public static void Negate(ref Matrix3x2 matrix, out Matrix3x2 result)
         {
-            Fix64 m11 = -matrix.M11;
-            Fix64 m12 = -matrix.M12;
+            fp m11 = -matrix.M11;
+            fp m12 = -matrix.M12;
 
-            Fix64 m21 = -matrix.M21;
-            Fix64 m22 = -matrix.M22;
+            fp m21 = -matrix.M21;
+            fp m22 = -matrix.M22;
 
-            Fix64 m31 = -matrix.M31;
-            Fix64 m32 = -matrix.M32;
+            fp m31 = -matrix.M31;
+            fp m32 = -matrix.M32;
 
             result.M11 = m11;
             result.M12 = m12;
@@ -176,14 +177,14 @@ namespace BEPUutilities
         /// <param name="result">Difference of the two matrices.</param>
         public static void Subtract(ref Matrix3x2 a, ref Matrix3x2 b, out Matrix3x2 result)
         {
-            Fix64 m11 = a.M11 - b.M11;
-            Fix64 m12 = a.M12 - b.M12;
+            fp m11 = a.M11 - b.M11;
+            fp m12 = a.M12 - b.M12;
 
-            Fix64 m21 = a.M21 - b.M21;
-            Fix64 m22 = a.M22 - b.M22;
+            fp m21 = a.M21 - b.M21;
+            fp m22 = a.M22 - b.M22;
 
-            Fix64 m31 = a.M31 - b.M31;
-            Fix64 m32 = a.M32 - b.M32;
+            fp m31 = a.M31 - b.M31;
+            fp m32 = a.M32 - b.M32;
 
             result.M11 = m11;
             result.M12 = m12;

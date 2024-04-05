@@ -8,6 +8,7 @@ using BEPUphysics.Entities;
 using BEPUutilities;
 //using BEPUphysics.BroadPhaseEntries.MobileCollidables;
 using BEPUphysics.BroadPhaseEntries;
+using Deterministic.FixedPoint;
 
 
 [Tool]
@@ -19,9 +20,9 @@ public partial class Player : CharacterBody
 	public cameraRigPlayer cameraRig;
 	public BEPUutilities.Vector2 cameraRotation;
 
-	public Fix64 Speed = 14;
-	public Fix64 JumpVelocity = 20m;
-	public Fix64 Weight = 4.0m;  // m specifies that this is a decimal value
+	public fp Speed = 14;
+	public fp JumpVelocity = (fp)20m;
+	public fp Weight = (fp)4.0m;  // m specifies that this is a decimal value
 
 	public override void _Ready()
 	{
@@ -59,7 +60,7 @@ public partial class Player : CharacterBody
 		BEPUutilities.Vector2 direction = new BEPUutilities.Vector2(valueNew.X, valueNew.Z);
 		BEPUutilities.Vector3 velocity;
 
-		direction.Rotate(-cameraRotation.Y * (Fix64)0.0174533m);
+		direction.Rotate(-cameraRotation.Y * (fp)0.0174533m);
 
 		velocity = new BEPUutilities.Vector3(direction.X, valueNew.Y, direction.Y);
 

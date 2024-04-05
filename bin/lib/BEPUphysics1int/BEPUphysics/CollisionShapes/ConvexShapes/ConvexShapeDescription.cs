@@ -1,4 +1,5 @@
-﻿using FixMath.NET;
+﻿using Deterministic.FixedPoint;
+using FixMath.NET;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,17 +21,17 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
         /// Minimum radius of the convex shape.
         /// Must be contained fully by the shape when centered at the origin.
         /// </summary>
-        public Fix64 MinimumRadius;
+        public fp MinimumRadius;
 
         /// <summary>
         /// Maximum radius of the convex shape.
         /// Must contain the shape fully when centered at the origin.
         /// </summary>
-        public Fix64 MaximumRadius;
+        public fp MaximumRadius;
 
         /// <summary>
         /// Collision margin of the convex shape.
         /// </summary>
-        public Fix64 CollisionMargin;
+        public fp CollisionMargin;
     }
 }

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c4xil8ivkdbt5"
-path="res://.godot/imported/compoundevents.png-2a132104b25a059b8cf899f15b420033.ctex"
+path="res://.godot/imported/compoundevents.png-59a98751cf5e725ada336d7d5d61262c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://bin/lib/BEPUphysics1int/Documentation/images/collision events/compoundevents.png"
-dest_files=["res://.godot/imported/compoundevents.png-2a132104b25a059b8cf899f15b420033.ctex"]
+source_file="res://bin/BEPUphysics1int/Documentation/images/collision events/compoundevents.png"
+dest_files=["res://.godot/imported/compoundevents.png-59a98751cf5e725ada336d7d5d61262c.ctex"]
 
 [params]
 

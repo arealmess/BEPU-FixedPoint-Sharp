@@ -7,6 +7,8 @@ using BEPUphysics.Entities;
 using BEPUutilities;
 using BEPUphysics.BroadPhaseEntries.MobileCollidables;
 
+using Deterministic.FixedPoint;
+
 
 public partial class PhysicsDemoSpace : Level
 {
@@ -23,7 +25,7 @@ public partial class PhysicsDemoSpace : Level
 	{
 		base._PhysicsProcess(delta);
 
-		if (global.Player.Body.Position.Y < (Fix64)(-72)) {
+		if (global.Player.Body.Position.Y < (fp)(-72)) {
 			global.Player.Body.Position = (new BEPUutilities.Vector3(0,0,16)) + global.Player.colShape.PosOffset;
 		}
 	}

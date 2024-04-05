@@ -1,4 +1,5 @@
-﻿using FixMath.NET;
+﻿using Deterministic.FixedPoint;
+using FixMath.NET;
 
 namespace BEPUphysics.Materials
 {
@@ -10,14 +11,14 @@ namespace BEPUphysics.Materials
         ///<summary>
         /// Kinetic friction between the pair of objects.
         ///</summary>
-        public Fix64 KineticFriction;
+        public fp KineticFriction;
         ///<summary>
         /// Static friction between the pair of objects.
         ///</summary>
-        public Fix64 StaticFriction;
+        public fp StaticFriction;
         ///<summary>
         /// Bounciness between the pair of objects.
         ///</summary>
-        public Fix64 Bounciness;
+        public fp Bounciness;
     }
 }

@@ -3,17 +3,18 @@ using System;
 
 using FixMath.NET;
 using BEPUutilities;
+using Deterministic.FixedPoint;
 
 [Tool]
 public partial class ColShapeSphere : Shape
 {
-	public Fix64 Radius = ((Fix64)1 / (Fix64)2);
+	public fp Radius = ((fp)1 / (fp)2);
 	[Export]
 	private float radius {
 		get => (float)Fix64.FromRaw(RadiusRaw);
 		set {
 			if (Engine.IsEditorHint()) {  // Avoid any float values changing fixed point raw values when the game runs
-				RadiusRaw = ((Fix64)value).RawValue;
+				RadiusRaw = ((fp)value).value;
 			}
 
 			((SphereMesh)Mesh).Radius = (float)radius;
@@ -21,7 +22,7 @@ public partial class ColShapeSphere : Shape
 		}
 	}
 
-	private long RadiusRaw = ((Fix64)1 / (Fix64)2).RawValue;
+	private long RadiusRaw = ((fp)1 / (fp)2).value;
 	[Export]
 	private long radiusRaw {
 		get => RadiusRaw;

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ba1yrfuv85ida"
-path="res://.godot/imported/lineslider.png-1eef5da8e408730ae127e7efc2bfe22a.ctex"
+path="res://.godot/imported/lineslider.png-96896e7bd1223a2fab6ab1f0c87fcd81.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://bin/lib/BEPUphysics1int/Documentation/images/joints and constraints/lineslider.png"
-dest_files=["res://.godot/imported/lineslider.png-1eef5da8e408730ae127e7efc2bfe22a.ctex"]
+source_file="res://bin/BEPUphysics1int/Documentation/images/joints and constraints/lineslider.png"
+dest_files=["res://.godot/imported/lineslider.png-96896e7bd1223a2fab6ab1f0c87fcd81.ctex"]
 
 [params]
 

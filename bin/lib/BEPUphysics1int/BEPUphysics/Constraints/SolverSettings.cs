@@ -1,4 +1,5 @@
 ﻿using BEPUutilities;
+using Deterministic.FixedPoint;
 using FixMath.NET;
 using System;
 
@@ -18,7 +19,7 @@ namespace BEPUphysics.Constraints
 
         internal int minimumIterationCount = DefaultMinimumIterationCount;
 
-        internal Fix64 minimumImpulse = DefaultMinimumImpulse;
+        internal fp minimumImpulse = DefaultMinimumImpulse;
         internal int iterationsAtZeroImpulse;
 
         /// <summary>
@@ -49,7 +50,7 @@ namespace BEPUphysics.Constraints
         /// against the MinimumIterations property.  If there's been too many tiny impulses in a row, then the system will stop trying to solve to save time.
         /// Higher values will allow the system to give up earlier, but can harm accuracy.
         /// </summary>
-        public Fix64 MinimumImpulse
+        public fp MinimumImpulse
         {
             get { return minimumImpulse; }
             set { minimumImpulse = MathHelper.Max(value, F64.C0); }
@@ -61,7 +62,7 @@ namespace BEPUphysics.Constraints
         /// High values quicken the short circuit but can cause instability, while low values will often prevent short circuiting, possibly increasing accuracy but harming performance.
         /// Defaults to .001f.
         /// </summary>
-        public static Fix64 DefaultMinimumImpulse = (Fix64).001m;
+        public static fp DefaultMinimumImpulse = (fp).001m;
 
         /// <summary>
         /// The value to assign to new constraints' SolverSettings.MinimumIterations.

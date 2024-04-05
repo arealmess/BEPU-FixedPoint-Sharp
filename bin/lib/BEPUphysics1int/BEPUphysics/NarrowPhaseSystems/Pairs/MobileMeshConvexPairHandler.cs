@@ -11,10 +11,6 @@ namespace BEPUphysics.NarrowPhaseSystems.Pairs
         protected internal override MobileMeshContactManifold MeshManifold
         {
             get { return contactManifold; }
-        }
-
-
-
-    }
-
+        } 
+    } 
 }

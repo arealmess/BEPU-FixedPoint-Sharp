@@ -7,6 +7,7 @@ using BEPUphysics.CollisionTests.CollisionAlgorithms;
 using BEPUphysics.OtherSpaceStages;
 using RigidTransform = BEPUutilities.RigidTransform;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.BroadPhaseEntries
 {
@@ -157,7 +158,7 @@ namespace BEPUphysics.BroadPhaseEntries
         /// <param name="maximumLength">Maximum length, in units of the ray's direction's length, to test.</param>
         /// <param name="rayHit">Hit location of the ray on the entry, if any.</param>
         /// <returns>Whether or not the ray hit the entry.</returns>
-        public override bool RayCast(Ray ray, Fix64 maximumLength, out RayHit rayHit)
+        public override bool RayCast(Ray ray, fp maximumLength, out RayHit rayHit)
         {
             return RayCast(ray, maximumLength, sidedness, out rayHit);
         }
@@ -170,7 +171,7 @@ namespace BEPUphysics.BroadPhaseEntries
         ///<param name="sidedness">Sidedness to use during the ray cast.  This does not have to be the same as the mesh's sidedness.</param>
         ///<param name="rayHit">The hit location of the ray on the mesh, if any.</param>
         ///<returns>Whether or not the ray hit the mesh.</returns>
-        public bool RayCast(Ray ray, Fix64 maximumLength, TriangleSidedness sidedness, out RayHit rayHit)
+        public bool RayCast(Ray ray, fp maximumLength, TriangleSidedness sidedness, out RayHit rayHit)
         {
             //Put the ray into local space.
             Ray localRay;
@@ -182,8 +183,8 @@ namespace BEPUphysics.BroadPhaseEntries
             if (Shape.TriangleMesh.RayCast(localRay, maximumLength, sidedness, out rayHit))
             {
                 //Transform the hit into world space.
-                BEPUutilities.Vector3.Multiply(ref ray.Direction, rayHit.T, out rayHit.Location);
-                BEPUutilities.Vector3.Add(ref rayHit.Location, ref ray.Position, out rayHit.Location);
+                Vector3.Multiply(ref ray.Direction, rayHit.T, out rayHit.Location);
+                Vector3.Add(ref rayHit.Location, ref ray.Position, out rayHit.Location);
                 Matrix3x3.TransformTranspose(ref rayHit.Normal, ref inverse.LinearTransform, out rayHit.Normal);
                 return true;
             }
@@ -199,7 +200,7 @@ namespace BEPUphysics.BroadPhaseEntries
         /// <param name="sweep">Sweep to apply to the shape.</param>
         /// <param name="hit">Hit data, if any.</param>
         /// <returns>Whether or not the cast hit anything.</returns>
-        public override bool ConvexCast(CollisionShapes.ConvexShapes.ConvexShape castShape, ref RigidTransform startingTransform, ref BEPUutilities.Vector3 sweep, out RayHit hit)
+        public override bool ConvexCast(CollisionShapes.ConvexShapes.ConvexShape castShape, ref RigidTransform startingTransform, ref Vector3 sweep, out RayHit hit)
         {
             hit = new RayHit();
             BoundingBox boundingBox;
@@ -215,21 +216,21 @@ namespace BEPUphysics.BroadPhaseEntries
                     AffineTransform.Transform(ref tri.vA, ref worldTransform, out tri.vA);
                     AffineTransform.Transform(ref tri.vB, ref worldTransform, out tri.vB);
                     AffineTransform.Transform(ref tri.vC, ref worldTransform, out tri.vC);
-                    BEPUutilities.Vector3 center;
-                    BEPUutilities.Vector3.Add(ref tri.vA, ref tri.vB, out center);
-                    BEPUutilities.Vector3.Add(ref center, ref tri.vC, out center);
-                    BEPUutilities.Vector3.Multiply(ref center, F64.OneThird, out center);
-                    BEPUutilities.Vector3.Subtract(ref tri.vA, ref center, out tri.vA);
-                    BEPUutilities.Vector3.Subtract(ref tri.vB, ref center, out tri.vB);
-                    BEPUutilities.Vector3.Subtract(ref tri.vC, ref center, out tri.vC);
+                    Vector3 center;
+                    Vector3.Add(ref tri.vA, ref tri.vB, out center);
+                    Vector3.Add(ref center, ref tri.vC, out center);
+                    Vector3.Multiply(ref center, F64.OneThird, out center);
+                    Vector3.Subtract(ref tri.vA, ref center, out tri.vA);
+                    Vector3.Subtract(ref tri.vB, ref center, out tri.vB);
+                    Vector3.Subtract(ref tri.vC, ref center, out tri.vC);
                     tri.MaximumRadius = tri.vA.LengthSquared();
-					Fix64 radius = tri.vB.LengthSquared();
+					fp radius = tri.vB.LengthSquared();
                     if (tri.MaximumRadius < radius)
                         tri.MaximumRadius = radius;
                     radius = tri.vC.LengthSquared();
                     if (tri.MaximumRadius < radius)
                         tri.MaximumRadius = radius;
-                    tri.MaximumRadius = Fix64.Sqrt(tri.MaximumRadius);
+                    tri.MaximumRadius = fixmath.Sqrt(tri.MaximumRadius);
                     tri.collisionMargin = F64.C0;
                     var triangleTransform = new RigidTransform { Orientation = Quaternion.Identity, Position = center };
                     RayHit tempHit;

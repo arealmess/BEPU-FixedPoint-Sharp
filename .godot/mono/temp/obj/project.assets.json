@@ -6895,19 +6895,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\infer\\.nuget\\packages\\": {}
+    "C:\\Users\\Rocky.000\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "A:\\D Drive Backup\\Media\\Creative Tools\\Godot Engine\\Godot 4\\Projects\\BEPUphysics1int-Godot\\BEPUphysics1int-Godot.csproj",
+      "projectUniqueName": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\BEPUphysics1int-Godot.csproj",
       "projectName": "BEPUphysics1int-Godot",
-      "projectPath": "A:\\D Drive Backup\\Media\\Creative Tools\\Godot Engine\\Godot 4\\Projects\\BEPUphysics1int-Godot\\BEPUphysics1int-Godot.csproj",
-      "packagesPath": "C:\\Users\\infer\\.nuget\\packages\\",
-      "outputPath": "A:\\D Drive Backup\\Media\\Creative Tools\\Godot Engine\\Godot 4\\Projects\\BEPUphysics1int-Godot\\.godot\\mono\\temp\\obj\\",
+      "projectPath": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\BEPUphysics1int-Godot.csproj",
+      "packagesPath": "C:\\Users\\Rocky.000\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\.godot\\mono\\temp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\infer\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Rocky.000\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6915,6 +6915,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\sdk\\7.0.403\\Sdks": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -6927,6 +6928,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -6977,12 +6983,26 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[6.0.27, 6.0.27]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[6.0.27, 6.0.27]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[6.0.27, 6.0.27]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
       }
     }
   }

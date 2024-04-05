@@ -4,6 +4,7 @@ using BEPUphysics.CollisionTests.Manifolds;
 
 using BEPUutilities;
 using BEPUutilities.DataStructures;
+using Deterministic.FixedPoint;
 using FixMath.NET;
 
 namespace BEPUphysics.CollisionShapes
@@ -14,13 +15,13 @@ namespace BEPUphysics.CollisionShapes
     ///</summary>
     public class TerrainShape : CollisionShape
     {
-        private Fix64[,] heights;
+        private fp[,] heights;
         //note: changing heights in array does not fire OnShapeChanged automatically.
         //Need to notify parent manually if you do it.
         ///<summary>
         /// Gets or sets the height field of the terrain shape.
         ///</summary>
-        public Fix64[,] Heights
+        public fp[,] Heights
         {
             get
             {
@@ -58,7 +59,7 @@ namespace BEPUphysics.CollisionShapes
         ///<param name="heights">Heights array used for the shape.</param>
         ///<param name="triangleOrganization">Triangle organization of each quad.</param>
         ///<exception cref="ArgumentException">Thrown if the heights array has less than 2x2 vertices.</exception>
-        public TerrainShape(Fix64[,] heights, QuadTriangleOrganization triangleOrganization)
+        public TerrainShape(fp[,] heights, QuadTriangleOrganization triangleOrganization)
         {
             if (heights.GetLength(0) <= 1 || heights.GetLength(1) <= 1)
             {
@@ -72,7 +73,7 @@ namespace BEPUphysics.CollisionShapes
         /// Constructs a TerrainShape.
         ///</summary>
         ///<param name="heights">Heights array used for the shape.</param>
-        public TerrainShape(Fix64[,] heights)
+        public TerrainShape(fp[,] heights)
             : this(heights, QuadTriangleOrganization.BottomLeftUpperRight)
         {
         }
@@ -89,7 +90,7 @@ namespace BEPUphysics.CollisionShapes
 #if !WINDOWS
             boundingBox = new BoundingBox();
 #endif
-            Fix64 minX = Fix64.MaxValue, maxX = -Fix64.MaxValue,
+            fp minX = Fix64.MaxValue, maxX = -Fix64.MaxValue,
                   minY = Fix64.MaxValue, maxY = -Fix64.MaxValue,
                   minZ = Fix64.MaxValue, maxZ = -Fix64.MaxValue;
             Vector3 minXvertex = new Vector3(),
@@ -158,7 +159,7 @@ namespace BEPUphysics.CollisionShapes
         ///<param name="transform">Transform to apply to the terrain shape during the test.</param>
         ///<param name="hit">Hit data of the ray cast, if any.</param>
         ///<returns>Whether or not the ray hit the transformed terrain shape.</returns>
-        public bool RayCast(ref Ray ray, Fix64 maximumLength, ref AffineTransform transform, out RayHit hit)
+        public bool RayCast(ref Ray ray, fp maximumLength, ref AffineTransform transform, out RayHit hit)
         {
             return RayCast(ref ray, maximumLength, ref transform, TriangleSidedness.Counterclockwise, out hit);
         }
@@ -171,7 +172,7 @@ namespace BEPUphysics.CollisionShapes
         ///<param name="sidedness">Sidedness of the triangles to use when raycasting.</param>
         ///<param name="hit">Hit data of the ray cast, if any.</param>
         ///<returns>Whether or not the ray hit the transformed terrain shape.</returns>
-        public bool RayCast(ref Ray ray, Fix64 maximumLength, ref AffineTransform transform, TriangleSidedness sidedness, out RayHit hit)
+        public bool RayCast(ref Ray ray, fp maximumLength, ref AffineTransform transform, TriangleSidedness sidedness, out RayHit hit)
         {
             hit = new RayHit();
             //Put the ray into local space.
@@ -184,18 +185,18 @@ namespace BEPUphysics.CollisionShapes
             //Use rasterizey traversal.
             //The origin is at 0,0,0 and the map goes +X, +Y, +Z.
             //if it's before the origin and facing away, or outside the max and facing out, early out.
-            Fix64 maxX = heights.GetLength(0) - 1;
-            Fix64 maxZ = heights.GetLength(1) - 1;
+            fp maxX = heights.GetLength(0) - 1;
+            fp maxZ = heights.GetLength(1) - 1;
 
             Vector3 progressingOrigin = localRay.Position;
-            Fix64 distance = F64.C0;
+            fp distance = F64.C0;
             //Check the outside cases first.
             if (progressingOrigin.X < F64.C0)
             {
                 if (localRay.Direction.X > F64.C0)
                 {
                     //Off the left side.
-                    Fix64 timeToMinX = -progressingOrigin.X / localRay.Direction.X;
+                    fp timeToMinX = -progressingOrigin.X / localRay.Direction.X;
                     distance += timeToMinX;
                     Vector3 increment;
                     Vector3.Multiply(ref localRay.Direction, timeToMinX, out increment);
@@ -209,7 +210,7 @@ namespace BEPUphysics.CollisionShapes
                 if (localRay.Direction.X < F64.C0)
                 {
                     //Off the left side.
-                    Fix64 timeToMinX = -(progressingOrigin.X - maxX) / localRay.Direction.X;
+                    fp timeToMinX = -(progressingOrigin.X - maxX) / localRay.Direction.X;
                     distance += timeToMinX;
                     Vector3 increment;
                     Vector3.Multiply(ref localRay.Direction, timeToMinX, out increment);
@@ -223,7 +224,7 @@ namespace BEPUphysics.CollisionShapes
             {
                 if (localRay.Direction.Z > F64.C0)
                 {
-                    Fix64 timeToMinZ = -progressingOrigin.Z / localRay.Direction.Z;
+                    fp timeToMinZ = -progressingOrigin.Z / localRay.Direction.Z;
                     distance += timeToMinZ;
                     Vector3 increment;
                     Vector3.Multiply(ref localRay.Direction, timeToMinZ, out increment);
@@ -236,7 +237,7 @@ namespace BEPUphysics.CollisionShapes
             {
                 if (localRay.Direction.Z < F64.C0)
                 {
-                    Fix64 timeToMinZ = -(progressingOrigin.Z - maxZ) / localRay.Direction.Z;
+                    fp timeToMinZ = -(progressingOrigin.Z - maxZ) / localRay.Direction.Z;
                     distance += timeToMinZ;
                     Vector3 increment;
                     Vector3.Multiply(ref localRay.Direction, timeToMinZ, out increment);
@@ -286,8 +287,8 @@ namespace BEPUphysics.CollisionShapes
 
                 //Don't bother doing ray intersection tests if the ray can't intersect it.
 
-                Fix64 highest = v1.Y;
-                Fix64 lowest = v1.Y;
+                fp highest = v1.Y;
+                fp lowest = v1.Y;
                 if (v2.Y > highest)
                     highest = v2.Y;
                 else if (v2.Y < lowest)
@@ -354,7 +355,7 @@ namespace BEPUphysics.CollisionShapes
 
                 //Move to the next cell.
 
-                Fix64 timeToX;
+                fp timeToX;
                 if (localRay.Direction.X < F64.C0)
                     timeToX = -(progressingOrigin.X - xCell) / localRay.Direction.X;
                 else if (localRay.Direction.X > F64.C0)
@@ -362,7 +363,7 @@ namespace BEPUphysics.CollisionShapes
                 else
                     timeToX = Fix64.MaxValue;
 
-                Fix64 timeToZ;
+                fp timeToZ;
                 if (localRay.Direction.Z < F64.C0)
                     timeToZ = -(progressingOrigin.Z - zCell) / localRay.Direction.Z;
                 else if (localRay.Direction.Z > F64.C0)
@@ -461,10 +462,10 @@ namespace BEPUphysics.CollisionShapes
         public void GetLocalNormal(int columnIndex, int rowIndex, out Vector3 normal)
         {
 
-            Fix64 topHeight = heights[columnIndex, Math.Min(rowIndex + 1, heights.GetLength(1) - 1)];
-            Fix64 bottomHeight = heights[columnIndex, Math.Max(rowIndex - 1, 0)];
-            Fix64 rightHeight = heights[Math.Min(columnIndex + 1, heights.GetLength(0) - 1), rowIndex];
-            Fix64 leftHeight = heights[Math.Max(columnIndex - 1, 0), rowIndex];
+            fp topHeight = heights[columnIndex, Math.Min(rowIndex + 1, heights.GetLength(1) - 1)];
+            fp bottomHeight = heights[columnIndex, Math.Max(rowIndex - 1, 0)];
+            fp rightHeight = heights[Math.Min(columnIndex + 1, heights.GetLength(0) - 1), rowIndex];
+            fp leftHeight = heights[Math.Max(columnIndex - 1, 0), rowIndex];
 
             //Since the horizontal offsets are known to be 1 in local space, we can omit quite a few operations compared to a full Vector3 and cross product.
 
@@ -474,13 +475,13 @@ namespace BEPUphysics.CollisionShapes
             //the result is then:
             //Vector3.Cross(bottomToTop, leftToRight);
             //Which is:
-            //Fix64 resultX = bottomToTop.Y * leftToRight.Z - bottomToTop.Z * leftToRight.Y;
-            //Fix64 resultY = bottomToTop.Z * leftToRight.X - bottomToTop.X * leftToRight.Z;
-            //Fix64 resultZ = bottomToTop.X * leftToRight.Y - bottomToTop.Y * leftToRight.X;
+            //fp resultX = bottomToTop.Y * leftToRight.Z - bottomToTop.Z * leftToRight.Y;
+            //fp resultY = bottomToTop.Z * leftToRight.X - bottomToTop.X * leftToRight.Z;
+            //fp resultZ = bottomToTop.X * leftToRight.Y - bottomToTop.Y * leftToRight.X;
             //Which becomes:
-            //Fix64 resultX = bottomToTop.Y * 0 - 2 * leftToRight.Y;
-            //Fix64 resultY = 2 * 2 - 0 * 0;
-            //Fix64 resultZ = 0 * leftToRight.Y - bottomToTop.Y * 2;
+            //fp resultX = bottomToTop.Y * 0 - 2 * leftToRight.Y;
+            //fp resultY = 2 * 2 - 0 * 0;
+            //fp resultZ = 0 * leftToRight.Y - bottomToTop.Y * 2;
             //Which becomes:
             normal.X = rightHeight - leftHeight;
             normal.Y = F64.C2;
@@ -507,11 +508,11 @@ namespace BEPUphysics.CollisionShapes
                 for (int j = minY; j <= maxY; j++)
                 {
                     //Before adding a triangle to the list, make sure the object isn't too high or low from the quad.
-                    Fix64 highest, lowest;
-                    Fix64 y1 = heights[i, j];
-                    Fix64 y2 = heights[i + 1, j];
-                    Fix64 y3 = heights[i, j + 1];
-                    Fix64 y4 = heights[i + 1, j + 1];
+                    fp highest, lowest;
+                    fp y1 = heights[i, j];
+                    fp y2 = heights[i + 1, j];
+                    fp y3 = heights[i, j + 1];
+                    fp y4 = heights[i + 1, j + 1];
 
                     highest = y1;
                     lowest = y1;

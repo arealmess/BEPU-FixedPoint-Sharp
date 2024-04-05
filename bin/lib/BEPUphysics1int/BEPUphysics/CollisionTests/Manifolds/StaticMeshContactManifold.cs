@@ -6,6 +6,7 @@ using BEPUphysics.DataStructures;
 using BEPUutilities;
 using BEPUutilities.DataStructures;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.CollisionTests.Manifolds
 {
@@ -31,7 +32,7 @@ namespace BEPUphysics.CollisionTests.Manifolds
             }
         }
 
-        protected internal override int FindOverlappingTriangles(Fix64 dt)
+        protected internal override int FindOverlappingTriangles(fp dt)
         {
             mesh.Mesh.Tree.GetOverlaps(convex.boundingBox, overlappedTriangles);
             return overlappedTriangles.Count;

@@ -8,6 +8,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using Newtonsoft.Json;
 using System.IO.Compression;
+using Deterministic.FixedPoint;
 
 
 public partial class InputHandler : Node
@@ -25,8 +26,8 @@ public partial class InputHandler : Node
 	// Joystick values
 	BEPUutilities.Vector2 JoyAxisLeft = new BEPUutilities.Vector2();
 	BEPUutilities.Vector2 JoyAxisRight = new BEPUutilities.Vector2();
-	Fix64 deadzoneInnerLeft = 0.2m;
-	Fix64 deadzoneInnerRight = 0.2m;
+	fp deadzoneInnerLeft = (fp)0.2m;
+	fp deadzoneInnerRight = (fp)0.2m;
 
 	// Action input values
 	const int ActionBufferLength = 20;
@@ -97,10 +98,10 @@ public partial class InputHandler : Node
 	private void PollJoyAxis(bool ignore = false)
 	{
 		if (!ignore) {
-			JoyAxisLeft.X = (Fix64)Godot.Input.GetJoyAxis(DeviceID, Godot.JoyAxis.LeftX);
-			JoyAxisLeft.Y = (Fix64)Godot.Input.GetJoyAxis(DeviceID, Godot.JoyAxis.LeftY);
-			JoyAxisRight.X = (Fix64)Godot.Input.GetJoyAxis(DeviceID, Godot.JoyAxis.RightX);
-			JoyAxisRight.Y = (Fix64)Godot.Input.GetJoyAxis(DeviceID, Godot.JoyAxis.RightY);
+			JoyAxisLeft.X = (fp)Godot.Input.GetJoyAxis(DeviceID, Godot.JoyAxis.LeftX);
+			JoyAxisLeft.Y = (fp)Godot.Input.GetJoyAxis(DeviceID, Godot.JoyAxis.LeftY);
+			JoyAxisRight.X = (fp)Godot.Input.GetJoyAxis(DeviceID, Godot.JoyAxis.RightX);
+			JoyAxisRight.Y = (fp)Godot.Input.GetJoyAxis(DeviceID, Godot.JoyAxis.RightY);
 
 			// Apply deadzones
 			if (JoyAxisLeft.Length() < deadzoneInnerLeft) {
@@ -111,8 +112,8 @@ public partial class InputHandler : Node
 			}
 
 			// Make sure non deadzone area covers full input range from 0-1
-			JoyAxisLeft = ((JoyAxisLeft.Length() - deadzoneInnerLeft) / ((Fix64)1 - deadzoneInnerLeft)) * JoyAxisLeft;
-			JoyAxisRight = ((JoyAxisRight.Length() - deadzoneInnerRight) / ((Fix64)1 - deadzoneInnerRight)) * JoyAxisRight;
+			JoyAxisLeft = ((JoyAxisLeft.Length() - deadzoneInnerLeft) / ((fp)1 - deadzoneInnerLeft)) * JoyAxisLeft;
+			JoyAxisRight = ((JoyAxisRight.Length() - deadzoneInnerRight) / ((fp)1 - deadzoneInnerRight)) * JoyAxisRight;
 		}
 	}
 

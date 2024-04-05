@@ -1,5 +1,6 @@
 ﻿using FixMath.NET;
 using System;
+using Deterministic.FixedPoint;
 
 namespace BEPUutilities
 {
@@ -11,18 +12,18 @@ namespace BEPUutilities
         /// <summary>
         /// X component of the vector.
         /// </summary>
-        public Fix64 X;
+        public fp X;
         /// <summary>
         /// Y component of the vector.
         /// </summary>
-        public Fix64 Y;
+        public fp Y;
 
         /// <summary>
         /// Constructs a new two dimensional vector.
         /// </summary>
         /// <param name="x">X component of the vector.</param>
         /// <param name="y">Y component of the vector.</param>
-        public Vector2(Fix64 x, Fix64 y)
+        public Vector2(fp x, fp y)
         {
             this.X = x;
             this.Y = y;
@@ -32,7 +33,7 @@ namespace BEPUutilities
         /// Computes the squared length of the vector.
         /// </summary>
         /// <returns>Squared length of the vector.</returns>
-        public Fix64 LengthSquared()
+        public fp LengthSquared()
         {
             return X * X + Y * Y;
         }
@@ -41,9 +42,9 @@ namespace BEPUutilities
         /// Computes the length of the vector.
         /// </summary>
         /// <returns>Length of the vector.</returns>
-        public Fix64 Length()
+        public fp Length()
         {
-            return Fix64.Sqrt(X * X + Y * Y);
+            return fixmath.Sqrt(X * X + Y * Y);
         }
 
         /// <summary>
@@ -85,7 +86,7 @@ namespace BEPUutilities
         /// <param name="v">Vector to scale.</param>
         /// <param name="scale">Amount to scale.</param>
         /// <param name="result">Scaled vector.</param>
-        public static void Multiply(ref Vector2 v, Fix64 scale, out Vector2 result)
+        public static void Multiply(ref Vector2 v, fp scale, out Vector2 result)
         {
             result.X = v.X * scale;
             result.Y = v.Y * scale;
@@ -109,9 +110,9 @@ namespace BEPUutilities
         /// <param name="v">Vector to divide.</param>
         /// <param name="divisor">Value to divide the vector's components.</param>
         /// <param name="result">Result of the division.</param>
-        public static void Divide(ref Vector2 v, Fix64 divisor, out Vector2 result)
+        public static void Divide(ref Vector2 v, fp divisor, out Vector2 result)
         {
-            Fix64 inverse = F64.C1 / divisor;
+            fp inverse = fp._1 / divisor;
             result.X = v.X * inverse;
             result.Y = v.Y * inverse;
         }
@@ -122,7 +123,7 @@ namespace BEPUutilities
         /// <param name="a">First vector of the dot product.</param>
         /// <param name="b">Second vector of the dot product.</param>
         /// <param name="dot">Dot product of the two vectors.</param>
-        public static void Dot(ref Vector2 a, ref Vector2 b, out Fix64 dot)
+        public static void Dot(ref Vector2 a, ref Vector2 b, out fp dot)
         {
             dot = a.X * b.X + a.Y * b.Y;
         }
@@ -133,20 +134,20 @@ namespace BEPUutilities
         /// <param name="a">First vector of the dot product.</param>
         /// <param name="b">Second vector of the dot product.</param>
         /// <returns>Dot product of the two vectors.</returns>
-        public static Fix64 Dot(Vector2 a, Vector2 b)
+        public static fp Dot(Vector2 a, Vector2 b)
         {
             return a.X * b.X + a.Y * b.Y;
         }
 
-        public void Rotate(Fix64 angle)
+        public void Rotate(fp angle)
         {
-            Fix64 theta = angle;
+            fp theta = angle;
 
-            Fix64 cs = Fix64.Cos(angle);
-            Fix64 sn = Fix64.Sin(theta);
+            fp cs = fixmath.Cos(angle);
+            fp sn = fixmath.Sin(theta);
 
-            Fix64 px = X * cs - Y * sn;
-            Fix64 py = X * sn + Y * cs;
+            fp px = X * cs - Y * sn;
+            fp py = X * sn + Y * cs;
 
             X = px;
             Y = py;
@@ -168,7 +169,7 @@ namespace BEPUutilities
         /// </summary>
         public static Vector2 UnitX
         {
-            get { return new Vector2 { X = F64.C1 }; }
+            get { return new Vector2 { X = fp._1 }; }
         }
 
         /// <summary>
@@ -176,7 +177,7 @@ namespace BEPUutilities
         /// </summary>
         public static Vector2 UnitY
         {
-            get { return new Vector2 { Y = F64.C1 }; }
+            get { return new Vector2 { Y = fp._1 }; }
         }
 
 
@@ -199,7 +200,7 @@ namespace BEPUutilities
         /// <param name="result">Normalized vector.</param>
         public static void Normalize(ref Vector2 v, out Vector2 result)
         {
-            Fix64 inverse = F64.C1 / Fix64.Sqrt(v.X * v.X + v.Y * v.Y);
+            fp inverse = fp._1 / fixmath.Sqrt(v.X * v.X + v.Y * v.Y);
             result.X = v.X * inverse;
             result.Y = v.Y * inverse;
         }
@@ -222,11 +223,11 @@ namespace BEPUutilities
         /// <param name="result">Vector with nonnegative elements.</param>
         public static void Abs(ref Vector2 v, out Vector2 result)
         {
-            if (v.X < F64.C0)
+            if (v.X < fp._0)
                 result.X = -v.X;
             else
                 result.X = v.X;
-            if (v.Y < F64.C0)
+            if (v.Y < fp._0)
                 result.Y = -v.Y;
             else
                 result.Y = v.Y;
@@ -300,7 +301,7 @@ namespace BEPUutilities
         /// </summary>
         public void Normalize()
         {
-            Fix64 inverse = F64.C1 / Fix64.Sqrt(X * X + Y * Y);
+            fp inverse = fp._1 / fixmath.Sqrt(X * X + Y * Y);
             X *= inverse;
             Y *= inverse;
         }
@@ -311,7 +312,7 @@ namespace BEPUutilities
         /// <param name="v">Vector to scale.</param>
         /// <param name="f">Amount to scale.</param>
         /// <returns>Scaled vector.</returns>
-        public static Vector2 operator *(Vector2 v, Fix64 f)
+        public static Vector2 operator *(Vector2 v, fp f)
         {
             Vector2 toReturn;
             toReturn.X = v.X * f;
@@ -324,7 +325,7 @@ namespace BEPUutilities
         /// <param name="v">Vector to scale.</param>
         /// <param name="f">Amount to scale.</param>
         /// <returns>Scaled vector.</returns>
-        public static Vector2 operator *(Fix64 f, Vector2 v)
+        public static Vector2 operator *(fp f, Vector2 v)
         {
             Vector2 toReturn;
             toReturn.X = v.X * f;
@@ -351,10 +352,10 @@ namespace BEPUutilities
         /// <param name="v">Vector to divide.</param>
         /// <param name="f">Amount to divide.</param>
         /// <returns>Divided vector.</returns>
-        public static Vector2 operator /(Vector2 v, Fix64 f)
+        public static Vector2 operator /(Vector2 v, fp f)
         {
             Vector2 toReturn;
-            f = F64.C1 / f;
+            f = fp._1 / f;
             toReturn.X = v.X * f;
             toReturn.Y = v.Y * f;
             return toReturn;
@@ -459,8 +460,6 @@ namespace BEPUutilities
         public override int GetHashCode()
         {
             return X.GetHashCode() + Y.GetHashCode();
-        }
-
-
+        } 
     }
 }

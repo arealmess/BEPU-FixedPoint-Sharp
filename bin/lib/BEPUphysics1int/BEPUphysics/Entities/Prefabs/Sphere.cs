@@ -4,6 +4,7 @@ using BEPUphysics.EntityStateManagement;
 using BEPUphysics.CollisionShapes.ConvexShapes;
 using BEPUutilities;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.Entities.Prefabs
 {
@@ -15,7 +16,7 @@ namespace BEPUphysics.Entities.Prefabs
 		/// <summary>
 		/// Radius of the sphere.
 		/// </summary>
-		public Fix64 Radius
+		public fp Radius
 		{
 			get
 			{
@@ -27,12 +28,12 @@ namespace BEPUphysics.Entities.Prefabs
 			}
 		}
 
-		private Sphere(Fix64 radius)
+		private Sphere(fp radius)
 			:base(new ConvexCollidable<SphereShape>(new SphereShape(radius)))
 		{
 		}
 
-		private Sphere(Fix64 radius, Fix64 mass)
+		private Sphere(fp radius, fp mass)
 			:base(new ConvexCollidable<SphereShape>(new SphereShape(radius)), mass)
 		{
 		}
@@ -45,7 +46,7 @@ namespace BEPUphysics.Entities.Prefabs
 		/// <param name="position">Position of the sphere.</param>
 		/// <param name="radius">Radius of the sphere.</param>
 		/// <param name="mass">Mass of the object.</param>
-		public Sphere(Vector3 position, Fix64 radius, Fix64 mass)
+		public Sphere(Vector3 position, fp radius, fp mass)
 			: this(radius, mass)
 		{
 			Position = position;
@@ -56,7 +57,7 @@ namespace BEPUphysics.Entities.Prefabs
 		/// </summary>
 		/// <param name="position">Position of the sphere.</param>
 		/// <param name="radius">Radius of the sphere.</param>
-		public Sphere(Vector3 position, Fix64 radius)
+		public Sphere(Vector3 position, fp radius)
 			: this(radius)
 		{
 			Position = position;
@@ -68,7 +69,7 @@ namespace BEPUphysics.Entities.Prefabs
 		/// <param name="motionState">Motion state specifying the entity's initial state.</param>
 		/// <param name="radius">Radius of the sphere.</param>
 		/// <param name="mass">Mass of the object.</param>
-		public Sphere(MotionState motionState, Fix64 radius, Fix64 mass)
+		public Sphere(MotionState motionState, fp radius, fp mass)
 			: this(radius, mass)
 		{
 			MotionState = motionState;
@@ -79,7 +80,7 @@ namespace BEPUphysics.Entities.Prefabs
 		/// </summary>
 		/// <param name="motionState">Motion state specifying the entity's initial state.</param>
 		/// <param name="radius">Radius of the sphere.</param>
-		public Sphere(MotionState motionState, Fix64 radius)
+		public Sphere(MotionState motionState, fp radius)
 			: this(radius)
 		{
 			MotionState = motionState;

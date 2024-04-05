@@ -7,6 +7,7 @@ using BEPUphysics;
 using BEPUphysics.Entities;
 using BEPUutilities;
 using BEPUphysics.BroadPhaseEntries.MobileCollidables;
+using Deterministic.FixedPoint;
 
 
 public partial class Jump : StatePlayer
@@ -52,11 +53,11 @@ public partial class Jump : StatePlayer
 		}
 
 		// Calculate horizontal velocity
-		direction.Rotate(-owner.cameraRotation.Y * (Fix64)0.0174533m);
+		direction.Rotate(-owner.cameraRotation.Y * (fp)0.0174533m);
 		velocity = (new BEPUutilities.Vector3(direction.X, 0, direction.Y)) * owner.Speed;
 
 		// Calculate Y Velocity
-		velocity.Y = owner.Body.LinearVelocity.Y + (owner.Weight * owner.physicsHandler.Gravity.Y * (Fix64)(1/60m) - owner.physicsHandler.Gravity.Y * (Fix64)(1/60m));
+		velocity.Y = owner.Body.LinearVelocity.Y + (owner.Weight * owner.physicsHandler.Gravity.Y * (fp)(1/60m) - owner.physicsHandler.Gravity.Y * (fp)(1/60m));
 
 		// Apply velocity
 		owner.Body.LinearVelocity = velocity;

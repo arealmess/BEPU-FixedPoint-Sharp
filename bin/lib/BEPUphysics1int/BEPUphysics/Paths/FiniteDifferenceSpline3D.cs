@@ -1,6 +1,4 @@
-﻿
-
-using BEPUutilities;
+﻿using BEPUutilities;
 using FixMath.NET;
 
 namespace BEPUphysics.Paths

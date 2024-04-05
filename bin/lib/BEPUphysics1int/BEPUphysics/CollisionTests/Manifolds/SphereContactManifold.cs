@@ -6,6 +6,7 @@ using BEPUphysics.CollisionShapes.ConvexShapes;
 using BEPUutilities.DataStructures;
 using FixMath.NET;
 using BEPUutilities;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.CollisionTests.Manifolds
 {
@@ -54,7 +55,7 @@ namespace BEPUphysics.CollisionTests.Manifolds
         /// Updates the manifold.
         ///</summary>
         ///<param name="dt">Timestep duration.</param>
-        public override void Update(Fix64 dt)
+        public override void Update(fp dt)
         {
             ContactData contactData;
             bool colliding = false;

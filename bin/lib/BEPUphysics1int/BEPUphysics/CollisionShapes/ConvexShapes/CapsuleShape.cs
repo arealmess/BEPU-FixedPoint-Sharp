@@ -4,6 +4,8 @@ using BEPUphysics.BroadPhaseEntries.MobileCollidables;
 using BEPUutilities;
 using FixMath.NET;
 
+using Deterministic.FixedPoint;
+
 namespace BEPUphysics.CollisionShapes.ConvexShapes
 {
     ///<summary>
@@ -11,11 +13,11 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
     ///</summary>
     public class CapsuleShape : ConvexShape
     {
-        Fix64 halfLength;
+        fp halfLength;
         ///<summary>
         /// Gets or sets the length of the capsule's inner line segment.
         ///</summary>
-        public Fix64 Length
+        public fp Length
         {
             get
             {
@@ -23,7 +25,7 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
             }
             set
             {
-                halfLength = value * F64.C0p5;
+                halfLength = value * fp._0_50;
                 OnShapeChanged();
             }
         }
@@ -32,7 +34,7 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
         ///<summary>
         /// Gets or sets the radius of the capsule.
         ///</summary>
-        public Fix64 Radius { get { return collisionMargin; } set { CollisionMargin = value; } }
+        public fp Radius { get { return collisionMargin; } set { CollisionMargin = value; } }
 
 
         ///<summary>
@@ -40,9 +42,9 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
         ///</summary>
         ///<param name="length">Length of the capsule's inner line segment.</param>
         ///<param name="radius">Radius to expand the line segment width.</param>
-        public CapsuleShape(Fix64 length, Fix64 radius)
+        public CapsuleShape(fp length, fp radius)
         {
-            halfLength = length * F64.C0p5;
+            halfLength = length * fp._0_50;
 
             UpdateConvexShapeInfo(ComputeDescription(length, radius));
         }
@@ -52,9 +54,9 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
         ///</summary>
         ///<param name="length">Length of the capsule's inner line segment.</param>
         /// <param name="description">Cached information about the shape. Assumed to be correct; no extra processing or validation is performed.</param>
-        public CapsuleShape(Fix64 length, ConvexShapeDescription description)
+        public CapsuleShape(fp length, ConvexShapeDescription description)
         {
-            halfLength = length * F64.C0p5;
+            halfLength = length * fp._0_50;
 
             UpdateConvexShapeInfo(description);
         }
@@ -74,19 +76,19 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
         ///<param name="length">Length of the capsule's inner line segment.</param>
         ///<param name="radius">Radius to expand the line segment width.</param>
         /// <returns>Description required to define a convex shape.</returns>
-        public static ConvexShapeDescription ComputeDescription(Fix64 length, Fix64 radius)
+        public static ConvexShapeDescription ComputeDescription(fp length, fp radius)
         {
             ConvexShapeDescription description;
             description.EntityShapeVolume.Volume = MathHelper.Pi * radius * radius * length + F64.FourThirds * MathHelper.Pi * radius * radius * radius;
 
             description.EntityShapeVolume.VolumeDistribution = new Matrix3x3();
-            Fix64 effectiveLength = length + radius / F64.C2; //This is a cylindrical inertia tensor. Approximate.
-            Fix64 diagValue = F64.C0p0833333333 * effectiveLength * effectiveLength + F64.C0p25 * radius * radius;
+            fp effectiveLength = length + radius / F64.C2; //This is a cylindrical inertia tensor. Approximate.
+            fp diagValue = F64.C0p0833333333 * effectiveLength * effectiveLength + fp._0_25 * radius * radius;
             description.EntityShapeVolume.VolumeDistribution.M11 = diagValue;
-            description.EntityShapeVolume.VolumeDistribution.M22 = F64.C0p5 * radius * radius;
+            description.EntityShapeVolume.VolumeDistribution.M22 = fp._0_50 * radius * radius;
             description.EntityShapeVolume.VolumeDistribution.M33 = diagValue;
 
-            description.MaximumRadius = length * F64.C0p5 + radius;
+            description.MaximumRadius = length * fp._0_50 + radius;
             description.MinimumRadius = radius;
 
             description.CollisionMargin = radius;
@@ -174,135 +176,135 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
         /// <param name="maximumLength">Maximum distance to travel in units of the ray direction's length.</param>
         /// <param name="hit">Ray hit data, if any.</param>
         /// <returns>Whether or not the ray hit the target.</returns>
-        public override bool RayTest(ref Ray ray, ref RigidTransform transform, Fix64 maximumLength, out RayHit hit)
-        {
-            //Put the ray into local space.
-            Quaternion conjugate;
-            Quaternion.Conjugate(ref transform.Orientation, out conjugate);
-            Ray localRay;
-            Vector3.Subtract(ref ray.Position, ref transform.Position, out localRay.Position);
-            Quaternion.Transform(ref localRay.Position, ref conjugate, out localRay.Position);
-            Quaternion.Transform(ref ray.Direction, ref conjugate, out localRay.Direction);
+        //public override bool RayTest(ref Ray ray, ref RigidTransform transform, fp maximumLength, out RayHit hit)
+        //{
+        //    //Put the ray into local space.
+        //    Quaternion conjugate;
+        //    Quaternion.Conjugate(ref transform.Orientation, out conjugate);
+        //    Ray localRay;
+        //    Vector3.Subtract(ref ray.Position, ref transform.Position, out localRay.Position);
+        //    Quaternion.Transform(ref localRay.Position, ref conjugate, out localRay.Position);
+        //    Quaternion.Transform(ref ray.Direction, ref conjugate, out localRay.Direction);
 
-            //Check for containment in the cylindrical portion of the capsule.
-            if (localRay.Position.Y >= -halfLength && localRay.Position.Y <= halfLength && localRay.Position.X * localRay.Position.X + localRay.Position.Z * localRay.Position.Z <= collisionMargin * collisionMargin)
-            {
-                //It's inside!
-                hit.T = F64.C0;
-                hit.Location = localRay.Position;
-                hit.Normal = new Vector3(hit.Location.X, F64.C0, hit.Location.Z);
-                Fix64 normalLengthSquared = hit.Normal.LengthSquared();
-                if (normalLengthSquared > F64.C1em9)
-                    Vector3.Divide(ref hit.Normal, Fix64.Sqrt(normalLengthSquared), out hit.Normal);
-                else
-                    hit.Normal = new Vector3();
-                //Pull the hit into world space.
-                Quaternion.Transform(ref hit.Normal, ref transform.Orientation, out hit.Normal);
-                RigidTransform.Transform(ref hit.Location, ref transform, out hit.Location);
-                return true;
-            }
+        //    //Check for containment in the cylindrical portion of the capsule.
+        //    if (localRay.Position.Y >= -halfLength && localRay.Position.Y <= halfLength && localRay.Position.X * localRay.Position.X + localRay.Position.Z * localRay.Position.Z <= collisionMargin * collisionMargin)
+        //    {
+        //        //It's inside!
+        //        hit.T = F64.C0;
+        //        hit.Location = localRay.Position;
+        //        hit.Normal = new Vector3(hit.Location.X, F64.C0, hit.Location.Z);
+        //        fp normalLengthSquared = hit.Normal.LengthSquared();
+        //        if (normalLengthSquared > F64.C1em9)
+        //            Vector3.Divide(ref hit.Normal, fixmath.Sqrt(normalLengthSquared), out hit.Normal);
+        //        else
+        //            hit.Normal = new Vector3();
+        //        //Pull the hit into world space.
+        //        Quaternion.Transform(ref hit.Normal, ref transform.Orientation, out hit.Normal);
+        //        RigidTransform.Transform(ref hit.Location, ref transform, out hit.Location);
+        //        return true;
+        //    }
 
-            //Project the ray direction onto the plane where the cylinder is a circle.
-            //The projected ray is then tested against the circle to compute the time of impact.
-            //That time of impact is used to compute the 3d hit location.
-            Vector2 planeDirection = new Vector2(localRay.Direction.X, localRay.Direction.Z);
-            Fix64 planeDirectionLengthSquared = planeDirection.LengthSquared();
+        //    //Project the ray direction onto the plane where the cylinder is a circle.
+        //    //The projected ray is then tested against the circle to compute the time of impact.
+        //    //That time of impact is used to compute the 3d hit location.
+        //    Vector2 planeDirection = new Vector2(localRay.Direction.X, localRay.Direction.Z);
+        //    fp planeDirectionLengthSquared = planeDirection.LengthSquared();
 
-            if (planeDirectionLengthSquared < Toolbox.Epsilon)
-            {
-                //The ray is nearly parallel with the axis.
-                //Skip the cylinder-sides test.  We're either inside the cylinder and won't hit the sides, or we're outside
-                //and won't hit the sides.  
-                if (localRay.Position.Y > halfLength)
-                    goto upperSphereTest;
-                if (localRay.Position.Y < -halfLength)
-                    goto lowerSphereTest;
-
-
-                hit = new RayHit();
-                return false;
-
-            }
-            Vector2 planeOrigin = new Vector2(localRay.Position.X, localRay.Position.Z);
-            Fix64 dot;
-            Vector2.Dot(ref planeDirection, ref planeOrigin, out dot);
-            Fix64 closestToCenterT = -dot / planeDirectionLengthSquared;
-
-            Vector2 closestPoint;
-            Vector2.Multiply(ref planeDirection, closestToCenterT, out closestPoint);
-            Vector2.Add(ref planeOrigin, ref closestPoint, out closestPoint);
-            //How close does the ray come to the circle?
-            Fix64 squaredDistance = closestPoint.LengthSquared();
-            if (squaredDistance > collisionMargin * collisionMargin)
-            {
-                //It's too far!  The ray cannot possibly hit the capsule.
-                hit = new RayHit();
-                return false;
-            }
+        //    if (planeDirectionLengthSquared < Toolbox.Epsilon)
+        //    {
+        //        //The ray is nearly parallel with the axis.
+        //        //Skip the cylinder-sides test.  We're either inside the cylinder and won't hit the sides, or we're outside
+        //        //and won't hit the sides.  
+        //        if (localRay.Position.Y > halfLength)
+        //            goto upperSphereTest;
+        //        if (localRay.Position.Y < -halfLength)
+        //            goto lowerSphereTest;
 
 
+        //        hit = new RayHit();
+        //        return false;
 
-            //With the squared distance, compute the distance backward along the ray from the closest point on the ray to the axis.
-            Fix64 backwardsDistance = collisionMargin * Fix64.Sqrt(F64.C1 - squaredDistance / (collisionMargin * collisionMargin));
-            Fix64 tOffset = backwardsDistance / Fix64.Sqrt(planeDirectionLengthSquared);
+        //    }
+        //    Vector2 planeOrigin = new Vector2(localRay.Position.X, localRay.Position.Z);
+        //    fp dot;
+        //    Vector2.Dot(ref planeDirection, ref planeOrigin, out dot);
+        //    fp closestToCenterT = -dot / planeDirectionLengthSquared;
 
-            hit.T = closestToCenterT - tOffset;
+        //    Vector2 closestPoint;
+        //    Vector2.Multiply(ref planeDirection, closestToCenterT, out closestPoint);
+        //    Vector2.Add(ref planeOrigin, ref closestPoint, out closestPoint);
+        //    //How close does the ray come to the circle?
+        //    fp squaredDistance = closestPoint.LengthSquared();
+        //    if (squaredDistance > collisionMargin * collisionMargin)
+        //    {
+        //        //It's too far!  The ray cannot possibly hit the capsule.
+        //        hit = new RayHit();
+        //        return false;
+        //    }
 
-            //Compute the impact point on the infinite cylinder in 3d local space.
-            Vector3.Multiply(ref localRay.Direction, hit.T, out hit.Location);
-            Vector3.Add(ref hit.Location, ref localRay.Position, out hit.Location);
 
-            //Is it intersecting the cylindrical portion of the capsule?
-            if (hit.Location.Y <= halfLength && hit.Location.Y >= -halfLength && hit.T < maximumLength)
-            {
-                //Yup!
-                hit.Normal = new Vector3(hit.Location.X, F64.C0, hit.Location.Z);
-                Fix64 normalLengthSquared = hit.Normal.LengthSquared();
-                if (normalLengthSquared > F64.C1em9)
-                    Vector3.Divide(ref hit.Normal, Fix64.Sqrt(normalLengthSquared), out hit.Normal);
-                else
-                    hit.Normal = new Vector3();
-                //Pull the hit into world space.
-                Quaternion.Transform(ref hit.Normal, ref transform.Orientation, out hit.Normal);
-                RigidTransform.Transform(ref hit.Location, ref transform, out hit.Location);
-                return true;
-            }
 
-            if (hit.Location.Y < halfLength)
-                goto lowerSphereTest;
-        upperSphereTest:
-            //Nope! It may be intersecting the ends of the capsule though.
-            //We're above the capsule, so cast a ray against the upper sphere.
-            //We don't have to worry about it hitting the bottom of the sphere since it would have hit the cylinder portion first.
-            var spherePosition = new Vector3(F64.C0, halfLength, F64.C0);
-            if (Toolbox.RayCastSphere(ref localRay, ref spherePosition, collisionMargin, maximumLength, out hit))
-            {
-                //Pull the hit into world space.
-                Quaternion.Transform(ref hit.Normal, ref transform.Orientation, out hit.Normal);
-                RigidTransform.Transform(ref hit.Location, ref transform, out hit.Location);
-                return true;
-            }
-            //No intersection! We can't be hitting the other sphere, so it's over!
-            hit = new RayHit();
-            return false;
+        //    //With the squared distance, compute the distance backward along the ray from the closest point on the ray to the axis.
+        //    fp backwardsDistance = collisionMargin * Fix64.Sqrt(F64.C1 - squaredDistance / (collisionMargin * collisionMargin));
+        //    fp tOffset = backwardsDistance / Fix64.Sqrt(planeDirectionLengthSquared);
 
-        lowerSphereTest:
-            //Okay, what about the bottom sphere?
-            //We're above the capsule, so cast a ray against the upper sphere.
-            //We don't have to worry about it hitting the bottom of the sphere since it would have hit the cylinder portion first.
-            spherePosition = new Vector3(F64.C0, -halfLength, F64.C0);
-            if (Toolbox.RayCastSphere(ref localRay, ref spherePosition, collisionMargin, maximumLength, out hit))
-            {
-                //Pull the hit into world space.
-                Quaternion.Transform(ref hit.Normal, ref transform.Orientation, out hit.Normal);
-                RigidTransform.Transform(ref hit.Location, ref transform, out hit.Location);
-                return true;
-            }
-            //No intersection! We can't be hitting the other sphere, so it's over!
-            hit = new RayHit();
-            return false;
+        //    hit.T = closestToCenterT - tOffset;
 
-        }
+        //    //Compute the impact point on the infinite cylinder in 3d local space.
+        //    Vector3.Multiply(ref localRay.Direction, hit.T, out hit.Location);
+        //    Vector3.Add(ref hit.Location, ref localRay.Position, out hit.Location);
+
+        //    //Is it intersecting the cylindrical portion of the capsule?
+        //    if (hit.Location.Y <= halfLength && hit.Location.Y >= -halfLength && hit.T < maximumLength)
+        //    {
+        //        //Yup!
+        //        hit.Normal = new Vector3(hit.Location.X, F64.C0, hit.Location.Z);
+        //        fp normalLengthSquared = hit.Normal.LengthSquared();
+        //        if (normalLengthSquared > F64.C1em9)
+        //            Vector3.Divide(ref hit.Normal, Fix64.Sqrt(normalLengthSquared), out hit.Normal);
+        //        else
+        //            hit.Normal = new Vector3();
+        //        //Pull the hit into world space.
+        //        Quaternion.Transform(ref hit.Normal, ref transform.Orientation, out hit.Normal);
+        //        RigidTransform.Transform(ref hit.Location, ref transform, out hit.Location);
+        //        return true;
+        //    }
+
+        //    if (hit.Location.Y < halfLength)
+        //        goto lowerSphereTest;
+        //upperSphereTest:
+        //    //Nope! It may be intersecting the ends of the capsule though.
+        //    //We're above the capsule, so cast a ray against the upper sphere.
+        //    //We don't have to worry about it hitting the bottom of the sphere since it would have hit the cylinder portion first.
+        //    var spherePosition = new Vector3(F64.C0, halfLength, F64.C0);
+        //    if (Toolbox.RayCastSphere(ref localRay, ref spherePosition, collisionMargin, maximumLength, out hit))
+        //    {
+        //        //Pull the hit into world space.
+        //        Quaternion.Transform(ref hit.Normal, ref transform.Orientation, out hit.Normal);
+        //        RigidTransform.Transform(ref hit.Location, ref transform, out hit.Location);
+        //        return true;
+        //    }
+        //    //No intersection! We can't be hitting the other sphere, so it's over!
+        //    hit = new RayHit();
+        //    return false;
+
+        //lowerSphereTest:
+        //    //Okay, what about the bottom sphere?
+        //    //We're above the capsule, so cast a ray against the upper sphere.
+        //    //We don't have to worry about it hitting the bottom of the sphere since it would have hit the cylinder portion first.
+        //    spherePosition = new Vector3(F64.C0, -halfLength, F64.C0);
+        //    if (Toolbox.RayCastSphere(ref localRay, ref spherePosition, collisionMargin, maximumLength, out hit))
+        //    {
+        //        //Pull the hit into world space.
+        //        Quaternion.Transform(ref hit.Normal, ref transform.Orientation, out hit.Normal);
+        //        RigidTransform.Transform(ref hit.Location, ref transform, out hit.Location);
+        //        return true;
+        //    }
+        //    //No intersection! We can't be hitting the other sphere, so it's over!
+        //    hit = new RayHit();
+        //    return false;
+
+        //}
 
     }
 }

@@ -6,6 +6,7 @@ using BEPUutilities.ResourceManagement;
 using BEPUutilities;
 using BEPUutilities.Threading;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.BroadPhaseSystems.Hierarchies
 {
@@ -327,7 +328,7 @@ namespace BEPUphysics.BroadPhaseSystems.Hierarchies
         /// Useful for comparing against other trees.
         /// </summary>
         /// <returns>Cost of the tree.</returns>
-        public Fix64 MeasureCostMetric()
+        public fp MeasureCostMetric()
         {
             if (root != null)
             {

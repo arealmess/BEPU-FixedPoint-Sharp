@@ -2,6 +2,7 @@ using System;
 using BEPUphysics.Entities;
 using BEPUutilities;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.Constraints.TwoEntity.Joints
 {
@@ -273,7 +274,7 @@ namespace BEPUphysics.Constraints.TwoEntity.Joints
         /// Calculates and applies corrective impulses.
         /// Called automatically by space.
         /// </summary>
-        public override Fix64 SolveIteration()
+        public override fp SolveIteration()
         {
             #region Theory
 
@@ -318,7 +319,7 @@ namespace BEPUphysics.Constraints.TwoEntity.Joints
 #else
             Vector2 lambda;
 #endif
-            //Fix64 va1, va2, wa1, wa2, vb1, vb2, wb1, wb2;
+            //fp va1, va2, wa1, wa2, vb1, vb2, wb1, wb2;
             //Vector3.Dot(ref worldAxis1, ref myParentA.myInternalLinearVelocity, out va1);
             //Vector3.Dot(ref worldAxis2, ref myParentA.myInternalLinearVelocity, out va2);
             //wa1 = prAT.M11 * myParentA.myInternalAngularVelocity.X + prAT.M12 * myParentA.myInternalAngularVelocity.Y + prAT.M13 * myParentA.myInternalAngularVelocity.Z;
@@ -350,8 +351,8 @@ namespace BEPUphysics.Constraints.TwoEntity.Joints
 
             Vector2.Add(ref lambda, ref accumulatedImpulse, out accumulatedImpulse);
 
-            Fix64 x = lambda.X;
-            Fix64 y = lambda.Y;
+            fp x = lambda.X;
+            fp y = lambda.Y;
             //Apply impulse
 #if !WINDOWS
             Vector3 impulse = new Vector3();
@@ -392,7 +393,7 @@ namespace BEPUphysics.Constraints.TwoEntity.Joints
         /// Performs the frame's configuration step.
         ///</summary>
         ///<param name="dt">Timestep duration.</param>
-        public override void Update(Fix64 dt)
+        public override void Update(fp dt)
         {
             //Transform local axes into world space
             Matrix3x3.Transform(ref localRestrictedAxis1, ref connectionA.orientationMatrix, out worldRestrictedAxis1);
@@ -408,7 +409,7 @@ namespace BEPUphysics.Constraints.TwoEntity.Joints
             //Find the point on the line closest to the world point.
             Vector3 offset;
             Vector3.Subtract(ref worldPoint, ref worldLineAnchor, out offset);
-            Fix64 distanceAlongAxis;
+            fp distanceAlongAxis;
             Vector3.Dot(ref offset, ref worldLineDirection, out distanceAlongAxis);
 
             Vector3 worldNearPoint;
@@ -423,19 +424,19 @@ namespace BEPUphysics.Constraints.TwoEntity.Joints
             Vector3.Dot(ref error3D, ref worldRestrictedAxis1, out error.X);
             Vector3.Dot(ref error3D, ref worldRestrictedAxis2, out error.Y);
 
-            Fix64 errorReduction;
+            fp errorReduction;
             springSettings.ComputeErrorReductionAndSoftness(dt, F64.C1 / dt, out errorReduction, out softness);
-            Fix64 bias = -errorReduction;
+            fp bias = -errorReduction;
 
 
             biasVelocity.X = bias * error.X;
             biasVelocity.Y = bias * error.Y;
 
             //Ensure that the corrective velocity doesn't exceed the max.
-            Fix64 length = biasVelocity.LengthSquared();
+            fp length = biasVelocity.LengthSquared();
             if (length > maxCorrectiveVelocitySquared)
             {
-                Fix64 multiplier = maxCorrectiveVelocity / Fix64.Sqrt(length);
+                fp multiplier = maxCorrectiveVelocity / fixmath.Sqrt(length);
                 biasVelocity.X *= multiplier;
                 biasVelocity.Y *= multiplier;
             }
@@ -446,8 +447,8 @@ namespace BEPUphysics.Constraints.TwoEntity.Joints
             Vector3.Cross(ref rA, ref worldRestrictedAxis2, out angularA2);
             Vector3.Cross(ref worldRestrictedAxis2, ref rB, out angularB2);
 
-            Fix64 m11 = F64.C0, m22 = F64.C0, m1221 = F64.C0;
-            Fix64 inverseMass;
+            fp m11 = F64.C0, m22 = F64.C0, m1221 = F64.C0;
+            fp inverseMass;
             Vector3 intermediate;
             //Compute the effective mass matrix.
             if (connectionA.isDynamic)
@@ -466,7 +467,7 @@ namespace BEPUphysics.Constraints.TwoEntity.Joints
 
             if (connectionB.isDynamic)
             {
-                Fix64 extra;
+                fp extra;
                 inverseMass = connectionB.inverseMass;
                 Matrix3x3.Transform(ref angularB1, ref connectionB.inertiaTensorInverse, out intermediate);
                 Vector3.Dot(ref intermediate, ref angularB1, out extra);
@@ -505,8 +506,8 @@ namespace BEPUphysics.Constraints.TwoEntity.Joints
             Vector3 impulse;
             Vector3 torque;
 #endif
-            Fix64 x = accumulatedImpulse.X;
-            Fix64 y = accumulatedImpulse.Y;
+            fp x = accumulatedImpulse.X;
+            fp y = accumulatedImpulse.Y;
             impulse.X = worldRestrictedAxis1.X * x + worldRestrictedAxis2.X * y;
             impulse.Y = worldRestrictedAxis1.Y * x + worldRestrictedAxis2.Y * y;
             impulse.Z = worldRestrictedAxis1.Z * x + worldRestrictedAxis2.Z * y;

@@ -12,13 +12,14 @@ using BEPUphysics.NarrowPhaseSystems.Pairs;
 using BEPUphysics.BroadPhaseEntries.MobileCollidables;
 //using BEPUphysics.BroadPhaseSystems;
 //using BEPUphysics.CollisionTests;
+using Deterministic.FixedPoint;
 
 
 [Tool]
 public partial class projectile_test : KinematicBody
 {
 	PhysicsBody target;
-	Fix64 speed = (Fix64)8;
+	fp speed = (fp)8;
 
 	public override void _Ready()
 	{

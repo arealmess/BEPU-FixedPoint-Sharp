@@ -4,6 +4,7 @@ using BEPUphysics.BroadPhaseEntries.MobileCollidables;
 using BEPUutilities.ResourceManagement;
 using BEPUutilities;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.NarrowPhaseSystems.Pairs
 {
@@ -58,7 +59,7 @@ namespace BEPUphysics.NarrowPhaseSystems.Pairs
 
       
 
-        protected override void ConfigureCollidable(TriangleEntry entry, Fix64 dt)
+        protected override void ConfigureCollidable(TriangleEntry entry, fp dt)
         {
 
         }
@@ -103,7 +104,7 @@ namespace BEPUphysics.NarrowPhaseSystems.Pairs
 
 
 
-        protected override void UpdateContainedPairs(Fix64 dt)
+        protected override void UpdateContainedPairs(fp dt)
         {
             var overlappedElements = CommonResources.GetIntList();
             BoundingBox localBoundingBox;

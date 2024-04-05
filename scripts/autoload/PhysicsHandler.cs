@@ -7,13 +7,14 @@ using BEPUphysics;
 using BEPUphysics.Entities;
 using BEPUutilities;
 using BEPUphysics.CollisionRuleManagement;
+using Deterministic.FixedPoint;
 
 
 public partial class PhysicsHandler : Node
 {
 	public bool run = false;
 	public Space space = null;
-	public BEPUutilities.Vector3 Gravity = new BEPUutilities.Vector3(0, (Fix64)(-9.81), 0);
+	public BEPUutilities.Vector3 Gravity = new BEPUutilities.Vector3(0, (fp)(-9.81), 0);
 	
 	// Collision Groups
 	public enum CollisionGroupLayer {

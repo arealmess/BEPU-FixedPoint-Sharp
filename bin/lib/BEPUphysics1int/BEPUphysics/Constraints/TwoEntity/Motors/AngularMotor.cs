@@ -2,6 +2,7 @@
 using BEPUphysics.Entities;
 using BEPUutilities;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.Constraints.TwoEntity.Motors
 {
@@ -17,7 +18,7 @@ namespace BEPUphysics.Constraints.TwoEntity.Motors
         private Vector3 accumulatedImpulse;
 
 
-        private Fix64 angle;
+        private fp angle;
         private Vector3 axis;
         private Vector3 biasVelocity;
         private Matrix3x3 effectiveMassMatrix;
@@ -166,7 +167,7 @@ namespace BEPUphysics.Constraints.TwoEntity.Motors
         /// <summary>
         /// Applies the corrective impulses required by the constraint.
         /// </summary>
-        public override Fix64 SolveIteration()
+        public override fp SolveIteration()
         {
 #if !WINDOWS
             Vector3 lambda = new Vector3();
@@ -185,12 +186,12 @@ namespace BEPUphysics.Constraints.TwoEntity.Motors
             accumulatedImpulse.X += lambda.X;
             accumulatedImpulse.Y += lambda.Y;
             accumulatedImpulse.Z += lambda.Z;
-            Fix64 sumLengthSquared = accumulatedImpulse.LengthSquared();
+            fp sumLengthSquared = accumulatedImpulse.LengthSquared();
 
             if (sumLengthSquared > maxForceDtSquared)
             {
                 //max / impulse gives some value 0 < x < 1.  Basically, normalize the vector (divide by the length) and scale by the maximum.
-                Fix64 multiplier = maxForceDt / Fix64.Sqrt(sumLengthSquared);
+                fp multiplier = maxForceDt / fixmath.Sqrt(sumLengthSquared);
                 accumulatedImpulse.X *= multiplier;
                 accumulatedImpulse.Y *= multiplier;
                 accumulatedImpulse.Z *= multiplier;
@@ -220,12 +221,12 @@ namespace BEPUphysics.Constraints.TwoEntity.Motors
         /// Initializes the constraint for the current frame.
         /// </summary>
         /// <param name="dt">Time between frames.</param>
-        public override void Update(Fix64 dt)
+        public override void Update(fp dt)
         {
             basis.rotationMatrix = connectionA.orientationMatrix;
             basis.ComputeWorldSpaceAxes();
 
-            Fix64 inverseDt = F64.C1 / dt;
+            fp inverseDt = fp._1 / dt;
             if (settings.mode == MotorMode.Servomechanism) //Only need to do the bulk of this work if it's a servo.
             {
 
@@ -249,7 +250,7 @@ namespace BEPUphysics.Constraints.TwoEntity.Motors
                 Quaternion.Concatenate(ref bTargetConjugate, ref connectionB.orientation, out error);
 
 
-                Fix64 errorReduction;
+                fp errorReduction;
                 settings.servo.springSettings.ComputeErrorReductionAndSoftness(dt, inverseDt, out errorReduction, out usedSoftness);
 
                 //Turn this into an axis-angle representation.
@@ -258,7 +259,7 @@ namespace BEPUphysics.Constraints.TwoEntity.Motors
                 //Scale the axis by the desired velocity if the angle is sufficiently large (epsilon).
                 if (angle > Toolbox.BigEpsilon)
                 {
-                    Fix64 velocity = -(MathHelper.Min(settings.servo.baseCorrectiveSpeed, angle * inverseDt) + angle * errorReduction);
+                    fp velocity = -(MathHelper.Min(settings.servo.baseCorrectiveSpeed, angle * inverseDt) + angle * errorReduction);
 
                     biasVelocity.X = axis.X * velocity;
                     biasVelocity.Y = axis.Y * velocity;
@@ -266,10 +267,10 @@ namespace BEPUphysics.Constraints.TwoEntity.Motors
 
 
                     //Ensure that the corrective velocity doesn't exceed the max.
-                    Fix64 length = biasVelocity.LengthSquared();
+                    fp length = biasVelocity.LengthSquared();
                     if (length > settings.servo.maxCorrectiveVelocitySquared)
                     {
-                        Fix64 multiplier = settings.servo.maxCorrectiveVelocity / Fix64.Sqrt(length);
+                        fp multiplier = settings.servo.maxCorrectiveVelocity / fixmath.Sqrt(length);
                         biasVelocity.X *= multiplier;
                         biasVelocity.Y *= multiplier;
                         biasVelocity.Z *= multiplier;

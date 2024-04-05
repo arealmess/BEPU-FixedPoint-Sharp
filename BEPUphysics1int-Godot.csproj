@@ -8,6 +8,10 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="bin\lib\BEPUphysics1int\BEPUik\**" />
+    <EmbeddedResource Remove="bin\lib\BEPUphysics1int\BEPUik\**" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Json.Net" Version="1.0.33" />
     <PackageReference Include="Microsoft.CodeAnalysis" Version="4.9.0-2.final" />
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303" />

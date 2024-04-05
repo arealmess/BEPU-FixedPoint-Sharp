@@ -9,14 +9,15 @@ using BEPUutilities;
 using BEPUphysics.BroadPhaseEntries;
 using BEPUphysics.CollisionShapes.ConvexShapes;
 using BEPUphysics.Entities.Prefabs;
+using Deterministic.FixedPoint;
 
 
 [Tool]
 public partial class CharacterBody : PhysicsBody
 {
-    Fix64 GroundedRayLength = (Fix64)0.18m;  // How far CheckIfGrounded checks downward for valid ground to stand on
-	Fix64 SnapRayLength = (Fix64)0.19m;  // How far to check for ground to snap the character to if grounded
-	Fix64 SnapHeightOffset = (Fix64)0.3m;  // Snaps the character this high above the ground on ramps..would like a better solution in the future
+  fp GroundedRayLength = (fp)0.18m;  // How far CheckIfGrounded checks downward for valid ground to stand on
+	fp SnapRayLength = (fp)0.19m;  // How far to check for ground to snap the character to if grounded
+	fp SnapHeightOffset = (fp)0.3m;  // Snaps the character this high above the ground on ramps..would like a better solution in the future
 	public bool SnapToFloor = true;
 
 	// Flags
@@ -57,7 +58,7 @@ public partial class CharacterBody : PhysicsBody
     protected void CheckIfGrounded()
 	{
 		// BEPUphysics.CollisionShapes.ConvexShapes.ConvexShape shape = (BEPUphysics.CollisionShapes.ConvexShapes.ConvexShape) Body.CollisionInformation.Shape;
-		BEPUphysics.CollisionShapes.ConvexShapes.ConvexShape shape = new CylinderShape(((Cylinder)Body).Height, ((Cylinder)Body).Radius - (Fix64)0.5m);
+		BEPUphysics.CollisionShapes.ConvexShapes.ConvexShape shape = new CylinderShape(((Cylinder)Body).Height, ((Cylinder)Body).Radius - (fp)0.5m);
 		RigidTransform transform_start = new RigidTransform(Body.Position, Body.Orientation);
 		BEPUutilities.Vector3 sweep = new BEPUutilities.Vector3(0,-GroundedRayLength - SnapHeightOffset,0);
 		RayCastResult result = new RayCastResult();  // Stores raycast result
@@ -69,16 +70,16 @@ public partial class CharacterBody : PhysicsBody
 		BEPUutilities.Vector3 normal = result.HitData.Normal;
 		normal.Normalize();
 
-		Fix64 NormalDotUp = BEPUutilities.Vector3.Dot(normal, BEPUutilities.Vector3.Up);
+		fp NormalDotUp = BEPUutilities.Vector3.Dot(normal, BEPUutilities.Vector3.Up);
 
-		if (NormalDotUp <= (Fix64)(-0.5)) {
+		if (NormalDotUp <= (fp)(-0.5)) {
 			IsGrounded = true;
 		}
 		else {
 			IsGrounded = false;
 		}
 
-		if (SnapToFloor && NormalDotUp < (Fix64) 0) {
+		if (SnapToFloor && NormalDotUp < (fp) 0) {
 			SnapToGround(NormalDotUp);
 		}
 
@@ -90,12 +91,12 @@ public partial class CharacterBody : PhysicsBody
 	}
 
 	// Snaps the character to the current surface that they are considered to be grounded to
-	protected void SnapToGround(Fix64 NormalDotUp)
+	protected void SnapToGround(fp NormalDotUp)
 	{
-		Fix64 shapeCastHeight = ((Cylinder)Body).Height / 2;  // Use a shorter shape than character collision incase character's bottom is inside geometry
+		fp shapeCastHeight = ((Cylinder)Body).Height / 2;  // Use a shorter shape than character collision incase character's bottom is inside geometry
 
 		// BEPUphysics.CollisionShapes.ConvexShapes.ConvexShape shape = (BEPUphysics.CollisionShapes.ConvexShapes.ConvexShape) Body.CollisionInformation.Shape;
-		BEPUphysics.CollisionShapes.ConvexShapes.ConvexShape shape = new CylinderShape(shapeCastHeight, ((Cylinder)Body).Radius - (Fix64)0.5m);
+		BEPUphysics.CollisionShapes.ConvexShapes.ConvexShape shape = new CylinderShape(shapeCastHeight, ((Cylinder)Body).Radius - (fp)0.5m);
 		RigidTransform transform_start = new RigidTransform(Body.Position + new BEPUutilities.Vector3(0,shapeCastHeight,0), Body.Orientation);
 		BEPUutilities.Vector3 sweep = new BEPUutilities.Vector3(0,-SnapRayLength - (shapeCastHeight + (shapeCastHeight / 2)) - SnapHeightOffset,0);
 		RayCastResult result = new RayCastResult();  // Stores raycast result
@@ -105,9 +106,9 @@ public partial class CharacterBody : PhysicsBody
 
 		// Set grounded state
 		if (snap) {
-			Fix64 snapPositionY = result.HitData.Location.Y + (((Cylinder)Body).Height / (Fix64)2);
+			fp snapPositionY = result.HitData.Location.Y + (((Cylinder)Body).Height / (fp)2);
 			if (snapPositionY < Body.Position.Y + SnapHeightOffset) {  // Prevent snapping to floor that is above the character..will only snap below midpoint of cylinder
-				if (NormalDotUp < (Fix64)(-0.98)) {  // Only apply SnapHeightOffset on angled ground (to avoid getting stuck on edges..would like a better solution later)
+				if (NormalDotUp < (fp)(-0.98)) {  // Only apply SnapHeightOffset on angled ground (to avoid getting stuck on edges..would like a better solution later)
 					Body.Position = new BEPUutilities.Vector3(Body.Position.X, snapPositionY, Body.Position.Z);
 				}
 				else {
@@ -125,7 +126,7 @@ public partial class CharacterBody : PhysicsBody
 	}
 
 	// Changes the height of the character's collider
-	protected void SetHeight(Fix64 height)
+	protected void SetHeight(fp height)
 	{
 		Controller.StanceManager.StandingHeight = height;
 		// Update collision visual

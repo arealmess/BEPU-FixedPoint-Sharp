@@ -3,6 +3,7 @@ using System;
 
 using FixMath.NET;
 using BEPUutilities;
+using Deterministic.FixedPoint;
 
 
 [Tool]
@@ -141,9 +142,9 @@ public partial class ColShape : Node3D
 		get => new Godot.Vector3((float)Fix64.FromRaw(PosOffsetX), (float)Fix64.FromRaw(PosOffsetY), (float)Fix64.FromRaw(PosOffsetZ));
 		set {
 			if (Engine.IsEditorHint()) {  // Avoid any float values changing fixed point raw values when the game runs
-				PosOffsetX = ((Fix64)((decimal)value.X)).RawValue;
-				PosOffsetY = ((Fix64)((decimal)value.Y)).RawValue;
-				PosOffsetZ = ((Fix64)((decimal)value.Z)).RawValue;
+				PosOffsetX = ((fp)((decimal)value.X)).value;
+				PosOffsetY = ((fp)((decimal)value.Y)).value;
+				PosOffsetZ = ((fp)((decimal)value.Z)).value;
 			}
 		}
 	}
@@ -181,10 +182,10 @@ public partial class ColShape : Node3D
 		get => new Godot.Quaternion((float)Fix64.FromRaw(QuatOffsetX), (float)Fix64.FromRaw(QuatOffsetY), (float)Fix64.FromRaw(QuatOffsetZ), (float)Fix64.FromRaw(QuatOffsetW));
 		set {
 			if (Engine.IsEditorHint()) {  // Avoid any float values changing fixed point raw values when the game runs
-				QuatOffsetX = ((Fix64)((decimal)value.X)).RawValue;
-				QuatOffsetY = ((Fix64)((decimal)value.Y)).RawValue;
-				QuatOffsetZ = ((Fix64)((decimal)value.Z)).RawValue;
-				QuatOffsetW = ((Fix64)((decimal)value.W)).RawValue;
+				QuatOffsetX = ((fp)((decimal)value.X)).value;
+				QuatOffsetY = ((fp)((decimal)value.Y)).value;
+				QuatOffsetZ = ((fp)((decimal)value.Z)).value;
+				QuatOffsetW = ((fp)((decimal)value.W)).value;
 			}
 		}
 	}

@@ -5,6 +5,7 @@ using BEPUphysics.Entities;
 using BEPUphysics.UpdateableSystems;
 using BEPUutilities;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.Paths.PathFollowing
 {
@@ -80,7 +81,7 @@ namespace BEPUphysics.Paths.PathFollowing
         /// <param name="end">Final orientation.</param>
         /// <param name="dt">Time over which the angular velocity is to be applied.</param>
         /// <returns>Angular velocity to reach the goal in time.</returns>
-        public static Vector3 GetAngularVelocity(Quaternion start, Quaternion end, Fix64 dt)
+        public static Vector3 GetAngularVelocity(Quaternion start, Quaternion end, fp dt)
         {
             //Compute the relative orientation R' between R and the target relative orientation.
             Quaternion errorOrientation;
@@ -88,7 +89,7 @@ namespace BEPUphysics.Paths.PathFollowing
             Quaternion.Multiply(ref end, ref errorOrientation, out errorOrientation);
 
             Vector3 axis;
-			Fix64 angle;
+			fp angle;
             //Turn this into an axis-angle representation.
             Quaternion.GetAxisAngleFromQuaternion(ref errorOrientation, out axis, out angle);
             Vector3.Multiply(ref axis, angle / dt, out axis);
@@ -115,7 +116,7 @@ namespace BEPUphysics.Paths.PathFollowing
         /// Called automatically by the space.
         /// </summary>
         /// <param name="dt">Simulation timestep.</param>
-        void IDuringForcesUpdateable.Update(Fix64 dt)
+        void IDuringForcesUpdateable.Update(fp dt)
         {
             if (Entity != AngularMotor.Entity)
                 throw new InvalidOperationException(

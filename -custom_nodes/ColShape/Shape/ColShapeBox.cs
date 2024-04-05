@@ -3,6 +3,7 @@ using System;
 
 using FixMath.NET;
 using BEPUutilities;
+using Deterministic.FixedPoint;
 
 [Tool]
 public partial class ColShapeBox : Shape
@@ -13,15 +14,15 @@ public partial class ColShapeBox : Shape
 		get => new Godot.Vector3((float)Fix64.FromRaw(SizeX), (float)Fix64.FromRaw(SizeY), (float)Fix64.FromRaw(SizeZ));
 		set {
 			if (Engine.IsEditorHint()) {  // Avoid any float values changing fixed point raw values when the game runs
-				SizeX = ((Fix64)value.X).RawValue;
-				SizeY = ((Fix64)value.Y).RawValue;
-				SizeZ = ((Fix64)value.Z).RawValue;
+				SizeX = ((fp)value.X).value;
+				SizeY = ((fp)value.Y).value;
+				SizeZ = ((fp)value.Z).value;
 				((BoxMesh)Mesh).Size = size;
 			}
 		}
 	}
 
-	private long SizeX = ((Fix64)1).RawValue;
+	private long SizeX = ((fp)1).value;
 	[Export]
 	private long sizeX {
 		get => SizeX;
@@ -33,7 +34,7 @@ public partial class ColShapeBox : Shape
 			((BoxMesh)Mesh).Size = size;
 		}
 	}
-	private long SizeY = ((Fix64)1).RawValue;
+	private long SizeY = ((fp)1).value;
 	[Export]
 	private long sizeY {
 		get => SizeY;
@@ -45,7 +46,7 @@ public partial class ColShapeBox : Shape
 			((BoxMesh)Mesh).Size = size;
 		}
 	}
-	private long SizeZ = ((Fix64)1).RawValue;
+	private long SizeZ = ((fp)1).value;
 	[Export]
 	private long sizeZ {
 		get => SizeZ;

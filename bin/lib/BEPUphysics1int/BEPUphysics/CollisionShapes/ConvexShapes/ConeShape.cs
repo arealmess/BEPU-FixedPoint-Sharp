@@ -3,6 +3,7 @@ using BEPUphysics.BroadPhaseEntries.MobileCollidables;
 
 using BEPUutilities;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.CollisionShapes.ConvexShapes
 {
@@ -12,11 +13,11 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
     public class ConeShape : ConvexShape
     {
 
-        Fix64 height;
+        fp height;
         ///<summary>
         /// Gets or sets the height of the cone.
         ///</summary>
-        public Fix64 Height
+        public fp Height
         {
             get { return height; }
             set
@@ -26,11 +27,11 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
             }
         }
 
-        Fix64 radius;
+        fp radius;
         ///<summary>
         /// Gets or sets the radius of the cone base.
         ///</summary>
-        public Fix64 Radius
+        public fp Radius
         {
             get { return radius; }
             set
@@ -45,7 +46,7 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
         ///</summary>
         ///<param name="height">Height of the cone.</param>
         ///<param name="radius">Radius of the cone base.</param>
-        public ConeShape(Fix64 height, Fix64 radius)
+        public ConeShape(fp height, fp radius)
         {
             this.height = height;
             this.radius = radius;
@@ -59,7 +60,7 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
         ///<param name="height">Height of the cone.</param>
         ///<param name="radius">Radius of the cone base.</param>
         /// <param name="description">Cached information about the shape. Assumed to be correct; no extra processing or validation is performed.</param>
-        public ConeShape(Fix64 height, Fix64 radius, ConvexShapeDescription description)
+        public ConeShape(fp height, fp radius, ConvexShapeDescription description)
         {
             this.height = height;
             this.radius = radius;
@@ -82,22 +83,22 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
         ///<param name="radius">Radius of the cone base.</param>
         ///<param name="collisionMargin">Collision margin of the shape.</param>
         /// <returns>Description required to define a convex shape.</returns>
-        public static ConvexShapeDescription ComputeDescription(Fix64 height, Fix64 radius, Fix64 collisionMargin)
+        public static ConvexShapeDescription ComputeDescription(fp height, fp radius, fp collisionMargin)
         {
             ConvexShapeDescription description;
             description.EntityShapeVolume.Volume = F64.OneThird * MathHelper.Pi * radius * radius * height;
 
             description.EntityShapeVolume.VolumeDistribution = new Matrix3x3();
-            Fix64 diagValue = (F64.C0p1 * height * height + F64.C0p15 * radius * radius);
+            fp diagValue = (F64.C0p1 * height * height + F64.C0p15 * radius * radius);
             description.EntityShapeVolume.VolumeDistribution.M11 = diagValue;
             description.EntityShapeVolume.VolumeDistribution.M22 = F64.C0p3 * radius * radius;
             description.EntityShapeVolume.VolumeDistribution.M33 = diagValue;
 
-            description.MaximumRadius = collisionMargin + MathHelper.Max(F64.C0p75 * height, Fix64.Sqrt(F64.C0p0625 * height * height + radius * radius));
+            description.MaximumRadius = collisionMargin + MathHelper.Max(F64.C0p75 * height, fixmath.Sqrt(F64.C0p0625 * height * height + radius * radius));
 
-            Fix64 denominator = radius / height;
-            denominator = denominator / Fix64.Sqrt(denominator * denominator + F64.C1);
-            description.MinimumRadius = collisionMargin + MathHelper.Min(F64.C0p25 * height, denominator * F64.C0p75 * height);
+            fp denominator = radius / height;
+            denominator = denominator / fixmath.Sqrt(denominator * denominator + F64.C1);
+            description.MinimumRadius = collisionMargin + MathHelper.Min(fp._0_25 * height, denominator * F64.C0p75 * height);
 
             description.CollisionMargin = collisionMargin;
             return description;
@@ -112,7 +113,7 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
         public override void GetLocalExtremePointWithoutMargin(ref Vector3 direction, out Vector3 extremePoint)
         {
             //Is it the tip of the cone?
-            Fix64 sinThetaSquared = radius * radius / (radius * radius + height * height);
+            fp sinThetaSquared = radius * radius / (radius * radius + height * height);
             //If d.Y * d.Y / d.LengthSquared >= sinthetaSquared
             if (direction.Y > F64.C0 && direction.Y * direction.Y >= direction.LengthSquared() * sinThetaSquared)
             {
@@ -120,11 +121,11 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
                 return;
             }
             //Is it a bottom edge of the cone?
-            Fix64 horizontalLengthSquared = direction.X * direction.X + direction.Z * direction.Z;
+            fp horizontalLengthSquared = direction.X * direction.X + direction.Z * direction.Z;
             if (horizontalLengthSquared > Toolbox.Epsilon)
             {
-                var radOverSigma = radius / Fix64.Sqrt(horizontalLengthSquared);
-                extremePoint = new Vector3((Fix64)(radOverSigma * direction.X), F64.Cm0p25 * height, (Fix64)(radOverSigma * direction.Z));
+                var radOverSigma = radius / fixmath.Sqrt(horizontalLengthSquared);
+                extremePoint = new Vector3((radOverSigma * direction.X), F64.Cm0p25 * height, (radOverSigma * direction.Z));
             }
             else // It's pointing almost straight down...
                 extremePoint = new Vector3(F64.C0, F64.Cm0p25 * height, F64.C0);
@@ -140,7 +141,6 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
         public override EntityCollidable GetCollidableInstance()
         {
             return new ConvexCollidable<ConeShape>(this);
-        }
-
+        } 
     }
 }

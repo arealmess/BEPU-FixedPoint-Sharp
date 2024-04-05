@@ -1,4 +1,5 @@
-﻿using FixMath.NET;
+﻿using Deterministic.FixedPoint;
+using FixMath.NET;
 
 namespace BEPUphysics.PositionUpdating
 {
@@ -31,13 +32,13 @@ namespace BEPUphysics.PositionUpdating
         /// Updates the time of impacts associated with the updateable.
         ///</summary>
         ///<param name="dt">Time step duration.</param>
-        void UpdateTimesOfImpact(Fix64 dt);
+        void UpdateTimesOfImpact(fp dt);
 
         /// <summary>
         /// Updates the updateable using its continuous nature.
         /// </summary>
         /// <param name="dt">Time step duration.</param>
-        void UpdatePositionContinuously(Fix64 dt);
+        void UpdatePositionContinuously(fp dt);
 
         /// <summary>
         /// Gets or sets the position update mode of the object.

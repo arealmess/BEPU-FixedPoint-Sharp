@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://doa634sxn4pxi"
-path="res://.godot/imported/Xml.png-8b8a9a86c669c9387207d8af772126b3.ctex"
+path="res://.godot/imported/Xml.png-5cbee5bd0a3f90abfdff29eadec07f04.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://bin/lib/BEPUphysics1int/Dependencies/MonoGame/Tools/Templates/Xml.png"
-dest_files=["res://.godot/imported/Xml.png-8b8a9a86c669c9387207d8af772126b3.ctex"]
+source_file="res://bin/BEPUphysics1int/Dependencies/MonoGame/Tools/Templates/Xml.png"
+dest_files=["res://.godot/imported/Xml.png-5cbee5bd0a3f90abfdff29eadec07f04.ctex"]
 
 [params]
 

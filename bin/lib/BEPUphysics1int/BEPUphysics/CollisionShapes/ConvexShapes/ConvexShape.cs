@@ -3,6 +3,7 @@ using BEPUphysics.CollisionTests.CollisionAlgorithms;
 using BEPUutilities;
 using BEPUphysics.Settings;
 using FixMath.NET;
+using Deterministic.FixedPoint;
 
 namespace BEPUphysics.CollisionShapes.ConvexShapes
 {
@@ -22,13 +23,13 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
 
 
 
-		protected internal Fix64 collisionMargin = CollisionDetectionSettings.DefaultMargin;
+		protected internal fp collisionMargin = CollisionDetectionSettings.DefaultMargin;
 		///<summary>
 		/// Collision margin of the convex shape.  The margin is a small spherical expansion around
 		/// entities which allows specialized collision detection algorithms to be used.
 		/// It's recommended that this be left unchanged.
 		///</summary>
-		public Fix64 CollisionMargin
+		public fp CollisionMargin
 		{
 			get
 			{
@@ -36,7 +37,7 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
 			}
 			set
 			{
-				if (value < F64.C0)
+				if (value < fp._0)
 					throw new ArgumentException("Collision margin must be nonnegative..");
 				collisionMargin = value;
 				OnShapeChanged();
@@ -48,13 +49,13 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
 		/// guaranteed to be equal to or smaller than the actual minimum radius.  When setting this property,
 		/// ensure that the inner sphere formed by the new minimum radius is fully contained within the shape.
 		/// </summary>
-		public Fix64 MinimumRadius { get; internal set; }
+		public fp MinimumRadius { get; internal set; }
 
 		/// <summary>
 		/// Gets the maximum radius of the collidable's shape.  This is initialized to a value that is
 		/// guaranteed to be equal to or larger than the actual maximum radius.
 		/// </summary>
-		public Fix64 MaximumRadius { get; internal set; }
+		public fp MaximumRadius { get; internal set; }
 
 		///<summary>
 		/// Gets the extreme point of the shape in local space in a given direction.
@@ -90,10 +91,10 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
 		{
 			GetExtremePointWithoutMargin(direction, ref shapeTransform, out extremePoint);
 
-			Fix64 directionLength = direction.LengthSquared();
+			fp directionLength = direction.LengthSquared();
 			if (directionLength > Toolbox.Epsilon)
 			{
-				Vector3.Multiply(ref direction, collisionMargin / Fix64.Sqrt(directionLength), out direction);
+				Vector3.Multiply(ref direction, collisionMargin / fixmath.Sqrt(directionLength), out direction);
 				Vector3.Add(ref extremePoint, ref direction, out extremePoint);
 			}
 
@@ -108,10 +109,10 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
 		{
 			GetLocalExtremePointWithoutMargin(ref direction, out extremePoint);
 
-			Fix64 directionLength = direction.LengthSquared();
+			fp directionLength = direction.LengthSquared();
 			if (directionLength > Toolbox.Epsilon)
 			{
-				Vector3.Multiply(ref direction, collisionMargin / Fix64.Sqrt(directionLength), out direction);
+				Vector3.Multiply(ref direction, collisionMargin / fixmath.Sqrt(directionLength), out direction);
 				Vector3.Add(ref extremePoint, ref direction, out extremePoint);
 			}
 		}
@@ -181,7 +182,7 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
 		/// <param name="maximumLength">Maximum distance to travel in units of the ray direction's length.</param>
 		/// <param name="hit">Ray hit data, if any.</param>
 		/// <returns>Whether or not the ray hit the target.</returns>
-		public virtual bool RayTest(ref Ray ray, ref RigidTransform transform, Fix64 maximumLength, out RayHit hit)
+		public virtual bool RayTest(ref Ray ray, ref RigidTransform transform, fp maximumLength, out RayHit hit)
 		{
 			return MPRToolbox.RayCast(ray, maximumLength, this, ref transform, out hit);
 		}
