@@ -44,6 +44,11 @@ namespace BEPUutilities
             this.W = w;
         }
 
+        public static implicit operator Quaternion(fp4 fp4)
+        {
+          return new Quaternion(fp4.x, fp4.y, fp4.z, fp4.w);
+        } 
+         
         /// <summary>
         /// Adds two quaternions together.
         /// </summary>
@@ -114,9 +119,7 @@ namespace BEPUutilities
             result.X = aW * bX + aX * bW + aZ * bY - aY * bZ;
             result.Y = aW * bY + aY * bW + aX * bZ - aZ * bX;
             result.Z = aW * bZ + aZ * bW + aY * bX - aX * bY;
-            result.W = aW * bW - aX * bX - aY * bY - aZ * bZ;
-
-
+            result.W = aW * bW - aX * bX - aY * bY - aZ * bZ; 
         }
 
         /// <summary>
@@ -139,12 +142,10 @@ namespace BEPUutilities
         {
             get
             {
-                return new Quaternion(fp._0, fp._0, fp._0, fp._1);
+                return new Quaternion(F64.C0, F64.C0, F64.C0, F64.C1);
             }
         }
-
-
-
+     
 
         /// <summary>
         /// Constructs a quaternion from a rotation matrix.
@@ -157,41 +158,41 @@ namespace BEPUutilities
 #if !WINDOWS
             q = new Quaternion();
 #endif
-            if (trace >= fp._0)
+            if (trace >= F64.C0)
             {
-                var S = fixmath.Sqrt(trace + fp._1) * F64.C2; // S=4*qw 
-                var inverseS = fp._1 / S;
-                q.W = fp._0_25 * S;
+                var S = fixmath.Sqrt(trace + F64.C1) * F64.C2; // S=4*qw 
+                var inverseS = F64.C1 / S;
+                q.W = F64.C0p25 * S;
                 q.X = (r.M23 - r.M32) * inverseS;
                 q.Y = (r.M31 - r.M13) * inverseS;
                 q.Z = (r.M12 - r.M21) * inverseS;
             }
             else if ((r.M11 > r.M22) & (r.M11 > r.M33))
             {
-                var S = fixmath.Sqrt(fp._1 + r.M11 - r.M22 - r.M33) * F64.C2; // S=4*qx 
-                var inverseS = fp._1 / S;
+                var S = fixmath.Sqrt(F64.C1 + r.M11 - r.M22 - r.M33) * F64.C2; // S=4*qx 
+                var inverseS = F64.C1 / S;
                 q.W = (r.M23 - r.M32) * inverseS;
-                q.X = fp._0_25 * S;
+                q.X = F64.C0p25 * S;
                 q.Y = (r.M21 + r.M12) * inverseS;
                 q.Z = (r.M31 + r.M13) * inverseS;
             }
             else if (r.M22 > r.M33)
             {
-                var S = fixmath.Sqrt(fp._1 + r.M22 - r.M11 - r.M33) * F64.C2; // S=4*qy
-                var inverseS = fp._1 / S;
+                var S = fixmath.Sqrt(F64.C1 + r.M22 - r.M11 - r.M33) * F64.C2; // S=4*qy
+                var inverseS = F64.C1 / S;
                 q.W = (r.M31 - r.M13) * inverseS;
                 q.X = (r.M21 + r.M12) * inverseS;
-                q.Y = fp._0_25 * S;
+                q.Y = F64.C0p25 * S;
                 q.Z = (r.M32 + r.M23) * inverseS;
             }
             else
             {
-                var S = fixmath.Sqrt(fp._1 + r.M33 - r.M11 - r.M22) * F64.C2; // S=4*qz
-                var inverseS = fp._1 / S;
+                var S = fixmath.Sqrt(F64.C1 + r.M33 - r.M11 - r.M22) * F64.C2; // S=4*qz
+                var inverseS = F64.C1 / S;
                 q.W = (r.M12 - r.M21) * inverseS;
                 q.X = (r.M31 + r.M13) * inverseS;
                 q.Y = (r.M32 + r.M23) * inverseS;
-                q.Z = fp._0_25 * S;
+                q.Z = F64.C0p25 * S;
             }
         }
 
@@ -202,8 +203,7 @@ namespace BEPUutilities
         /// <returns>Quaternion representing the same rotation as the matrix.</returns>
         public static Quaternion CreateFromRotationMatrix(Matrix3x3 r)
         {
-            Quaternion toReturn;
-            CreateFromRotationMatrix(ref r, out toReturn);
+            CreateFromRotationMatrix(ref r, out Quaternion toReturn);
             return toReturn;
         }
 
@@ -213,9 +213,8 @@ namespace BEPUutilities
         /// <param name="r">Rotation matrix to create the quaternion from.</param>
         /// <param name="q">Quaternion based on the rotation matrix.</param>
         public static void CreateFromRotationMatrix(ref Matrix r, out Quaternion q)
-        {
-            Matrix3x3 downsizedMatrix;
-            Matrix3x3.CreateFromMatrix(ref r, out downsizedMatrix);
+        { 
+            Matrix3x3.CreateFromMatrix(ref r, out Matrix3x3 downsizedMatrix);
             CreateFromRotationMatrix(ref downsizedMatrix, out q);
         }
 
@@ -225,12 +224,10 @@ namespace BEPUutilities
         /// <param name="r">Rotation matrix used to create a new quaternion.</param>
         /// <returns>Quaternion representing the same rotation as the matrix.</returns>
         public static Quaternion CreateFromRotationMatrix(Matrix r)
-        {
-            Quaternion toReturn;
-            CreateFromRotationMatrix(ref r, out toReturn);
+        { 
+            CreateFromRotationMatrix(ref r, out Quaternion toReturn);
             return toReturn;
-        }
-
+        } 
 
         /// <summary>
         /// Ensures the quaternion has unit length.
@@ -238,9 +235,8 @@ namespace BEPUutilities
         /// <param name="quaternion">Quaternion to normalize.</param>
         /// <returns>Normalized quaternion.</returns>
         public static Quaternion Normalize(Quaternion quaternion)
-        {
-            Quaternion toReturn;
-            Normalize(ref quaternion, out toReturn);
+        { 
+            Normalize(ref quaternion, out Quaternion toReturn);
             return toReturn;
         }
 
@@ -251,7 +247,7 @@ namespace BEPUutilities
         /// <param name="toReturn">Normalized quaternion.</param>
         public static void Normalize(ref Quaternion quaternion, out Quaternion toReturn)
         {
-            fp inverse = fp._1 / fixmath.Sqrt(quaternion.X * quaternion.X + quaternion.Y * quaternion.Y + quaternion.Z * quaternion.Z + quaternion.W * quaternion.W);
+            fp inverse = F64.C1 / fixmath.Sqrt(quaternion.X * quaternion.X + quaternion.Y * quaternion.Y + quaternion.Z * quaternion.Z + quaternion.W * quaternion.W);
             toReturn.X = quaternion.X * inverse;
             toReturn.Y = quaternion.Y * inverse;
             toReturn.Z = quaternion.Z * inverse;
@@ -263,7 +259,7 @@ namespace BEPUutilities
         /// </summary>
         public void Normalize()
         {
-            fp inverse = fp._1 / fixmath.Sqrt(X * X + Y * Y + Z * Z + W * W);
+            fp inverse = F64.C1 / fixmath.Sqrt(X * X + Y * Y + Z * Z + W * W);
             X *= inverse;
             Y *= inverse;
             Z *= inverse;
@@ -298,7 +294,7 @@ namespace BEPUutilities
         /// <param name="result">Interpolated intermediate quaternion.</param>
         public static void Slerp(ref Quaternion start, ref Quaternion end, fp interpolationAmount, out Quaternion result)
         {
-			fp cosHalfTheta = start.W * end.W + start.X * end.X + start.Y * end.Y + start.Z * end.Z;
+			      fp cosHalfTheta = start.W * end.W + start.X * end.X + start.Y * end.Y + start.Z * end.Z;
             if (cosHalfTheta < F64.C0)
             {
                 //Negating a quaternion results in the same orientation, 
@@ -320,20 +316,16 @@ namespace BEPUutilities
             }
             // Calculate temporary values.
             fp halfTheta = fixmath.Acos(cosHalfTheta);
-			fp sinHalfTheta = fixmath.Sqrt(F64.C1 - cosHalfTheta * cosHalfTheta);
+			      fp sinHalfTheta = fixmath.Sqrt(F64.C1 - cosHalfTheta * cosHalfTheta);
 
-			fp aFraction = fixmath.Sin((F64.C1 - interpolationAmount) * halfTheta) / sinHalfTheta;
-			fp bFraction = fixmath.Sin(interpolationAmount * halfTheta) / sinHalfTheta;
+			      fp aFraction = fixmath.Sin((F64.C1 - interpolationAmount) * halfTheta) / sinHalfTheta;
+			      fp bFraction = fixmath.Sin(interpolationAmount * halfTheta) / sinHalfTheta;
 
             //Blend the two quaternions to get the result!
             result.X = (start.X * aFraction + end.X * bFraction);
             result.Y = (start.Y * aFraction + end.Y * bFraction);
             result.Z = (start.Z * aFraction + end.Z * bFraction);
-            result.W = (start.W * aFraction + end.W * bFraction);
-
-
-
-
+            result.W = (start.W * aFraction + end.W * bFraction); 
         }
 
         /// <summary>
@@ -348,8 +340,7 @@ namespace BEPUutilities
             Quaternion toReturn;
             Slerp(ref start, ref end, interpolationAmount, out toReturn);
             return toReturn;
-        }
-
+        } 
 
         /// <summary>
         /// Computes the conjugate of the quaternion.
@@ -370,13 +361,10 @@ namespace BEPUutilities
         /// <param name="quaternion">Quaternion to conjugate.</param>
         /// <returns>Conjugated quaternion.</returns>
         public static Quaternion Conjugate(Quaternion quaternion)
-        {
-            Quaternion toReturn;
-            Conjugate(ref quaternion, out toReturn);
+        { 
+            Conjugate(ref quaternion, out Quaternion toReturn);
             return toReturn;
-        }
-
-
+        }  
 
         /// <summary>
         /// Computes the inverse of the quaternion.
@@ -398,11 +386,9 @@ namespace BEPUutilities
         /// <param name="quaternion">Quaternion to invert.</param>
         /// <returns>Result of the inversion.</returns>
         public static Quaternion Inverse(Quaternion quaternion)
-        {
-            Quaternion result;
-            Inverse(ref quaternion, out result);
-            return result;
-
+        { 
+            Inverse(ref quaternion, out Quaternion result);
+            return result; 
         }
 
         /// <summary>
@@ -543,9 +529,8 @@ namespace BEPUutilities
         /// <param name="rotation">Rotation to apply to the vector.</param>
         /// <returns>Transformed vector.</returns>
         public static Vector3 Transform(Vector3 v, Quaternion rotation)
-        {
-            Vector3 toReturn;
-            Transform(ref v, ref rotation, out toReturn);
+        { 
+            Transform(ref v, ref rotation, out Vector3 toReturn);
             return toReturn;
         }
 
@@ -649,9 +634,8 @@ namespace BEPUutilities
         /// <param name="b">Second quaternion to multiply.</param>
         /// <returns>Product of the multiplication.</returns>
         public static Quaternion operator *(Quaternion a, Quaternion b)
-        {
-            Quaternion toReturn;
-            Multiply(ref a, ref b, out toReturn);
+        { 
+            Multiply(ref a, ref b, out Quaternion toReturn);
             return toReturn;
         }
 
@@ -663,8 +647,8 @@ namespace BEPUutilities
         /// <returns>Quaternion representing the axis and angle rotation.</returns>
         public static Quaternion CreateFromAxisAngle(Vector3 axis, fp angle)
         {
-			fp halfAngle = angle * fp._0_50;
-			fp s = fixmath.Sin(halfAngle);
+			      fp halfAngle = angle * F64.C0p5;
+			      fp s = fixmath.Sin(halfAngle);
             Quaternion q;
             q.X = axis.X * s;
             q.Y = axis.Y * s;
@@ -681,8 +665,8 @@ namespace BEPUutilities
         /// <param name="q">Quaternion representing the axis and angle rotation.</param>
         public static void CreateFromAxisAngle(ref Vector3 axis, fp angle, out Quaternion q)
         {
-			fp halfAngle = angle * fp._0_50;
-			fp s = fixmath.Sin(halfAngle);
+			      fp halfAngle = angle * F64.C0p5;
+			      fp s = fixmath.Sin(halfAngle);
             q.X = axis.X * s;
             q.Y = axis.Y * s;
             q.Z = axis.Z * s;
@@ -697,9 +681,8 @@ namespace BEPUutilities
         /// <param name="roll">Roll of the rotation.</param>
         /// <returns>Quaternion representing the yaw, pitch, and roll.</returns>
         public static Quaternion CreateFromYawPitchRoll(fp yaw, fp pitch, fp roll)
-        {
-            Quaternion toReturn;
-            CreateFromYawPitchRoll(yaw, pitch, roll, out toReturn);
+        { 
+            CreateFromYawPitchRoll(yaw, pitch, roll, out Quaternion toReturn);
             return toReturn;
         }
 
@@ -712,22 +695,22 @@ namespace BEPUutilities
         /// <param name="q">Quaternion representing the yaw, pitch, and roll.</param>
         public static void CreateFromYawPitchRoll(fp yaw, fp pitch, fp roll, out Quaternion q)
         {
-			fp halfRoll = roll * fp._0_50;
-			fp halfPitch = pitch * fp._0_50;
-			fp halfYaw = yaw * fp._0_50;
+			      fp halfRoll = roll * F64.C0p5;
+			      fp halfPitch = pitch * F64.C0p5;
+			      fp halfYaw = yaw * F64.C0p5;
 
-			fp sinRoll = fixmath.Sin(halfRoll);
-			fp sinPitch = fixmath.Sin(halfPitch);
-			fp sinYaw = fixmath.Sin(halfYaw);
+			      fp sinRoll = fixmath.Sin(halfRoll);
+			      fp sinPitch = fixmath.Sin(halfPitch);
+			      fp sinYaw = fixmath.Sin(halfYaw);
 
-			fp cosRoll = fixmath.Cos(halfRoll);
-			fp cosPitch = fixmath.Cos(halfPitch);
-			fp cosYaw = fixmath.Cos(halfYaw);
+			      fp cosRoll = fixmath.Cos(halfRoll);
+			      fp cosPitch = fixmath.Cos(halfPitch);
+			      fp cosYaw = fixmath.Cos(halfYaw);
 
-			fp cosYawCosPitch = cosYaw * cosPitch;
-			fp cosYawSinPitch = cosYaw * sinPitch;
-			fp sinYawCosPitch = sinYaw * cosPitch;
-			fp sinYawSinPitch = sinYaw * sinPitch;
+			      fp cosYawCosPitch = cosYaw * cosPitch;
+			      fp cosYawSinPitch = cosYaw * sinPitch;
+			      fp sinYawCosPitch = sinYaw * cosPitch;
+			      fp sinYawSinPitch = sinYaw * sinPitch;
 
             q.X = cosYawSinPitch * cosRoll + sinYawCosPitch * sinRoll;
             q.Y = sinYawCosPitch * cosRoll - cosYawSinPitch * sinRoll;
@@ -818,10 +801,9 @@ namespace BEPUutilities
                     q = new Quaternion(-v1.Y, v1.X, F64.C0, F64.C0);
             }
             else
-            {
-                Vector3 axis;
-                Vector3.Cross(ref v1, ref v2, out axis);
-                q = new Quaternion(axis.X, axis.Y, axis.Z, dot + fp._1);
+            { 
+                Vector3.Cross(ref v1, ref v2, out Vector3 axis);
+                q = new Quaternion(axis.X, axis.Y, axis.Z, dot + F64.C1);
             }
             q.Normalize();
         }
@@ -836,9 +818,8 @@ namespace BEPUutilities
         /// <param name="end">Ending orientation.</param>
         /// <param name="relative">Relative rotation from the start to the end orientation.</param>
         public static void GetRelativeRotation(ref Quaternion start, ref Quaternion end, out Quaternion relative)
-        {
-            Quaternion startInverse;
-            Conjugate(ref start, out startInverse);
+        { 
+            Conjugate(ref start, out Quaternion startInverse);
             Concatenate(ref startInverse, ref end, out relative);
         }
 
@@ -850,9 +831,8 @@ namespace BEPUutilities
         /// <param name="targetBasis">Basis in the original frame of reference to transform the rotation into.</param>
         /// <param name="localRotation">Rotation in the local space of the target basis.</param>
         public static void GetLocalRotation(ref Quaternion rotation, ref Quaternion targetBasis, out Quaternion localRotation)
-        {
-            Quaternion basisInverse;
-            Conjugate(ref targetBasis, out basisInverse);
+        { 
+            Conjugate(ref targetBasis, out Quaternion basisInverse);
             Concatenate(ref rotation, ref basisInverse, out localRotation);
         }
 

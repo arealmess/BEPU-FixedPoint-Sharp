@@ -48,15 +48,15 @@ public partial class PhysicsBody : Node3D
 		}
 	}
 
-	public BEPUutilities.Vector3 PosOffset = new BEPUutilities.Vector3();  // This is the value BEPU uses as the origin when creating this PhysicsBody
+	public BEPUutilities.Vector3 PosOffset = new();  // This is the value BEPU uses as the origin when creating this PhysicsBody
 	[Export]
 	private Godot.Vector3 posOffset {
-		get => new Godot.Vector3((float)Fix64.FromRaw(PosOffsetX), (float)Fix64.FromRaw(PosOffsetY), (float)Fix64.FromRaw(PosOffsetZ));
+		get => new((float)Fix64.FromRaw(PosOffsetX), (float)Fix64.FromRaw(PosOffsetY), (float)Fix64.FromRaw(PosOffsetZ));
 		set {
 			if (Engine.IsEditorHint()) {  // Avoid any float values changing fixed point raw values when the game runs
-				PosOffsetX = ((fp)((decimal)value.X)).value;
-				PosOffsetY = ((fp)((decimal)value.Y)).value;
-				PosOffsetZ = ((fp)((decimal)value.Z)).value;
+				PosOffsetX = ((fp)(decimal)value.X).value;
+				PosOffsetY = ((fp)(decimal)value.Y).value;
+				PosOffsetZ = ((fp)(decimal)value.Z).value;
 			}
 		}
 	}
@@ -66,7 +66,7 @@ public partial class PhysicsBody : Node3D
 		get => PosOffsetX;
 		set {
 			PosOffsetX = value;
-			PosOffset = new BEPUutilities.Vector3(Fix64.FromRaw(PosOffsetX), Fix64.FromRaw(PosOffsetY), Fix64.FromRaw(PosOffsetZ));
+			PosOffset = new(Fix64.FromRaw(PosOffsetX), Fix64.FromRaw(PosOffsetY), Fix64.FromRaw(PosOffsetZ));
 		}
 	}
 	private long PosOffsetY;
@@ -75,7 +75,7 @@ public partial class PhysicsBody : Node3D
 		get => PosOffsetY;
 		set {
 			PosOffsetY = value;
-			PosOffset = new BEPUutilities.Vector3(Fix64.FromRaw(PosOffsetX), Fix64.FromRaw(PosOffsetY), Fix64.FromRaw(PosOffsetZ));
+			PosOffset = new(Fix64.FromRaw(PosOffsetX), Fix64.FromRaw(PosOffsetY), Fix64.FromRaw(PosOffsetZ));
 		}
 	}
 	private long PosOffsetZ;
@@ -84,20 +84,20 @@ public partial class PhysicsBody : Node3D
 		get => PosOffsetZ;
 		set {
 			PosOffsetZ = value;
-			PosOffset = new BEPUutilities.Vector3(Fix64.FromRaw(PosOffsetX), Fix64.FromRaw(PosOffsetY), Fix64.FromRaw(PosOffsetZ));
+			PosOffset = new(Fix64.FromRaw(PosOffsetX), Fix64.FromRaw(PosOffsetY), Fix64.FromRaw(PosOffsetZ));
 		}
 	}
 
-	public BEPUutilities.Quaternion QuatOffset = new BEPUutilities.Quaternion(0,0,0,1);  // This is the value BEPU uses as the origin when creating this PhysicsBody
+	public BEPUutilities.Quaternion QuatOffset = fp4.Identity;  // This is the value BEPU uses as the origin when creating this PhysicsBody
 	[Export]
 	private Godot.Quaternion quatOffset {
-		get => new Godot.Quaternion((float)Fix64.FromRaw(QuatOffsetX), (float)Fix64.FromRaw(QuatOffsetY), (float)Fix64.FromRaw(QuatOffsetZ), (float)Fix64.FromRaw(QuatOffsetW));
-		set {
+		get => new((float)Fix64.FromRaw(QuatOffsetX), (float)Fix64.FromRaw(QuatOffsetY), (float)Fix64.FromRaw(QuatOffsetZ), (float)Fix64.FromRaw(QuatOffsetW));
+    set {
 			if (Engine.IsEditorHint()) {  // Avoid any float values changing fixed point raw values when the game runs
-				QuatOffsetX = ((fp)((decimal)value.X)).value;
-				QuatOffsetY = ((fp)((decimal)value.Y)).value;
-				QuatOffsetZ = ((fp)((decimal)value.Z)).value;
-				QuatOffsetW = ((fp)((decimal)value.W)).value;
+				QuatOffsetX = ((fp)(decimal)value.X).value;
+				QuatOffsetY = ((fp)(decimal)value.Y).value;
+				QuatOffsetZ = ((fp)(decimal)value.Z).value;
+				QuatOffsetW = ((fp)(decimal)value.W).value;
 			}
 		}
 	}
@@ -107,8 +107,9 @@ public partial class PhysicsBody : Node3D
 		get => QuatOffsetX;
 		set {
 			QuatOffsetX = value;
-			QuatOffset = new BEPUutilities.Quaternion(Fix64.FromRaw(QuatOffsetX), Fix64.FromRaw(QuatOffsetY), Fix64.FromRaw(QuatOffsetZ), Fix64.FromRaw(QuatOffsetW));
-		}
+			QuatOffset = new fp4(QuatOffsetX, QuatOffsetY, QuatOffsetZ, QuatOffsetW);
+
+    }
 	}
 	private long QuatOffsetY;
 	[Export]
@@ -116,8 +117,9 @@ public partial class PhysicsBody : Node3D
 		get => QuatOffsetY;
 		set {
 			QuatOffsetY = value;
-			QuatOffset = new BEPUutilities.Quaternion(Fix64.FromRaw(QuatOffsetX), Fix64.FromRaw(QuatOffsetY), Fix64.FromRaw(QuatOffsetZ), Fix64.FromRaw(QuatOffsetW));
-		}
+			QuatOffset = new fp4(QuatOffsetX, QuatOffsetY, QuatOffsetZ, QuatOffsetW);
+
+    }
 	}
 	private long QuatOffsetZ;
 	[Export]
@@ -125,8 +127,9 @@ public partial class PhysicsBody : Node3D
 		get => QuatOffsetZ;
 		set {
 			QuatOffsetZ = value;
-			QuatOffset = new BEPUutilities.Quaternion(Fix64.FromRaw(QuatOffsetX), Fix64.FromRaw(QuatOffsetY), Fix64.FromRaw(QuatOffsetZ), Fix64.FromRaw(QuatOffsetW));
-		}
+			QuatOffset = new fp4(QuatOffsetX, QuatOffsetY, QuatOffsetZ, QuatOffsetW);
+
+    }
 	}
 	private long QuatOffsetW;
 	[Export]
@@ -134,8 +137,9 @@ public partial class PhysicsBody : Node3D
 		get => QuatOffsetW;
 		set {
 			QuatOffsetW = value;
-			QuatOffset = new BEPUutilities.Quaternion(Fix64.FromRaw(QuatOffsetX), Fix64.FromRaw(QuatOffsetY), Fix64.FromRaw(QuatOffsetZ), Fix64.FromRaw(QuatOffsetW));
-		}
+			QuatOffset = new fp4(QuatOffsetX, QuatOffsetY, QuatOffsetZ, QuatOffsetW);
+
+    }
 	}
 
 	public Entity Body = null;
@@ -232,8 +236,8 @@ public partial class PhysicsBody : Node3D
 						break;
 					case PhysicsBodyType.RigidBody:
 						Body = new Box(posInitial, boxShape.Size.X, boxShape.Size.Y, boxShape.Size.Z, Mass);
-						BEPUutilities.Quaternion Quat = quatInitial;
-						Quat.Normalize();
+						fp4 Quat = quatInitial;
+						fixmath.Normalize(Quat);
 						Body.orientation = Quat;
 						Body.CollisionInformation.CollisionRules.Group = physicsHandler.CollisionGroups[CollisionGroup];
 						Body.CollisionInformation.SetOwner(this);
@@ -359,7 +363,7 @@ public partial class PhysicsBody : Node3D
 		}
 
 		// Add physics body to physics space
-		if (!Godot.Engine.IsEditorHint()) {
+		if (!Engine.IsEditorHint()) {
 			if (Body != null) {
 				physicsHandler.AddBodyToSpace(Body);
 			}
@@ -374,17 +378,17 @@ public partial class PhysicsBody : Node3D
 
     private void Update()  // Updates the visual position of this physics body (does not affect position in BEPU space)
 	{
-		if (!Godot.Engine.IsEditorHint()){
+		if (!Engine.IsEditorHint()){
 			// This code applies the orientation and position properly and allows rotating both the PhysicsBody and the ColShape
 			// Basis
 			var newQuat = new Godot.Quaternion((float)Body.orientation.X, (float)Body.orientation.Y, (float)Body.orientation.Z, (float)Body.orientation.W) * ColShapeQuat.Inverse();
-			var newBasis = new Godot.Basis(newQuat);
+			var newBasis = new Basis(newQuat);
 
 			// Origin
 			var newOrigin = new Godot.Vector3((float)Body.Position.X, (float)Body.Position.Y, (float)Body.Position.Z) - (ColShapeOrigin * newQuat.Inverse());
 
 			// Transform
-			var newTransform3D = new Godot.Transform3D(newBasis, newOrigin);
+			var newTransform3D = new Transform3D(newBasis, newOrigin);
 			Transform = newTransform3D;
 		}
 	}

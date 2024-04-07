@@ -14,9 +14,9 @@ public partial class ColShapeBox : Shape
 		get => new Godot.Vector3((float)Fix64.FromRaw(SizeX), (float)Fix64.FromRaw(SizeY), (float)Fix64.FromRaw(SizeZ));
 		set {
 			if (Engine.IsEditorHint()) {  // Avoid any float values changing fixed point raw values when the game runs
-				SizeX = ((fp)value.X).value;
-				SizeY = ((fp)value.Y).value;
-				SizeZ = ((fp)value.Z).value;
+				SizeX = ((fp)(decimal)value.X).value;
+				SizeY = ((fp)(decimal)value.Y).value;
+				SizeZ = ((fp)(decimal)value.Z).value;
 				((BoxMesh)Mesh).Size = size;
 			}
 		}

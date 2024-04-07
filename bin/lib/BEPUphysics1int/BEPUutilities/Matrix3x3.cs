@@ -86,7 +86,7 @@ namespace BEPUutilities
 		/// </summary>
 		public static Matrix3x3 Identity
 		{
-			get { return new Matrix3x3(fp._1, fp._0, fp._0, fp._0, fp._1, fp._0, fp._0, fp._0, fp._1); }
+			get { return new Matrix3x3(F64.C1, F64.C0, F64.C0, F64.C0, F64.C1, F64.C0, F64.C0, F64.C0, F64.C1); }
 		}
 
 
@@ -98,7 +98,7 @@ namespace BEPUutilities
 			get
 			{
 #if !WINDOWS
-				Vector3 vector = new Vector3();
+				Vector3 vector = new();
 #else
 				Vector3 vector;
 #endif
@@ -123,7 +123,7 @@ namespace BEPUutilities
 			get
 			{
 #if !WINDOWS
-				Vector3 vector = new Vector3();
+				Vector3 vector = new();
 #else
 				Vector3 vector;
 #endif
@@ -148,7 +148,7 @@ namespace BEPUutilities
 			get
 			{
 #if !WINDOWS
-				Vector3 vector = new Vector3();
+				Vector3 vector = new();
 #else
 				Vector3 vector;
 #endif
@@ -173,7 +173,7 @@ namespace BEPUutilities
 			get
 			{
 #if !WINDOWS
-				Vector3 vector = new Vector3();
+				Vector3 vector = new();
 #else
 				Vector3 vector;
 #endif
@@ -198,7 +198,7 @@ namespace BEPUutilities
 			get
 			{
 #if !WINDOWS
-				Vector3 vector = new Vector3();
+				Vector3 vector = new();
 #else
 				Vector3 vector;
 #endif
@@ -223,7 +223,7 @@ namespace BEPUutilities
 			get
 			{
 #if !WINDOWS
-				Vector3 vector = new Vector3();
+				Vector3 vector = new();
 #else
 				Vector3 vector;
 #endif
@@ -379,16 +379,16 @@ namespace BEPUutilities
 		/// <param name="result">Skew-symmetric matrix result.</param>
 		public static void CreateCrossProduct(ref Vector3 v, out Matrix3x3 result)
 		{
-			result.M11 = fp._0;
-			result.M12 = -v.Z;
-			result.M13 = v.Y;
-			result.M21 = v.Z;
-			result.M22 = fp._0;
-			result.M23 = -v.X;
-			result.M31 = -v.Y;
-			result.M32 = v.X;
-			result.M33 = fp._0;
-		}
+      result.M11 = F64.C0;
+      result.M12 = -v.Z;
+      result.M13 = v.Y;
+      result.M21 = v.Z;
+      result.M22 = F64.C0;
+      result.M23 = -v.X;
+      result.M31 = -v.Y;
+      result.M32 = v.X;
+      result.M33 = F64.C0;
+    }
 
 		/// <summary>
 		/// Creates a 3x3 matrix from an XNA 4x4 matrix.
@@ -517,9 +517,8 @@ namespace BEPUutilities
 		/// <returns>Inverted matrix.</returns>
 		public static Matrix3x3 Invert(Matrix3x3 matrix)
 		{
-			Matrix3x3 toReturn;
-			Invert(ref matrix, out toReturn);
-			return toReturn;
+      Invert(ref matrix, out Matrix3x3 toReturn);
+      return toReturn;
 		}
 
 		/// <summary>
@@ -533,95 +532,94 @@ namespace BEPUutilities
 			if (Invert(ref matrix, out result))
 				return;
 
-			int submatrix;
-			fp determinantInverse = F64.C1 / matrix.AdaptiveDeterminant(out submatrix);
-			fp m11, m12, m13, m21, m22, m23, m31, m32, m33;
+      fp determinantInverse = F64.C1 / matrix.AdaptiveDeterminant(out int submatrix);
+      fp m11, m12, m13, m21, m22, m23, m31, m32, m33;
 			switch (submatrix)
 			{
 				case 1: //Upper left matrix, m11, m12, m21, m22.
 					m11 = matrix.M22 * determinantInverse;
 					m12 = -matrix.M12 * determinantInverse;
-					m13 = fp._0;
+					m13 = F64.C0;
 
 					m21 = -matrix.M21 * determinantInverse;
 					m22 = matrix.M11 * determinantInverse;
-					m23 = fp._0;
+					m23 = F64.C0;
 
-					m31 = fp._0;
-					m32 = fp._0;
-					m33 = fp._0;
+					m31 = F64.C0;
+					m32 = F64.C0;
+					m33 = F64.C0;
 					break;
 				case 2: //Lower right matrix, m22, m23, m32, m33.
-					m11 = fp._0;
-					m12 = fp._0;
-					m13 = fp._0;
+					m11 = F64.C0;
+					m12 = F64.C0;
+					m13 = F64.C0;
 
-					m21 = fp._0;
+					m21 = F64.C0;
 					m22 = matrix.M33 * determinantInverse;
 					m23 = -matrix.M23 * determinantInverse;
 
-					m31 = fp._0;
+					m31 = F64.C0;
 					m32 = -matrix.M32 * determinantInverse;
 					m33 = matrix.M22 * determinantInverse;
 					break;
 				case 3: //Corners, m11, m31, m13, m33.
 					m11 = matrix.M33 * determinantInverse;
-					m12 = fp._0;
+					m12 = F64.C0;
 					m13 = -matrix.M13 * determinantInverse;
 
-					m21 = fp._0;
-					m22 = fp._0;
-					m23 = fp._0;
+					m21 = F64.C0;
+					m22 = F64.C0;
+					m23 = F64.C0;
 
 					m31 = -matrix.M31 * determinantInverse;
-					m32 = fp._0;
+					m32 = F64.C0;
 					m33 = matrix.M11 * determinantInverse;
 					break;
 				case 4: //M11
-					m11 = fp._1 / matrix.M11;
-					m12 = fp._0;
-					m13 = fp._0;
+					m11 = F64.C1 / matrix.M11;
+					m12 = F64.C0;
+					m13 = F64.C0;
 
-					m21 = fp._0;
-					m22 = fp._0;
-					m23 = fp._0;
+					m21 = F64.C0;
+					m22 = F64.C0;
+					m23 = F64.C0;
 
-					m31 = fp._0;
-					m32 = fp._0;
-					m33 = fp._0;
+					m31 = F64.C0;
+					m32 = F64.C0;
+					m33 = F64.C0;
 					break;
 				case 5: //M22
-					m11 = fp._0;
-					m12 = fp._0;
-					m13 = fp._0;
+					m11 = F64.C0;
+					m12 = F64.C0;
+          m13 = F64.C0;
 
-					m21 = fp._0;
-					m22 = fp._1 / matrix.M22;
-					m23 = fp._0;
+          m21 = F64.C0;
+          m22 = F64.C1 / matrix.M22;
+          m23 = F64.C0;
 
-					m31 = fp._0;
-					m32 = fp._0;
-					m33 = fp._0;
-					break;
-				case 6: //M33
-					m11 = fp._0;
-					m12 = fp._0;
-					m13 = fp._0;
+          m31 = F64.C0;
+          m32 = F64.C0;
+          m33 = F64.C0;
+          break;
+        case 6: //M33
+          m11 = F64.C0;
+          m12 = F64.C0;
+          m13 = F64.C0;
 
-					m21 = fp._0;
-					m22 = fp._0;
-					m23 = fp._0;
+          m21 = F64.C0;
+          m22 = F64.C0;
+          m23 = F64.C0;
 
-					m31 = fp._0;
-					m32 = fp._0;
-					m33 = fp._1 / matrix.M33;
-					break;
-				default: //Completely singular.
-					m11 = fp._0; m12 = fp._0; m13 = fp._0; m21 = fp._0; m22 = fp._0; m23 = fp._0; m31 = fp._0; m32 = fp._0; m33 = fp._0;
-					break;
-			}
+          m31 = F64.C0;
+          m32 = F64.C0;
+          m33 = F64.C1 / matrix.M33;
+          break;
+        default: //Completely singular.
+          m11 = F64.C0; m12 = F64.C0; m13 = F64.C0; m21 = F64.C0; m22 = F64.C0; m23 = F64.C0; m31 = F64.C0; m32 = F64.C0; m33 = F64.C0;
+          break;
+      }
 
-			result.M11 = m11;
+      result.M11 = m11;
 			result.M12 = m12;
 			result.M13 = m13;
 
@@ -684,9 +682,8 @@ namespace BEPUutilities
 		/// <returns>Adjugate transpose of the input matrix.</returns>
 		public static Matrix3x3 AdjugateTranspose(Matrix3x3 matrix)
 		{
-			Matrix3x3 toReturn;
-			AdjugateTranspose(ref matrix, out toReturn);
-			return toReturn;
+      AdjugateTranspose(ref matrix, out Matrix3x3 toReturn);
+      return toReturn;
 		}
 
 		/// <summary>
@@ -697,9 +694,8 @@ namespace BEPUutilities
 		/// <returns>Product of the multiplication.</returns>
 		public static Matrix3x3 operator *(Matrix3x3 a, Matrix3x3 b)
 		{
-			Matrix3x3 result;
-			Matrix3x3.Multiply(ref a, ref b, out result);
-			return result;
+      Multiply(ref a, ref b, out Matrix3x3 result);
+      return result;
 		}        
 
 		/// <summary>
@@ -710,9 +706,8 @@ namespace BEPUutilities
 		/// <returns>Product of the multiplication.</returns>
 		public static Matrix3x3 operator *(Matrix3x3 m, fp f)
 		{
-			Matrix3x3 result;
-			Multiply(ref m, f, out result);
-			return result;
+      Multiply(ref m, f, out Matrix3x3 result);
+      return result;
 		}
 
 		/// <summary>
@@ -723,9 +718,8 @@ namespace BEPUutilities
 		/// <returns>Product of the multiplication.</returns>
 		public static Matrix3x3 operator *(fp f, Matrix3x3 m)
 		{
-			Matrix3x3 result;
-			Multiply(ref m, f, out result);
-			return result;
+      Multiply(ref m, f, out Matrix3x3 result);
+      return result;
 		}
 
 		/// <summary>
@@ -974,40 +968,40 @@ namespace BEPUutilities
 		/// <param name="a">3x3 matrix.</param>
 		/// <param name="b">Created 4x4 matrix.</param>
 		public static void ToMatrix4X4(ref Matrix3x3 a, out Matrix b)
-		{
+    {
 #if !WINDOWS
-			b = new Matrix();
+      b = new Matrix();
 #endif
-			b.M11 = a.M11;
-			b.M12 = a.M12;
-			b.M13 = a.M13;
+      b.M11 = a.M11;
+      b.M12 = a.M12;
+      b.M13 = a.M13;
 
-			b.M21 = a.M21;
-			b.M22 = a.M22;
-			b.M23 = a.M23;
+      b.M21 = a.M21;
+      b.M22 = a.M22;
+      b.M23 = a.M23;
 
-			b.M31 = a.M31;
-			b.M32 = a.M32;
-			b.M33 = a.M33;
+      b.M31 = a.M31;
+      b.M32 = a.M32;
+      b.M33 = a.M33;
 
-			b.M44 = fp._1;
-			b.M14 = fp._0;
-			b.M24 = fp._0;
-			b.M34 = fp._0;
-			b.M41 = fp._0;
-			b.M42 = fp._0;
-			b.M43 = fp._0;
-		}
+      b.M44 = F64.C1;
+      b.M14 = F64.C0;
+      b.M24 = F64.C0;
+      b.M34 = F64.C0;
+      b.M41 = F64.C0;
+      b.M42 = F64.C0;
+      b.M43 = F64.C0;
+    }
 
-		/// <summary>
-		/// Creates a 4x4 matrix from a 3x3 matrix.
-		/// </summary>
-		/// <param name="a">3x3 matrix.</param>
-		/// <returns>Created 4x4 matrix.</returns>
-		public static Matrix ToMatrix4X4(Matrix3x3 a)
+    /// <summary>
+    /// Creates a 4x4 matrix from a 3x3 matrix.
+    /// </summary>
+    /// <param name="a">3x3 matrix.</param>
+    /// <returns>Created 4x4 matrix.</returns>
+    public static Matrix ToMatrix4X4(Matrix3x3 a)
 		{
 #if !WINDOWS
-			Matrix b = new Matrix();
+			Matrix b = new();
 #else
 			Matrix b;
 #endif
@@ -1023,14 +1017,14 @@ namespace BEPUutilities
 			b.M32 = a.M32;
 			b.M33 = a.M33;
 
-			b.M44 = fp._1;
-			b.M14 = fp._0;
-			b.M24 = fp._0;
-			b.M34 = fp._0;
-			b.M41 = fp._0;
-			b.M42 = fp._0;
-			b.M43 = fp._0;
-			return b;
+      b.M44 = F64.C1;
+      b.M14 = F64.C0;
+      b.M24 = F64.C0;
+      b.M34 = F64.C0;
+      b.M41 = F64.C0;
+      b.M42 = F64.C0;
+      b.M43 = F64.C0;
+      return b;
 		}
 		
 		/// <summary>
@@ -1209,46 +1203,46 @@ namespace BEPUutilities
 			// We'll play it fast and loose here and assume the following won't overflow
 			//Try m11, m12, m21, m22.
 			fp determinant = M11 * M22 - M12 * M21;
-			if (determinant != fp._0)
+			if (determinant != F64.C0)
 			{
 				subMatrixCode = 1;
 				return determinant;
 			}
 			//Try m22, m23, m32, m33.
 			determinant = M22 * M33 - M23 * M32;
-			if (determinant != fp._0)
+			if (determinant != F64.C0)
 			{
 				subMatrixCode = 2;
 				return determinant;
 			}
 			//Try m11, m13, m31, m33.
 			determinant = M11 * M33 - M13 * M12;
-			if (determinant != fp._0)
+			if (determinant != F64.C0)
 			{
 				subMatrixCode = 3;
 				return determinant;
 			}
 			//Try m11.
-			if (M11 != fp._0)
+			if (M11 != F64.C0)
 			{
 				subMatrixCode = 4;
 				return M11;
 			}
 			//Try m22.
-			if (M22 != fp._0)
+			if (M22 != F64.C0)
 			{
 				subMatrixCode = 5;
 				return M22;
 			}
 			//Try m33.
-			if (M33 != fp._0)
+			if (M33 != F64.C0)
 			{
 				subMatrixCode = 6;
 				return M33;
 			}
 			//It's completely singular!
 			subMatrixCode = -1;
-			return fp._0;
+			return F64.C0;
 		}
 		
 		/// <summary>
@@ -1271,17 +1265,17 @@ namespace BEPUutilities
 			fp YW = qY2 * quaternion.W;
 			fp ZW = qZ2 * quaternion.W;
 
-			result.M11 = fp._1 - YY - ZZ;
+			result.M11 = F64.C1 - YY - ZZ;
 			result.M21 = XY - ZW;
 			result.M31 = XZ + YW;
 
 			result.M12 = XY + ZW;
-			result.M22 = fp._1 - XX - ZZ;
+			result.M22 = F64.C1 - XX - ZZ;
 			result.M32 = YZ - XW;
 
 			result.M13 = XZ - YW;
 			result.M23 = YZ + XW;
-			result.M33 = fp._1 - XX - YY;
+			result.M33 = F64.C1 - XX - YY;
 		}
 
 		/// <summary>
@@ -1291,9 +1285,8 @@ namespace BEPUutilities
 		/// <returns>Matrix representing the quaternion's orientation.</returns>
 		public static Matrix3x3 CreateFromQuaternion(Quaternion quaternion)
 		{
-			Matrix3x3 result;
-			CreateFromQuaternion(ref quaternion, out result);
-			return result;
+      CreateFromQuaternion(ref quaternion, out Matrix3x3 result);
+      return result;
 		}
 
 		/// <summary>
@@ -1325,9 +1318,8 @@ namespace BEPUutilities
 		/// <returns>Matrix representing the rotation.</returns>
 		public static Matrix3x3 CreateFromAxisAngle(Vector3 axis, fp angle)
 		{
-			Matrix3x3 toReturn;
-			CreateFromAxisAngle(ref axis, angle, out toReturn);
-			return toReturn;
+      CreateFromAxisAngle(ref axis, angle, out Matrix3x3 toReturn);
+      return toReturn;
 		}
 
 		/// <summary>
@@ -1346,25 +1338,19 @@ namespace BEPUutilities
 			fp yz = axis.Y * axis.Z;
 
 			fp sinAngle = fixmath.Sin(angle);
-			fp oneMinusCosAngle = fp._1 - fixmath.Cos(angle);
+			fp oneMinusCosAngle = F64.C1 - fixmath.Cos(angle);
 
-			result.M11 = fp._1 + oneMinusCosAngle * (xx - fp._1);
+			result.M11 = F64.C1 + oneMinusCosAngle * (xx - F64.C1);
 			result.M21 = -axis.Z * sinAngle + oneMinusCosAngle * xy;
 			result.M31 = axis.Y * sinAngle + oneMinusCosAngle * xz;
 
 			result.M12 = axis.Z * sinAngle + oneMinusCosAngle * xy;
-			result.M22 = fp._1 + oneMinusCosAngle * (yy - fp._1);
+			result.M22 = F64.C1 + oneMinusCosAngle * (yy - F64.C1);
 			result.M32 = -axis.X * sinAngle + oneMinusCosAngle * yz;
 
 			result.M13 = -axis.Y * sinAngle + oneMinusCosAngle * xz;
 			result.M23 = axis.X * sinAngle + oneMinusCosAngle * yz;
-			result.M33 = fp._1 + oneMinusCosAngle * (zz - fp._1);
+			result.M33 = F64.C1 + oneMinusCosAngle * (zz - F64.C1);
 		}
-
-
-
-
-
-
 	}
 }

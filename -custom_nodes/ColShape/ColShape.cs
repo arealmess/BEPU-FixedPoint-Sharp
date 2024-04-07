@@ -73,7 +73,7 @@ public partial class ColShape : Node3D
 				case ColShapeType.None:
 					Shape = null;
 					return;
-					break;
+					//break;
 				case ColShapeType.ColShapeBox:
 					Shape = new ColShapeBox();
 					Shape.Mesh = new BoxMesh();
@@ -136,15 +136,15 @@ public partial class ColShape : Node3D
 		}
 	}
 
-	public BEPUutilities.Vector3 PosOffset = new BEPUutilities.Vector3();  // This is the value BEPU uses as the origin when creating this PhysicsBody
+	public BEPUutilities.Vector3 PosOffset = new();  // This is the value BEPU uses as the origin when creating this PhysicsBody
 	[Export]
 	private Godot.Vector3 posOffset {
-		get => new Godot.Vector3((float)Fix64.FromRaw(PosOffsetX), (float)Fix64.FromRaw(PosOffsetY), (float)Fix64.FromRaw(PosOffsetZ));
+		get => new((float)Fix64.FromRaw(PosOffsetX), (float)Fix64.FromRaw(PosOffsetY), (float)Fix64.FromRaw(PosOffsetZ));
 		set {
 			if (Engine.IsEditorHint()) {  // Avoid any float values changing fixed point raw values when the game runs
-				PosOffsetX = ((fp)((decimal)value.X)).value;
-				PosOffsetY = ((fp)((decimal)value.Y)).value;
-				PosOffsetZ = ((fp)((decimal)value.Z)).value;
+				PosOffsetX = ((fp)(decimal)value.X).value;
+				PosOffsetY = ((fp)(decimal)value.Y).value;
+				PosOffsetZ = ((fp)(decimal)value.Z).value;
 			}
 		}
 	}
@@ -154,7 +154,7 @@ public partial class ColShape : Node3D
 		get => PosOffsetX;
 		set {
 			PosOffsetX = value;
-			PosOffset = new BEPUutilities.Vector3(Fix64.FromRaw(PosOffsetX), Fix64.FromRaw(PosOffsetY), Fix64.FromRaw(PosOffsetZ));
+			PosOffset = new(Fix64.FromRaw(PosOffsetX), Fix64.FromRaw(PosOffsetY), Fix64.FromRaw(PosOffsetZ));
 		}
 	}
 	private long PosOffsetY;
@@ -163,7 +163,7 @@ public partial class ColShape : Node3D
 		get => PosOffsetY;
 		set {
 			PosOffsetY = value;
-			PosOffset = new BEPUutilities.Vector3(Fix64.FromRaw(PosOffsetX), Fix64.FromRaw(PosOffsetY), Fix64.FromRaw(PosOffsetZ));
+			PosOffset = new(Fix64.FromRaw(PosOffsetX), Fix64.FromRaw(PosOffsetY), Fix64.FromRaw(PosOffsetZ));
 		}
 	}
 	private long PosOffsetZ;
@@ -172,20 +172,20 @@ public partial class ColShape : Node3D
 		get => PosOffsetZ;
 		set {
 			PosOffsetZ = value;
-			PosOffset = new BEPUutilities.Vector3(Fix64.FromRaw(PosOffsetX), Fix64.FromRaw(PosOffsetY), Fix64.FromRaw(PosOffsetZ));
+			PosOffset = new(Fix64.FromRaw(PosOffsetX), Fix64.FromRaw(PosOffsetY), Fix64.FromRaw(PosOffsetZ));
 		}
 	}
 
-	public BEPUutilities.Quaternion QuatOffset = new BEPUutilities.Quaternion(0,0,0,1);  // This is the value BEPU uses as the origin when creating this PhysicsBody
+	public BEPUutilities.Quaternion QuatOffset = fp4.Identity;  // This is the value BEPU uses as the origin when creating this PhysicsBody
 	[Export]
 	private Godot.Quaternion quatOffset {
-		get => new Godot.Quaternion((float)Fix64.FromRaw(QuatOffsetX), (float)Fix64.FromRaw(QuatOffsetY), (float)Fix64.FromRaw(QuatOffsetZ), (float)Fix64.FromRaw(QuatOffsetW));
-		set {
+		get => new((float)Fix64.FromRaw(QuatOffsetX), (float)Fix64.FromRaw(QuatOffsetY), (float)Fix64.FromRaw(QuatOffsetZ), (float)Fix64.FromRaw(QuatOffsetW));
+    set {
 			if (Engine.IsEditorHint()) {  // Avoid any float values changing fixed point raw values when the game runs
-				QuatOffsetX = ((fp)((decimal)value.X)).value;
-				QuatOffsetY = ((fp)((decimal)value.Y)).value;
-				QuatOffsetZ = ((fp)((decimal)value.Z)).value;
-				QuatOffsetW = ((fp)((decimal)value.W)).value;
+				QuatOffsetX = ((fp)(decimal)value.X).value;
+				QuatOffsetY = ((fp)(decimal)value.Y).value;
+				QuatOffsetZ = ((fp)(decimal)value.Z).value;
+				QuatOffsetW = ((fp)(decimal)value.W).value;
 			}
 		}
 	}
@@ -195,7 +195,7 @@ public partial class ColShape : Node3D
 		get => QuatOffsetX;
 		set {
 			QuatOffsetX = value;
-			QuatOffset = new BEPUutilities.Quaternion(Fix64.FromRaw(QuatOffsetX), Fix64.FromRaw(QuatOffsetY), Fix64.FromRaw(QuatOffsetZ), Fix64.FromRaw(QuatOffsetW));
+			QuatOffset = new fp4(QuatOffsetX, QuatOffsetY, QuatOffsetZ, QuatOffsetW);
 		}
 	}
 	private long QuatOffsetY;
@@ -204,7 +204,7 @@ public partial class ColShape : Node3D
 		get => QuatOffsetY;
 		set {
 			QuatOffsetY = value;
-			QuatOffset = new BEPUutilities.Quaternion(Fix64.FromRaw(QuatOffsetX), Fix64.FromRaw(QuatOffsetY), Fix64.FromRaw(QuatOffsetZ), Fix64.FromRaw(QuatOffsetW));
+			QuatOffset = new fp4(QuatOffsetX, QuatOffsetY, QuatOffsetZ, QuatOffsetW);
 		}
 	}
 	private long QuatOffsetZ;
@@ -213,7 +213,7 @@ public partial class ColShape : Node3D
 		get => QuatOffsetZ;
 		set {
 			QuatOffsetZ = value;
-			QuatOffset = new BEPUutilities.Quaternion(Fix64.FromRaw(QuatOffsetX), Fix64.FromRaw(QuatOffsetY), Fix64.FromRaw(QuatOffsetZ), Fix64.FromRaw(QuatOffsetW));
+			QuatOffset = new fp4(QuatOffsetX, QuatOffsetY, QuatOffsetZ, QuatOffsetW);
 		}
 	}
 	private long QuatOffsetW;
@@ -222,7 +222,7 @@ public partial class ColShape : Node3D
 		get => QuatOffsetW;
 		set {
 			QuatOffsetW = value;
-			QuatOffset = new BEPUutilities.Quaternion(Fix64.FromRaw(QuatOffsetX), Fix64.FromRaw(QuatOffsetY), Fix64.FromRaw(QuatOffsetZ), Fix64.FromRaw(QuatOffsetW));
+			QuatOffset = new fp4(QuatOffsetX, QuatOffsetY, QuatOffsetZ, QuatOffsetW);
 		}
 	}
 

@@ -11,9 +11,9 @@ namespace Deterministic.FixedPoint {
 		public const int SIZE = 8;
     const int NUM_BITS = 64;
 
-    public static readonly fp max        = new fp(long.MaxValue);
-		public static readonly fp min        = new fp(long.MinValue);
-		public static readonly fp usable_max = new fp(2147483648L);
+    public static readonly fp max        = new(long.MaxValue);
+		public static readonly fp min        = new(long.MinValue);
+		public static readonly fp usable_max = new(2147483648L);
 		public static readonly fp usable_min = -usable_max;
 
 		public static readonly fp _0   = 0;
@@ -50,15 +50,15 @@ namespace Deterministic.FixedPoint {
 		public static readonly fp _1_50 = _1 + _0_50;
 
 		public static readonly fp minus_one   = -1;
-		public static readonly fp pi          = new fp(205887L);
+		public static readonly fp pi          = new(205887L);
 		public static readonly fp pi2         = pi * 2;
 		public static readonly fp pi_quarter  = pi * _0_25;
 		public static readonly fp pi_half     = pi * _0_50;
 		public static readonly fp one_div_pi2 = 1 / pi2;
-		public static readonly fp deg2rad     = new fp(1143L);
-		public static readonly fp rad2deg     = new fp(3754936L);
-		public static readonly fp epsilon     = new fp(1);
-		public static readonly fp e           = new fp(178145L);
+		public static readonly fp deg2rad     = new(1143L);
+		public static readonly fp rad2deg     = new(3754936L);
+		public static readonly fp epsilon     = new(1);
+		public static readonly fp e           = new(178145L);
 
 		[FieldOffset(0)]
 		public long value;
@@ -74,6 +74,9 @@ namespace Deterministic.FixedPoint {
 		internal fp(long v) {
 			value = v;
 		}
+
+
+		#region INT/FP/FP OPERATORS
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static fp operator -(fp a) {
@@ -171,7 +174,7 @@ namespace Deterministic.FixedPoint {
 			var remainder = (ulong)(xl >= 0 ? xl : -xl);
 			var divider = (ulong)(yl >= 0 ? yl : -yl);
 			var quotient = 0UL;
-			var bitPos = NUM_BITS / 2 + 1;
+			var bitPos = (NUM_BITS / 2) + 1;
 
 
 			// If the divider is divisible by 2^n, take advantage of it.
@@ -192,7 +195,7 @@ namespace Deterministic.FixedPoint {
 				bitPos -= shift;
 
 				var div = remainder / divider;
-				remainder = remainder % divider;
+				remainder %= divider;
 				quotient += div << bitPos;
 
 				// Detect overflow
@@ -249,7 +252,7 @@ namespace Deterministic.FixedPoint {
 		public static fp FastMod(fp x, fp y)
 		{
 			return new fp(x.value % y.value);
-		}
+		} 
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static fp operator %(fp a, int b) {
@@ -262,6 +265,11 @@ namespace Deterministic.FixedPoint {
 			b.value = ((long) a << fixlut.PRECISION) % b.value;
 			return b;
 		}
+
+		#endregion
+
+
+		#region INT/FP/FP BOOL OPERATORS
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool operator <(fp a, fp b) {
@@ -353,32 +361,66 @@ namespace Deterministic.FixedPoint {
 			return (long) a << fixlut.PRECISION != b.value;
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static implicit operator fp(int value) {
+    #endregion
+
+
+    #region CASTS
+
+		// for easy use with ints i.e: fp + 5
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static implicit operator fp(int value) 
+		{
 			fp f;
-			f.value = (long) value << fixlut.PRECISION;
+			f.value = (long)value << fixlut.PRECISION;
 			return f;
 		}
 
+		// slides the fp 16 bits to the right, leaving the integer part
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static explicit operator int(fp value) {
-			return (int) (value.value >> fixlut.PRECISION);
+		public static explicit operator int(fp value) 
+		{
+			return (int)(value.value >> fixlut.PRECISION);
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static explicit operator long(fp value) {
+    // divides by 2^16 to create a fractional number from the long
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static explicit operator float(fp value)
+    {
+      return value.value / 65536f;
+    }
+
+    // 64 bit float
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static explicit operator double(fp value)
+    {
+      return value.value / 65536d;
+    }
+
+    // removes 16 bits of fractional part and leaves a 48 bit int
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static explicit operator long(fp value) 
+		{
 			return value.value >> fixlut.PRECISION;
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static explicit operator float(fp value) {
-			return value.value / 65536f;
+		// multiply by 16 and cast to long
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static implicit operator fp(decimal value)
+		{
+			return new fp((long)(value * fixlut.ONE));
 		}
 
+		// long divided by 16 and cast to decimal
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static explicit operator double(fp value) {
-			return value.value / 65536d;
+		public static explicit operator decimal(fp value)
+		{
+			return (decimal)value.value / fixlut.ONE;
 		}
+
+		#endregion
+
+
+		#region HELPER/IEQUITABLE
 
 		public int CompareTo(fp other) {
 			return value.CompareTo(other.value);
@@ -501,5 +543,7 @@ namespace Deterministic.FixedPoint {
 				return num.value.GetHashCode();
 			}
 		}
+
+		#endregion
 	}
 }

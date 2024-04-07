@@ -930,7 +930,7 @@ namespace FixMath.NET
       //public static explicit operator Fix64(long value) {
       //          return new Fix64(value * ONE);
       //      }
-      //      public static explicit operator long(Fix64 value) {
+ //     //      public static explicit operator long(Fix64 value) {
       //          return value.RawValue >> FRACTIONAL_PLACES;
       //      }
       //      public static explicit operator Fix64(float value) {

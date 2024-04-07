@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "zXbHvm3fzT7Gpsc9bxYvrT5E2QECVBRp5xIuWdYI1togcPgc/amdwUuAWdMpR1rQ1tipE1a893UNABMVJcZBJQ==",
+  "dgSpecHash": "6+Y94ZVNgXd5TDweZAwJM8fgCWFMis0L7eFr0X62s2kTRaLMVcm+oS4xd4MVnmiiOBC9gHWD+ryPNGSJ3LmFXQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\BEPUphysics1int-Godot.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Rocky.000\\.nuget\\packages\\godot.sourcegenerators\\4.2.0\\godot.sourcegenerators.4.2.0.nupkg.sha512",
-    "C:\\Users\\Rocky.000\\.nuget\\packages\\godotsharp\\4.2.0\\godotsharp.4.2.0.nupkg.sha512",
-    "C:\\Users\\Rocky.000\\.nuget\\packages\\godotsharpeditor\\4.2.0\\godotsharpeditor.4.2.0.nupkg.sha512",
+    "C:\\Users\\Rocky.000\\.nuget\\packages\\godot.sourcegenerators\\4.2.1\\godot.sourcegenerators.4.2.1.nupkg.sha512",
+    "C:\\Users\\Rocky.000\\.nuget\\packages\\godotsharp\\4.2.1\\godotsharp.4.2.1.nupkg.sha512",
+    "C:\\Users\\Rocky.000\\.nuget\\packages\\godotsharpeditor\\4.2.1\\godotsharpeditor.4.2.1.nupkg.sha512",
     "C:\\Users\\Rocky.000\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Rocky.000\\.nuget\\packages\\json.net\\1.0.33\\json.net.1.0.33.nupkg.sha512",
     "C:\\Users\\Rocky.000\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\7.0.0\\microsoft.bcl.asyncinterfaces.7.0.0.nupkg.sha512",

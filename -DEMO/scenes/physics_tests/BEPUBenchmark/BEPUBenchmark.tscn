@@ -22,3 +22,4 @@ environment = ExtResource("2_yo18b")
 [node name="DebugUI" parent="." instance=ExtResource("3_4oijb")]
 
 [node name="StaticBody" parent="." instance=ExtResource("4_h150e")]
+quatOffsetW = 65536

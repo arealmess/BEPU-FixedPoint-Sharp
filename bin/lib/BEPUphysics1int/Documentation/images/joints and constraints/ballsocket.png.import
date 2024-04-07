@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bhy3c8ctb7oe"
-path="res://.godot/imported/ballsocket.png-ca0ad371eaf2292e70584bd2fe207452.ctex"
+path="res://.godot/imported/ballsocket.png-f1e7f5d84aaa20b8c3d29ba435474c45.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://bin/BEPUphysics1int/Documentation/images/joints and constraints/ballsocket.png"
-dest_files=["res://.godot/imported/ballsocket.png-ca0ad371eaf2292e70584bd2fe207452.ctex"]
+source_file="res://bin/lib/BEPUphysics1int/Documentation/images/joints and constraints/ballsocket.png"
+dest_files=["res://.godot/imported/ballsocket.png-f1e7f5d84aaa20b8c3d29ba435474c45.ctex"]
 
 [params]
 

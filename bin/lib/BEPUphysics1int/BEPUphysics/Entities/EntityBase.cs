@@ -77,10 +77,9 @@ namespace BEPUphysics.Entities
 			{
 				Quaternion.Normalize(ref value, out orientation);
 				Matrix3x3.CreateFromQuaternion(ref orientation, out orientationMatrix);
-				//Update inertia tensors for consistency.
-				Matrix3x3 multiplied;
-				Matrix3x3.MultiplyTransposed(ref orientationMatrix, ref localInertiaTensorInverse, out multiplied);
-				Matrix3x3.Multiply(ref multiplied, ref orientationMatrix, out inertiaTensorInverse);
+        //Update inertia tensors for consistency.
+        Matrix3x3.MultiplyTransposed(ref orientationMatrix, ref localInertiaTensorInverse, out Matrix3x3 multiplied);
+        Matrix3x3.Multiply(ref multiplied, ref orientationMatrix, out inertiaTensorInverse);
 				Matrix3x3.MultiplyTransposed(ref orientationMatrix, ref localInertiaTensor, out multiplied);
 				Matrix3x3.Multiply(ref multiplied, ref orientationMatrix, out inertiaTensor);
 				activityInformation.Activate();
@@ -112,9 +111,8 @@ namespace BEPUphysics.Entities
 		public Matrix WorldTransform
 		{
 			get
-			{
-				Matrix worldTransform;
-				Matrix3x3.ToMatrix4X4(ref orientationMatrix, out worldTransform);
+			{ 
+				Matrix3x3.ToMatrix4X4(ref orientationMatrix, out Matrix worldTransform);
 				worldTransform.Translation = position;
 				return worldTransform;
 			}
@@ -159,9 +157,8 @@ namespace BEPUphysics.Entities
 			{
 #if CONSERVE
 				return angularMomentum;
-#else
-				Vector3 v;
-				Matrix3x3.Transform(ref angularVelocity, ref inertiaTensor, out v);
+#else 
+				Matrix3x3.Transform(ref angularVelocity, ref inertiaTensor, out Vector3 v);
 				return v;
 #endif
 			}
@@ -200,9 +197,8 @@ namespace BEPUphysics.Entities
 		public Vector3 LinearMomentum
 		{
 			get
-			{
-				Vector3 momentum;
-				Vector3.Multiply(ref linearVelocity, mass, out momentum);
+			{ 
+				Vector3.Multiply(ref linearVelocity, mass, out Vector3 momentum);
 				return momentum;
 			}
 			set
@@ -248,9 +244,7 @@ namespace BEPUphysics.Entities
 			{
 				return isDynamic;
 			}
-		}
-
-
+		} 
 
 		bool hasPersonalGravity;
 		private Vector3 personalGravity;
@@ -335,9 +329,8 @@ namespace BEPUphysics.Entities
 			set
 			{
 				localInertiaTensor = value;
-				Matrix3x3.AdaptiveInvert(ref localInertiaTensor, out localInertiaTensorInverse);
-				Matrix3x3 multiplied;
-				Matrix3x3.MultiplyTransposed(ref orientationMatrix, ref localInertiaTensorInverse, out multiplied);
+				Matrix3x3.AdaptiveInvert(ref localInertiaTensor, out localInertiaTensorInverse); 
+				Matrix3x3.MultiplyTransposed(ref orientationMatrix, ref localInertiaTensorInverse, out Matrix3x3 multiplied);
 				Matrix3x3.Multiply(ref multiplied, ref orientationMatrix, out inertiaTensorInverse);
 				Matrix3x3.MultiplyTransposed(ref orientationMatrix, ref localInertiaTensor, out multiplied);
 				Matrix3x3.Multiply(ref multiplied, ref orientationMatrix, out inertiaTensor);
@@ -360,10 +353,9 @@ namespace BEPUphysics.Entities
 			{
 				localInertiaTensorInverse = value;
 				Matrix3x3.AdaptiveInvert(ref localInertiaTensorInverse, out localInertiaTensor);
-				//Update the world space versions.
-				Matrix3x3 multiplied;
-				Matrix3x3.MultiplyTransposed(ref orientationMatrix, ref localInertiaTensorInverse, out multiplied);
-				Matrix3x3.Multiply(ref multiplied, ref orientationMatrix, out inertiaTensorInverse);
+        //Update the world space versions.
+        Matrix3x3.MultiplyTransposed(ref orientationMatrix, ref localInertiaTensorInverse, out Matrix3x3 multiplied);
+        Matrix3x3.Multiply(ref multiplied, ref orientationMatrix, out inertiaTensorInverse);
 				Matrix3x3.MultiplyTransposed(ref orientationMatrix, ref localInertiaTensor, out multiplied);
 				Matrix3x3.Multiply(ref multiplied, ref orientationMatrix, out inertiaTensor);
 
@@ -511,8 +503,7 @@ namespace BEPUphysics.Entities
 			{
 				collisionInformation.pairs[i].UpdateMaterialProperties();
 			}
-		}
-
+		} 
 
 		///<summary>
 		/// Gets all the EntitySolverUpdateables associated with this entity.
@@ -695,8 +686,7 @@ namespace BEPUphysics.Entities
 			{
 				return activityInformation.IsActive;
 			}
-		}
-
+		} 
 
 
 		///<summary>
@@ -903,9 +893,8 @@ namespace BEPUphysics.Entities
 
 			//Apply gravity.
 			if (hasPersonalGravity)
-			{
-				Vector3 gravityDt;
-				Vector3.Multiply(ref personalGravity, dt, out gravityDt);
+			{ 
+				Vector3.Multiply(ref personalGravity, dt, out Vector3 gravityDt);
 				Vector3.Add(ref gravityDt, ref linearVelocity, out linearVelocity);
 			}
 			else
@@ -1113,9 +1102,8 @@ namespace BEPUphysics.Entities
 
 		void IPositionUpdateable.PreUpdatePosition(fp dt)
 		{
-			Vector3 increment;
 
-			Vector3.Multiply(ref angularVelocity, dt * F64.C0p5, out increment);
+			Vector3.Multiply(ref angularVelocity, dt * F64.C0p5, out Vector3 increment);
 			var multiplier = new Quaternion(increment.X, increment.Y, increment.Z, F64.C0);
 			Quaternion.Multiply(ref multiplier, ref orientation, out multiplier);
 			Quaternion.Add(ref orientation, ref multiplier, out orientation);

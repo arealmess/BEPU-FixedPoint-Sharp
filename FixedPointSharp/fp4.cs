@@ -1,3 +1,4 @@
+using BEPUutilities;
 using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -45,6 +46,19 @@ namespace Deterministic.FixedPoint {
             y      = v.y;
             z      = v.z;
             this.w = w;
+        }
+
+        public static fp4 Identity
+        {
+          get
+          {
+            return new fp4(fp._0, fp._0, fp._0, fp._1);
+          }
+        }
+
+        public static implicit operator fp4(Quaternion quat)
+        {
+          return new fp4(quat.X, quat.Y, quat.Z, quat.W);
         }
 
         /// <summary>

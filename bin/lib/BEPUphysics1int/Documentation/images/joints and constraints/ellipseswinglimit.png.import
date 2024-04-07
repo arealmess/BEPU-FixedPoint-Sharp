@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dd6t3hfj8qrhb"
-path="res://.godot/imported/ellipseswinglimit.png-efc74579f7cc0c233f0c148ee2a0b051.ctex"
+path="res://.godot/imported/ellipseswinglimit.png-c4aba9580c5a4b7d67a3bbc86a314801.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://bin/BEPUphysics1int/Documentation/images/joints and constraints/ellipseswinglimit.png"
-dest_files=["res://.godot/imported/ellipseswinglimit.png-efc74579f7cc0c233f0c148ee2a0b051.ctex"]
+source_file="res://bin/lib/BEPUphysics1int/Documentation/images/joints and constraints/ellipseswinglimit.png"
+dest_files=["res://.godot/imported/ellipseswinglimit.png-c4aba9580c5a4b7d67a3bbc86a314801.ctex"]
 
 [params]
 
