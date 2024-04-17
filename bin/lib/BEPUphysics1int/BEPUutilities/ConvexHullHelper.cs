@@ -241,7 +241,7 @@ namespace BEPUutilities
 
         private static int GetExtremePoint(ref Vector3 direction, RawList<Vector3> points, RawList<int> outsidePoints)
         {
-            fp maximumDot = -fp.max;
+            fp maximumDot = Fix64.MinValue;
             int extremeIndex = 0;
             for (int i = 0; i < outsidePoints.Count; ++i)
             {
@@ -288,7 +288,7 @@ namespace BEPUutilities
             int a, b, c, d;
             Vector3 direction;
             //Find the extreme points along the x axis.
-            fp minimumX = fp.max, maximumX = -fp.max;
+            fp minimumX = Fix64.MaxValue, maximumX = Fix64.MinValue;
             int minimumXIndex = 0, maximumXIndex = 0;
             for (int i = 0; i < points.Count; ++i)
             {
@@ -383,7 +383,7 @@ namespace BEPUutilities
             Vector3.Add(ref points.Elements[a], ref points.Elements[b], out centroid);
             Vector3.Add(ref centroid, ref points.Elements[c], out centroid);
             Vector3.Add(ref centroid, ref points.Elements[d], out centroid);
-            Vector3.Multiply(ref centroid, fp._0_25, out centroid);
+            Vector3.Multiply(ref centroid, F64.C0p25, out centroid);
 
             for (int i = 0; i < triangleIndices.Count; i += 3)
             {
@@ -391,15 +391,12 @@ namespace BEPUutilities
                 var vB = points.Elements[triangleIndices.Elements[i + 1]];
                 var vC = points.Elements[triangleIndices.Elements[i + 2]];
 
-                //Check the signed volume of a parallelepiped with the edges of this triangle and the centroid.
-                Vector3 cross;
+                //Check the signed volume of a parallelepiped with the edges of this triangle and the centroid. 
                 Vector3.Subtract(ref vB, ref vA, out ab);
                 Vector3.Subtract(ref vC, ref vA, out ac);
-                Vector3.Cross(ref ac, ref ab, out cross);
-                Vector3 offset;
-                Vector3.Subtract(ref vA, ref centroid, out offset);
-                fp volume;
-                Vector3.Dot(ref offset, ref cross, out volume);
+                Vector3.Cross(ref ac, ref ab, out Vector3 cross); 
+                Vector3.Subtract(ref vA, ref centroid, out Vector3 offset); 
+                Vector3.Dot(ref offset, ref cross, out fp volume);
                 //This volume/cross product could also be used to check for degeneracy, but we already tested for that.
                 if (Fix64.Abs(volume) < Toolbox.BigEpsilon)
                 {
@@ -448,19 +445,16 @@ namespace BEPUutilities
 
             for (int i = 0; i < triangleIndices.Count && insidePoints.Count > 0; i += 3)
             {
-                //Compute the triangle's plane in point-normal representation to test other points against.
-                Vector3 normal;
-                FindNormal(triangleIndices, points, i, out normal);
+                //Compute the triangle's plane in point-normal representation to test other points against. 
+                FindNormal(triangleIndices, points, i, out Vector3 normal);
                 Vector3 p = points.Elements[triangleIndices.Elements[i]];
 
                 for (int j = insidePoints.Count - 1; j >= 0; --j)
                 {
                     //Offset from the triangle to the current point, tested against the normal, determines if the current point is visible
-                    //from the triangle face.
-                    Vector3 offset;
-                    Vector3.Subtract(ref points.Elements[insidePoints.Elements[j]], ref p, out offset);
-                    fp dot;
-                    Vector3.Dot(ref offset, ref normal, out dot);
+                    //from the triangle face. 
+                    Vector3.Subtract(ref points.Elements[insidePoints.Elements[j]], ref p, out Vector3 offset); 
+                    Vector3.Dot(ref offset, ref normal, out fp dot);
                     //If it's visible, then it's outside!
                     if (dot > F64.C0)
                     {
@@ -489,14 +483,11 @@ namespace BEPUutilities
             var a = points.Elements[indices.Elements[triangleIndex]];
             Vector3 ab, ac;
             Vector3.Subtract(ref points.Elements[indices.Elements[triangleIndex + 1]], ref a, out ab);
-            Vector3.Subtract(ref points.Elements[indices.Elements[triangleIndex + 2]], ref a, out ac);
-            Vector3 normal;
-            Vector3.Cross(ref ac, ref ab, out normal);
-            //Assume a consistent winding.  Check to see if the normal points at the point.
-            Vector3 offset;
-            Vector3.Subtract(ref point, ref a, out offset);
-            fp dot;
-            Vector3.Dot(ref offset, ref normal, out dot);
+            Vector3.Subtract(ref points.Elements[indices.Elements[triangleIndex + 2]], ref a, out ac); 
+            Vector3.Cross(ref ac, ref ab, out Vector3 normal);
+            //Assume a consistent winding.  Check to see if the normal points at the point. 
+            Vector3.Subtract(ref point, ref a, out Vector3 offset); 
+            Vector3.Dot(ref offset, ref normal, out fp dot);
             return dot >= F64.C0;
         }
 

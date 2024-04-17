@@ -24,14 +24,4 @@ public partial class Global : Node
 			GetTree().Quit();
 		}
 	}
-}
-
-
-
-
-
-
-
-
-
-
+} 

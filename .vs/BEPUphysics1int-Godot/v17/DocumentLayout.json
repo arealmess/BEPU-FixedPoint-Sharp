@@ -3,40 +3,120 @@
   "WorkspaceRootPath": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|c:\\users\\rocky.000\\documents\\github\\bepuphysics1int-godot\\-custom_nodes\\physicsbody\\physicsbody.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|solutionrelative:-custom_nodes\\physicsbody\\physicsbody.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|c:\\users\\rocky.000\\documents\\github\\bepuphysics1int-godot\\fixedpointsharp\\fixlut.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|solutionrelative:fixedpointsharp\\fixlut.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|c:\\users\\rocky.000\\documents\\github\\bepuphysics1int-godot\\-custom_nodes\\colshape\\colshape.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|solutionrelative:-custom_nodes\\colshape\\colshape.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|c:\\users\\rocky.000\\documents\\github\\bepuphysics1int-godot\\scripts\\autoload\\inputhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|solutionrelative:scripts\\autoload\\inputhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|c:\\users\\rocky.000\\documents\\github\\bepuphysics1int-godot\\bin\\lib\\bepuphysics1int\\bepuutilities\\matrix3x3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|solutionrelative:bin\\lib\\bepuphysics1int\\bepuutilities\\matrix3x3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|c:\\users\\rocky.000\\documents\\github\\bepuphysics1int-godot\\fixedpointsharp\\fp4.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|solutionrelative:fixedpointsharp\\fp4.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|c:\\users\\rocky.000\\documents\\github\\bepuphysics1int-godot\\bin\\lib\\bepuphysics1int\\bepuphysics\\entities\\entitybase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|solutionrelative:bin\\lib\\bepuphysics1int\\bepuphysics\\entities\\entitybase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|c:\\users\\rocky.000\\documents\\github\\bepuphysics1int-godot\\-demo\\scenes\\physics_tests\\demo_space_main\\physicsdemospace.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|solutionrelative:-demo\\scenes\\physics_tests\\demo_space_main\\physicsdemospace.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|c:\\users\\rocky.000\\documents\\github\\bepuphysics1int-godot\\-demo\\scenes\\physics_tests\\bepubenchmark\\debugui\\debugui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|solutionrelative:-demo\\scenes\\physics_tests\\bepubenchmark\\debugui\\debugui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|c:\\users\\rocky.000\\documents\\github\\bepuphysics1int-godot\\-demo\\scenes\\physics_tests\\bepubenchmark\\bepubenchmark.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|solutionrelative:-demo\\scenes\\physics_tests\\bepubenchmark\\bepubenchmark.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|c:\\users\\rocky.000\\documents\\github\\bepuphysics1int-godot\\fixedpointsharp\\fp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|solutionrelative:fixedpointsharp\\fp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|c:\\users\\rocky.000\\documents\\github\\bepuphysics1int-godot\\bin\\lib\\bepuphysics1int\\bepuphysics\\entities\\entitybase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|solutionrelative:bin\\lib\\bepuphysics1int\\bepuphysics\\entities\\entitybase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|c:\\users\\rocky.000\\documents\\github\\bepuphysics1int-godot\\bin\\lib\\bepuphysics1int\\bepuphysics\\constraints\\collision\\contactpenetrationconstraint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|solutionrelative:bin\\lib\\bepuphysics1int\\bepuphysics\\constraints\\collision\\contactpenetrationconstraint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|c:\\users\\rocky.000\\documents\\github\\bepuphysics1int-godot\\bin\\lib\\bepuphysics1int\\bepuphysics\\constraints\\solver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|solutionrelative:bin\\lib\\bepuphysics1int\\bepuphysics\\constraints\\solver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|c:\\users\\rocky.000\\documents\\github\\bepuphysics1int-godot\\bin\\lib\\bepuphysics1int\\bepuphysics\\entities\\entityconstraintcollection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|solutionrelative:bin\\lib\\bepuphysics1int\\bepuphysics\\entities\\entityconstraintcollection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|c:\\users\\rocky.000\\documents\\github\\bepuphysics1int-godot\\bin\\lib\\bepuphysics1int\\bepuphysics\\entitystatemanagement\\motionstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|solutionrelative:bin\\lib\\bepuphysics1int\\bepuphysics\\entitystatemanagement\\motionstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|c:\\users\\rocky.000\\documents\\github\\bepuphysics1int-godot\\bin\\lib\\bepuphysics1int\\bepuutilities\\vector3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|solutionrelative:bin\\lib\\bepuphysics1int\\bepuutilities\\vector3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|c:\\users\\rocky.000\\documents\\github\\bepuphysics1int-godot\\bin\\lib\\bepuphysics1int\\bepuutilities\\quaternion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|solutionrelative:bin\\lib\\bepuphysics1int\\bepuutilities\\quaternion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|c:\\users\\rocky.000\\documents\\github\\bepuphysics1int-godot\\fixedpointsharp\\fp3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|solutionrelative:fixedpointsharp\\fp3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|c:\\users\\rocky.000\\documents\\github\\bepuphysics1int-godot\\bin\\lib\\bepuphysics1int\\bepuphysics\\timestepsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|solutionrelative:bin\\lib\\bepuphysics1int\\bepuphysics\\timestepsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|c:\\users\\rocky.000\\documents\\github\\bepuphysics1int-godot\\fixedpointsharp\\fixmath.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|solutionrelative:fixedpointsharp\\fixmath.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|c:\\users\\rocky.000\\documents\\github\\bepuphysics1int-godot\\bin\\lib\\bepuphysics1int\\fixedmath.net\\src\\fix64.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|solutionrelative:bin\\lib\\bepuphysics1int\\fixedmath.net\\src\\fix64.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|c:\\users\\rocky.000\\documents\\github\\bepuphysics1int-godot\\-custom_nodes\\colshape\\shape\\colshapebox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|solutionrelative:-custom_nodes\\colshape\\shape\\colshapebox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|c:\\users\\rocky.000\\documents\\github\\bepuphysics1int-godot\\bin\\lib\\bepuphysics1int\\bepuphysics\\collisiontests\\collisionalgorithms\\gjk\\simplesimplex.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|solutionrelative:bin\\lib\\bepuphysics1int\\bepuphysics\\collisiontests\\collisionalgorithms\\gjk\\simplesimplex.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|c:\\users\\rocky.000\\documents\\github\\bepuphysics1int-godot\\-custom_nodes\\physicsbody\\physicsbody.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|solutionrelative:-custom_nodes\\physicsbody\\physicsbody.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|c:\\users\\rocky.000\\documents\\github\\bepuphysics1int-godot\\bin\\lib\\bepuphysics1int\\bepuphysics\\multithreadedprocessingstage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|solutionrelative:bin\\lib\\bepuphysics1int\\bepuphysics\\multithreadedprocessingstage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|c:\\users\\rocky.000\\documents\\github\\bepuphysics1int-godot\\-custom_nodes\\colshape\\shape\\colshapemesh.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|solutionrelative:-custom_nodes\\colshape\\shape\\colshapemesh.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|c:\\users\\rocky.000\\documents\\github\\bepuphysics1int-godot\\bin\\lib\\bepuphysics1int\\bepuutilities\\f64.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|solutionrelative:bin\\lib\\bepuphysics1int\\bepuutilities\\f64.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|c:\\users\\rocky.000\\documents\\github\\bepuphysics1int-godot\\bin\\lib\\bepuphysics1int\\bepuphysics\\character\\charactercontactcategorizer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|solutionrelative:bin\\lib\\bepuphysics1int\\bepuphysics\\character\\charactercontactcategorizer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|c:\\users\\rocky.000\\documents\\github\\bepuphysics1int-godot\\bin\\lib\\bepuphysics1int\\bepuphysics\\broadphaseentries\\mobilecollidables\\entitycollidable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|solutionrelative:bin\\lib\\bepuphysics1int\\bepuphysics\\broadphaseentries\\mobilecollidables\\entitycollidable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|c:\\users\\rocky.000\\documents\\github\\bepuphysics1int-godot\\-custom_nodes\\physicsbody\\rigidbody\\rigidbody.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|solutionrelative:-custom_nodes\\physicsbody\\rigidbody\\rigidbody.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|c:\\users\\rocky.000\\documents\\github\\bepuphysics1int-godot\\-custom_nodes\\colshape\\colshape.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|solutionrelative:-custom_nodes\\colshape\\colshape.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|c:\\users\\rocky.000\\documents\\github\\bepuphysics1int-godot\\bin\\lib\\bepuphysics1int\\bepuphysics\\character\\charactercontrollercustom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|solutionrelative:bin\\lib\\bepuphysics1int\\bepuphysics\\character\\charactercontrollercustom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|c:\\users\\rocky.000\\documents\\github\\bepuphysics1int-godot\\bin\\lib\\bepuphysics1int\\bepuphysics\\space.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F110A627-28C4-4D10-B2E7-77FAF711A4C7}|BEPUphysics1int-Godot.csproj|solutionrelative:bin\\lib\\bepuphysics1int\\bepuphysics\\space.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -45,48 +125,9 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 11,
+          "DockedWidth": 440,
+          "SelectedChildIndex": 8,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "F64.cs",
-              "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUutilities\\F64.cs",
-              "RelativeDocumentMoniker": "bin\\lib\\BEPUphysics1int\\BEPUutilities\\F64.cs",
-              "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUutilities\\F64.cs",
-              "RelativeToolTip": "bin\\lib\\BEPUphysics1int\\BEPUutilities\\F64.cs",
-              "ViewState": "AQIAAAwAAAAAAAAAAAAAAAwAAAAnAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-06T23:33:23.645Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "ColShapeBox.cs",
-              "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\-custom_nodes\\ColShape\\Shape\\ColShapeBox.cs",
-              "RelativeDocumentMoniker": "-custom_nodes\\ColShape\\Shape\\ColShapeBox.cs",
-              "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\-custom_nodes\\ColShape\\Shape\\ColShapeBox.cs",
-              "RelativeToolTip": "-custom_nodes\\ColShape\\Shape\\ColShapeBox.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAvAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-06T23:01:33.26Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Matrix3x3.cs",
-              "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUutilities\\Matrix3x3.cs",
-              "RelativeDocumentMoniker": "bin\\lib\\BEPUphysics1int\\BEPUutilities\\Matrix3x3.cs",
-              "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUutilities\\Matrix3x3.cs",
-              "RelativeToolTip": "bin\\lib\\BEPUphysics1int\\BEPUutilities\\Matrix3x3.cs",
-              "ViewState": "AQIAANsEAAAAAAAAAAAQwOQEAAApAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-06T20:51:40.359Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
@@ -94,10 +135,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{f5cd1b51-c771-5648-966f-646d419b1e7c}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
               "$type": "Bookmark",
@@ -109,80 +146,366 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "EntityBase.cs",
-              "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUphysics\\Entities\\EntityBase.cs",
-              "RelativeDocumentMoniker": "bin\\lib\\BEPUphysics1int\\BEPUphysics\\Entities\\EntityBase.cs",
-              "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUphysics\\Entities\\EntityBase.cs",
-              "RelativeToolTip": "bin\\lib\\BEPUphysics1int\\BEPUphysics\\Entities\\EntityBase.cs",
-              "ViewState": "AQIAABEAAAAAAAAAAAAQwCYAAAAmAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-06T20:49:20.318Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Quaternion.cs",
-              "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUutilities\\Quaternion.cs",
-              "RelativeDocumentMoniker": "bin\\lib\\BEPUphysics1int\\BEPUutilities\\Quaternion.cs",
-              "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUutilities\\Quaternion.cs",
-              "RelativeToolTip": "bin\\lib\\BEPUphysics1int\\BEPUutilities\\Quaternion.cs",
-              "ViewState": "AQIAAIcCAAAAAAAAAAAAwJsCAAAoAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-06T20:25:13.669Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "ColShape.cs",
-              "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\-custom_nodes\\ColShape\\ColShape.cs",
-              "RelativeDocumentMoniker": "-custom_nodes\\ColShape\\ColShape.cs",
-              "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\-custom_nodes\\ColShape\\ColShape.cs",
-              "RelativeToolTip": "-custom_nodes\\ColShape\\ColShape.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAALUAAAAUAAAA",
+              "Title": "InputHandler.cs",
+              "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\scripts\\autoload\\InputHandler.cs",
+              "RelativeDocumentMoniker": "scripts\\autoload\\InputHandler.cs",
+              "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\scripts\\autoload\\InputHandler.cs",
+              "RelativeToolTip": "scripts\\autoload\\InputHandler.cs",
+              "ViewState": "AQIAAEYAAAAAAAAAAAAMwH0AAABFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-06T20:24:43.525Z",
+              "WhenOpened": "2024-04-11T09:24:51.913Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "EntityConstraintCollection.cs",
+              "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUphysics\\Entities\\EntityConstraintCollection.cs",
+              "RelativeDocumentMoniker": "bin\\lib\\BEPUphysics1int\\BEPUphysics\\Entities\\EntityConstraintCollection.cs",
+              "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUphysics\\Entities\\EntityConstraintCollection.cs",
+              "RelativeToolTip": "bin\\lib\\BEPUphysics1int\\BEPUphysics\\Entities\\EntityConstraintCollection.cs",
+              "ViewState": "AQIAAF8AAAAAAAAAAAAUwA0AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-11T08:57:12.99Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "MotionState.cs",
+              "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUphysics\\EntityStateManagement\\MotionState.cs",
+              "RelativeDocumentMoniker": "bin\\lib\\BEPUphysics1int\\BEPUphysics\\EntityStateManagement\\MotionState.cs",
+              "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUphysics\\EntityStateManagement\\MotionState.cs",
+              "RelativeToolTip": "bin\\lib\\BEPUphysics1int\\BEPUphysics\\EntityStateManagement\\MotionState.cs",
+              "ViewState": "AQIAACcAAAAAAAAAAAAYwBQAAAAsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-11T08:55:34.399Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "fp3.cs",
+              "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\FixedPointSharp\\fp3.cs",
+              "RelativeDocumentMoniker": "FixedPointSharp\\fp3.cs",
+              "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\FixedPointSharp\\fp3.cs",
+              "RelativeToolTip": "FixedPointSharp\\fp3.cs",
+              "ViewState": "AQIAAGkAAAAAAAAAAIA2wH8AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-11T06:49:19.03Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "PhysicsBody.cs",
-              "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\-custom_nodes\\PhysicsBody\\PhysicsBody.cs",
-              "RelativeDocumentMoniker": "-custom_nodes\\PhysicsBody\\PhysicsBody.cs",
-              "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\-custom_nodes\\PhysicsBody\\PhysicsBody.cs",
-              "RelativeToolTip": "-custom_nodes\\PhysicsBody\\PhysicsBody.cs",
-              "ViewState": "AQIAAFgBAAAAAAAAAAAkwIMBAACIAAAA",
+              "Title": "fixlut.cs",
+              "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\FixedPointSharp\\fixlut.cs",
+              "RelativeDocumentMoniker": "FixedPointSharp\\fixlut.cs",
+              "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\FixedPointSharp\\fixlut.cs",
+              "RelativeToolTip": "FixedPointSharp\\fixlut.cs",
+              "ViewState": "AQIAAAgAAAAAAAAAAAAAwDQAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-06T20:24:46.381Z",
+              "WhenOpened": "2024-04-11T05:52:25.019Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 18,
+              "Title": "SimpleSimplex.cs",
+              "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUphysics\\CollisionTests\\CollisionAlgorithms\\GJK\\SimpleSimplex.cs",
+              "RelativeDocumentMoniker": "bin\\lib\\BEPUphysics1int\\BEPUphysics\\CollisionTests\\CollisionAlgorithms\\GJK\\SimpleSimplex.cs",
+              "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUphysics\\CollisionTests\\CollisionAlgorithms\\GJK\\SimpleSimplex.cs",
+              "RelativeToolTip": "bin\\lib\\BEPUphysics1int\\BEPUphysics\\CollisionTests\\CollisionAlgorithms\\GJK\\SimpleSimplex.cs",
+              "ViewState": "AQIAAEgBAAAAAAAAAAAAAEYAAAA1AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-11T04:25:18.761Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "ColShapeMesh.cs",
+              "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\-custom_nodes\\ColShape\\Shape\\ColShapeMesh.cs",
+              "RelativeDocumentMoniker": "-custom_nodes\\ColShape\\Shape\\ColShapeMesh.cs",
+              "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\-custom_nodes\\ColShape\\Shape\\ColShapeMesh.cs",
+              "RelativeToolTip": "-custom_nodes\\ColShape\\Shape\\ColShapeMesh.cs",
+              "ViewState": "AQIAAB8AAAAAAAAAAAAIwEcAAAA2AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-10T22:48:58.515Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Vector3.cs",
+              "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUutilities\\Vector3.cs",
+              "RelativeDocumentMoniker": "bin\\lib\\BEPUphysics1int\\BEPUutilities\\Vector3.cs",
+              "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUutilities\\Vector3.cs",
+              "RelativeToolTip": "bin\\lib\\BEPUphysics1int\\BEPUutilities\\Vector3.cs",
+              "ViewState": "AQIAALIBAAAAAAAAAAAAAIEAAAAGAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-10T06:26:56.2Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "Space.cs",
+              "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUphysics\\Space.cs",
+              "RelativeDocumentMoniker": "bin\\lib\\BEPUphysics1int\\BEPUphysics\\Space.cs",
+              "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUphysics\\Space.cs",
+              "RelativeToolTip": "bin\\lib\\BEPUphysics1int\\BEPUphysics\\Space.cs",
+              "ViewState": "AQIAAFkAAAAAAAAAAADwv2gAAAAuAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-10T05:59:05.021Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "fp.cs",
               "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\FixedPointSharp\\fp.cs",
               "RelativeDocumentMoniker": "FixedPointSharp\\fp.cs",
               "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\FixedPointSharp\\fp.cs",
               "RelativeToolTip": "FixedPointSharp\\fp.cs",
-              "ViewState": "AQIAAP4BAAAAAAAAAAAAAJwBAAArAAAA",
+              "ViewState": "AQIAAC0AAAAAAAAAAAAiwDYAAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-06T20:14:05.165Z",
+              "WhenOpened": "2024-04-09T11:04:12.654Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "CharacterContactCategorizer.cs",
+              "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUphysics\\Character\\CharacterContactCategorizer.cs",
+              "RelativeDocumentMoniker": "bin\\lib\\BEPUphysics1int\\BEPUphysics\\Character\\CharacterContactCategorizer.cs",
+              "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUphysics\\Character\\CharacterContactCategorizer.cs",
+              "RelativeToolTip": "bin\\lib\\BEPUphysics1int\\BEPUphysics\\Character\\CharacterContactCategorizer.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAAkAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-09T04:15:43.186Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "fixmath.cs",
+              "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\FixedPointSharp\\fixmath.cs",
+              "RelativeDocumentMoniker": "FixedPointSharp\\fixmath.cs",
+              "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\FixedPointSharp\\fixmath.cs",
+              "RelativeToolTip": "FixedPointSharp\\fixmath.cs",
+              "ViewState": "AQIAADYAAAAAAAAAAADgvzIAAAAXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-09T04:15:31.064Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "PhysicsBody.cs",
+              "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\-custom_nodes\\PhysicsBody\\PhysicsBody.cs",
+              "RelativeDocumentMoniker": "-custom_nodes\\PhysicsBody\\PhysicsBody.cs",
+              "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\-custom_nodes\\PhysicsBody\\PhysicsBody.cs",
+              "RelativeToolTip": "-custom_nodes\\PhysicsBody\\PhysicsBody.cs",
+              "ViewState": "AQIAADsBAAAAAAAAAAAAAEoBAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-09T05:03:43.397Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "CharacterControllerCustom.cs",
+              "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUphysics\\Character\\CharacterControllerCustom.cs",
+              "RelativeDocumentMoniker": "bin\\lib\\BEPUphysics1int\\BEPUphysics\\Character\\CharacterControllerCustom.cs",
+              "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUphysics\\Character\\CharacterControllerCustom.cs",
+              "RelativeToolTip": "bin\\lib\\BEPUphysics1int\\BEPUphysics\\Character\\CharacterControllerCustom.cs",
+              "ViewState": "AQIAABQAAAAAAAAAAAAAwD4BAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-10T01:26:08.863Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 507,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ContactPenetrationConstraint.cs",
+              "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUphysics\\Constraints\\Collision\\ContactPenetrationConstraint.cs",
+              "RelativeDocumentMoniker": "bin\\lib\\BEPUphysics1int\\BEPUphysics\\Constraints\\Collision\\ContactPenetrationConstraint.cs",
+              "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUphysics\\Constraints\\Collision\\ContactPenetrationConstraint.cs",
+              "RelativeToolTip": "bin\\lib\\BEPUphysics1int\\BEPUphysics\\Constraints\\Collision\\ContactPenetrationConstraint.cs",
+              "ViewState": "AQIAAPQAAAAAAAAAAADwvwAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-11T08:58:49.133Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "MultithreadedProcessingStage.cs",
+              "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUphysics\\MultithreadedProcessingStage.cs",
+              "RelativeDocumentMoniker": "bin\\lib\\BEPUphysics1int\\BEPUphysics\\MultithreadedProcessingStage.cs",
+              "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUphysics\\MultithreadedProcessingStage.cs",
+              "RelativeToolTip": "bin\\lib\\BEPUphysics1int\\BEPUphysics\\MultithreadedProcessingStage.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAFUAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-11T04:35:02.137Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "TimeStepSettings.cs",
+              "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUphysics\\TimeStepSettings.cs",
+              "RelativeDocumentMoniker": "bin\\lib\\BEPUphysics1int\\BEPUphysics\\TimeStepSettings.cs",
+              "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUphysics\\TimeStepSettings.cs",
+              "RelativeToolTip": "bin\\lib\\BEPUphysics1int\\BEPUphysics\\TimeStepSettings.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAmwBYAAAA0AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-11T02:45:32.203Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Solver.cs",
+              "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUphysics\\Constraints\\Solver.cs",
+              "RelativeDocumentMoniker": "bin\\lib\\BEPUphysics1int\\BEPUphysics\\Constraints\\Solver.cs",
+              "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUphysics\\Constraints\\Solver.cs",
+              "RelativeToolTip": "bin\\lib\\BEPUphysics1int\\BEPUphysics\\Constraints\\Solver.cs",
+              "ViewState": "AQIAABQBAAAAAAAAAIA+wAgBAAAtAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-11T02:45:01.756Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "RigidBody.cs",
+              "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\-custom_nodes\\PhysicsBody\\RigidBody\\RigidBody.cs",
+              "RelativeDocumentMoniker": "-custom_nodes\\PhysicsBody\\RigidBody\\RigidBody.cs",
+              "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\-custom_nodes\\PhysicsBody\\RigidBody\\RigidBody.cs",
+              "RelativeToolTip": "-custom_nodes\\PhysicsBody\\RigidBody\\RigidBody.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-11T01:36:35.659Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "ColShape.cs",
+              "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\-custom_nodes\\ColShape\\ColShape.cs",
+              "RelativeDocumentMoniker": "-custom_nodes\\ColShape\\ColShape.cs",
+              "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\-custom_nodes\\ColShape\\ColShape.cs",
+              "RelativeToolTip": "-custom_nodes\\ColShape\\ColShape.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-11T00:53:38.86Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "fp4.cs",
+              "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\FixedPointSharp\\fp4.cs",
+              "RelativeDocumentMoniker": "FixedPointSharp\\fp4.cs",
+              "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\FixedPointSharp\\fp4.cs",
+              "RelativeToolTip": "FixedPointSharp\\fp4.cs",
+              "ViewState": "AQIAADkAAAAAAAAAAAAQwEsAAAAkAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-10T07:56:12.973Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 24,
+              "Title": "EntityCollidable.cs",
+              "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUphysics\\BroadPhaseEntries\\MobileCollidables\\EntityCollidable.cs",
+              "RelativeDocumentMoniker": "bin\\lib\\BEPUphysics1int\\BEPUphysics\\BroadPhaseEntries\\MobileCollidables\\EntityCollidable.cs",
+              "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUphysics\\BroadPhaseEntries\\MobileCollidables\\EntityCollidable.cs",
+              "RelativeToolTip": "bin\\lib\\BEPUphysics1int\\BEPUphysics\\BroadPhaseEntries\\MobileCollidables\\EntityCollidable.cs",
+              "ViewState": "AQIAAIkAAAAAAAAAAAA4wJsAAAAXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-10T07:46:08.371Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "EntityBase.cs",
+              "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUphysics\\Entities\\EntityBase.cs",
+              "RelativeDocumentMoniker": "bin\\lib\\BEPUphysics1int\\BEPUphysics\\Entities\\EntityBase.cs",
+              "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUphysics\\Entities\\EntityBase.cs",
+              "RelativeToolTip": "bin\\lib\\BEPUphysics1int\\BEPUphysics\\Entities\\EntityBase.cs",
+              "ViewState": "AQIAAMcCAAAAAAAAAAAjwO0CAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-10T07:40:38.686Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "BEPUBenchmark.cs",
+              "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\-DEMO\\scenes\\physics_tests\\BEPUBenchmark\\BEPUBenchmark.cs",
+              "RelativeDocumentMoniker": "-DEMO\\scenes\\physics_tests\\BEPUBenchmark\\BEPUBenchmark.cs",
+              "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\-DEMO\\scenes\\physics_tests\\BEPUBenchmark\\BEPUBenchmark.cs",
+              "RelativeToolTip": "-DEMO\\scenes\\physics_tests\\BEPUBenchmark\\BEPUBenchmark.cs",
+              "ViewState": "AQIAABsAAAAAAAAAAAAYwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-10T03:45:07.721Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PhysicsDemoSpace.cs",
+              "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\-DEMO\\scenes\\physics_tests\\demo_space_main\\PhysicsDemoSpace.cs",
+              "RelativeDocumentMoniker": "-DEMO\\scenes\\physics_tests\\demo_space_main\\PhysicsDemoSpace.cs",
+              "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\-DEMO\\scenes\\physics_tests\\demo_space_main\\PhysicsDemoSpace.cs",
+              "RelativeToolTip": "-DEMO\\scenes\\physics_tests\\demo_space_main\\PhysicsDemoSpace.cs",
+              "ViewState": "AQIAAB4AAAAAAAAAAAA1wDMAAAA4AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-10T03:44:39.279Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "F64.cs",
+              "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUutilities\\F64.cs",
+              "RelativeDocumentMoniker": "bin\\lib\\BEPUphysics1int\\BEPUutilities\\F64.cs",
+              "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUutilities\\F64.cs",
+              "RelativeToolTip": "bin\\lib\\BEPUphysics1int\\BEPUutilities\\F64.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-06T23:33:23.645Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
               "Title": "Fix64.cs",
               "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\FixedMath.Net\\src\\Fix64.cs",
               "RelativeDocumentMoniker": "bin\\lib\\BEPUphysics1int\\FixedMath.Net\\src\\Fix64.cs",
               "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\FixedMath.Net\\src\\Fix64.cs",
               "RelativeToolTip": "bin\\lib\\BEPUphysics1int\\FixedMath.Net\\src\\Fix64.cs",
-              "ViewState": "AQIAAJ4DAAAAAAAAAAAAALYDAAAAAAAA",
+              "ViewState": "AQIAAF8AAAAAAAAAAIA0wGAAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-06T20:26:11.678Z",
+              "WhenOpened": "2024-04-06T20:26:11.678Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "DebugUI.cs",
+              "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\-DEMO\\scenes\\physics_tests\\BEPUBenchmark\\DebugUI\\DebugUI.cs",
+              "RelativeDocumentMoniker": "-DEMO\\scenes\\physics_tests\\BEPUBenchmark\\DebugUI\\DebugUI.cs",
+              "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\-DEMO\\scenes\\physics_tests\\BEPUBenchmark\\DebugUI\\DebugUI.cs",
+              "RelativeToolTip": "-DEMO\\scenes\\physics_tests\\BEPUBenchmark\\DebugUI\\DebugUI.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-09T22:56:48.369Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 329,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Quaternion.cs",
+              "DocumentMoniker": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUutilities\\Quaternion.cs",
+              "RelativeDocumentMoniker": "bin\\lib\\BEPUphysics1int\\BEPUutilities\\Quaternion.cs",
+              "ToolTip": "C:\\Users\\Rocky.000\\Documents\\GitHub\\BEPUphysics1int-Godot\\bin\\lib\\BEPUphysics1int\\BEPUutilities\\Quaternion.cs",
+              "RelativeToolTip": "bin\\lib\\BEPUphysics1int\\BEPUutilities\\Quaternion.cs",
+              "ViewState": "AQIAACAAAAAAAAAAAAAAwPcCAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-11T04:32:02.285Z",
               "EditorCaption": ""
             }
           ]

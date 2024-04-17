@@ -93,12 +93,12 @@ public partial class CharacterBody : PhysicsBody
 	// Snaps the character to the current surface that they are considered to be grounded to
 	protected void SnapToGround(fp NormalDotUp)
 	{
-		fp shapeCastHeight = ((Cylinder)Body).Height / 2;  // Use a shorter shape than character collision incase character's bottom is inside geometry
+		fp shapeCastHeight = ((Cylinder)Body).Height / F64.C2;  // Use a shorter shape than character collision incase character's bottom is inside geometry
 
 		// BEPUphysics.CollisionShapes.ConvexShapes.ConvexShape shape = (BEPUphysics.CollisionShapes.ConvexShapes.ConvexShape) Body.CollisionInformation.Shape;
 		BEPUphysics.CollisionShapes.ConvexShapes.ConvexShape shape = new CylinderShape(shapeCastHeight, ((Cylinder)Body).Radius - (fp)0.5m);
 		RigidTransform transform_start = new RigidTransform(Body.Position + new BEPUutilities.Vector3(0,shapeCastHeight,0), Body.Orientation);
-		BEPUutilities.Vector3 sweep = new BEPUutilities.Vector3(0,-SnapRayLength - (shapeCastHeight + (shapeCastHeight / 2)) - SnapHeightOffset,0);
+		BEPUutilities.Vector3 sweep = new BEPUutilities.Vector3(0,-SnapRayLength - (shapeCastHeight + (shapeCastHeight / F64.C2)) - SnapHeightOffset,0);
 		RayCastResult result = new RayCastResult();  // Stores raycast result
 
 		// Perform cast

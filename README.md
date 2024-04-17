@@ -8,3 +8,4 @@ Everything in the "-DEMO" folder is not required for BEPUphysics to work and can
   A benchmark scene that spawns cubes continuously and shows FPS and the number of cubes spawned
 
 BEPUphysics1int Documentation: https://github.com/sam-vdp/bepuphysics1int/blob/master/Documentation/Documentation.md
+## Installation```stMetacello new	repository: 'github://arealmess/BEPU-FixedPoint-Sharp:BEPUphysics1int-Godot-FPSharp/';	baseline: 'BEPUphysics1intGodot';	load```

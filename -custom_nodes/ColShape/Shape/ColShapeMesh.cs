@@ -21,13 +21,13 @@ public partial class ColShapeMesh : Shape
 				Mesh = MeshCollision;
 
 				if (Mesh == null) { 
-					Indices = new int[0];
-					VertexPoints = new long[0];
+					Indices = Array.Empty<int>();
+					VertexPoints = Array.Empty<long>();
 					return;
 				}
 
 				// Store indices and vertices
-				Godot.Vector3[] faces = ((Mesh)MeshCollision).GetFaces();
+				Godot.Vector3[] faces = MeshCollision.GetFaces();
 
 
 				VertexPoints = PackedVector3ArrayToFix64RawValueArray(faces);  // Convert vertices to fixed point raw values
@@ -62,7 +62,7 @@ public partial class ColShapeMesh : Shape
 			BEPUutilities.Vector3[] vertices = new BEPUutilities.Vector3[VertexPoints.Length / 3];
 
 			for (int i = 0; i < vertices.Length; i++) {  // Create fixed point vertices using array of raw values of each point
-				vertices[i] = new BEPUutilities.Vector3(Fix64.FromRaw(VertexPoints[(3*i)]),Fix64.FromRaw(VertexPoints[(3*i)+1]),Fix64.FromRaw(VertexPoints[(3*i)+2]));
+				vertices[i] = new BEPUutilities.Vector3(Fix64.FromRaw(VertexPoints[3*i]),Fix64.FromRaw(VertexPoints[(3*i)+1]),Fix64.FromRaw(VertexPoints[(3*i)+2]));
 			}
 
 			Vertices = vertices;
@@ -75,7 +75,7 @@ public partial class ColShapeMesh : Shape
 
 		// Extract the 3 points from each vertex, convert to raw 64bit values
 		for (int i = 0; i < verticesFloat.Length; i++) {
-			points[(3*i)] = ((fp)verticesFloat[i].X).value;
+			points[3*i] = ((fp)verticesFloat[i].X).value;
 			points[(3*i)+1] = ((fp)verticesFloat[i].Y).value;
 			points[(3*i)+2] = ((fp)verticesFloat[i].Z).value;
 		}

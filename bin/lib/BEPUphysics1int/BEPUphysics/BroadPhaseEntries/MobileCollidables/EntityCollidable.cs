@@ -183,7 +183,7 @@ namespace BEPUphysics.BroadPhaseEntries.MobileCollidables
         /// <param name="transform">Transform to use for the collidable.</param>
         public void UpdateBoundingBoxForTransform(ref RigidTransform transform)
         {
-            UpdateBoundingBoxForTransform(ref transform, fp._0);
+            UpdateBoundingBoxForTransform(ref transform, F64.C0);
         }
 
 

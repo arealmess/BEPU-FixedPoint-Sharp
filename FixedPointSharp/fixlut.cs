@@ -1,111 +1,132 @@
-﻿namespace Deterministic.FixedPoint {
-    public static partial class fixlut {
-        public const int  FRACTIONS_COUNT = 5;
-        public const int  PRECISION       = 16;
-        public const int  SHIFT           = 16 - 9;
-        public const long PI              = 205887L;
-        public const long ONE             = 1 << PRECISION;
-        public const long HALF            = 1 << (PRECISION-1);
-        public const long ZERO            = 0;
-        
+﻿using BEPUutilities;
 
-        public static long sin(long value) {
-            var sign = 1;
-            if (value < 0) {
-                value = -value;
-                sign = -1;
-            }
+namespace Deterministic.FixedPoint
+{
+  public static partial class fixlut
+  {
+    public const int FRACTIONS_COUNT = 5;
+    public const int PRECISION = 16;
+    public const int SHIFT = 16 - 9;
+    public const long PI = 205887L;
+    public const long PI_TIMES_2 = 411774L;
+    public const long PI_OVER_2 = 102943L;
+    public const long ONE = 1L << PRECISION;
+    public const long HALF = 1L << (PRECISION - 1);
+    public const long ZERO = 0L;
 
-            var index    = (int) (value >> SHIFT);
-            var fraction = (value - (index << SHIFT)) << 9;
-            var a        = SinLut[index];
-            var b        = SinLut[index + 1];
-            var v2       = a + (((b - a) * fraction) >> PRECISION);
-            return v2 * sign;
-        }
+    public static readonly fp PiOver2 = new(PI_OVER_2);
 
-        public static long cos(long value) {
-            if (value < 0) {
-                value = -value;
-            }
+    public static long sin(long value)
+    {
+      var sign = 1;
+      if (value < 0)
+      {
+        value = -value;
+        sign = -1;
+      }
 
-            value += fp._0_25.value;
-            
-            if (value >= 65536) {
-                value -= 65536;
-            }
+      var index = (int)(value >> SHIFT);
+      var fraction = (value - (index << SHIFT)) << 9;
 
-            var index    = (int) (value >> SHIFT);
-            var fraction = (value - (index << SHIFT)) << 9;
-            var a        = SinLut[index];
-            var b        = SinLut[index + 1];
-            var v2       = a + (((b - a) * fraction) >> PRECISION);
-            return v2;
-        }
-
-
-        public static long tan(long value) {
-            var sign = 1;
-
-            if (value < 0) {
-                value = -value;
-                sign  = -1;
-            }
-
-            var index    = (int) (value >> SHIFT);
-            var fraction = (value - (index << SHIFT)) << 9;
-            var a        = TanLut[index];
-            var b        = TanLut[index + 1];
-            var v2       = a + (((b - a) * fraction) >> PRECISION);
-            return v2 * sign;
-        }
-
-        public static void sin_cos(long value, out long sin, out long cos) {
-            var sign = 1;
-            if (value < 0) {
-                value = -value;
-                sign = -1;
-            }
-
-            var index       = (int) (value >> SHIFT);
-            var doubleIndex = index * 2;
-            var fractions   = (value - (index << SHIFT)) << 9;
-
-            var sinA = SinCosLut[doubleIndex];
-            var cosA = SinCosLut[doubleIndex + 1];
-            var sinB = SinCosLut[doubleIndex + 2];
-            var cosB = SinCosLut[doubleIndex + 3];
-
-            sin = (sinA + (((sinB - sinA) * fractions) >> PRECISION)) * sign;
-            cos = cosA + (((cosB - cosA) * fractions) >> PRECISION);
-        }
-
-        public static long asin(long value) {
-            bool flag = false;
-            if (value < 0) {
-                flag  = true;
-                value = -value;
-            }
-
-            var result = AsinLut[value];
-            if (flag)
-                result = -result;
-            return result;
-        }
-        
-        public static long acos(long value) {
-            bool flag = false;
-            if (value < 0) {
-                flag  = true;
-                value = -value;
-            }
-
-            long result = -AsinLut[value];
-            if (flag)
-                result = -result;
-
-            result += fp.pi_half.value;
-            return result;
-        }
+      var a = SinLut[index];
+      var b = SinLut[index + 1];
+      var v2 = a + (((b - a) * fraction) >> PRECISION);
+      return v2 * sign;
     }
+
+    public static long cos(long value)
+    {
+      //Godot.GD.Print("\nCOS CALCULATIONS: \ninput value: " + fp.ParseRaw(value).ToString());
+
+      if (value < 0) value = -value; 
+      value += F64.C0p25.value;
+      if (value >= 65536) value -= 65536;
+      //Godot.GD.Print("processed angle: " + fp.ParseRaw(value).ToString());
+
+      var index = (int)(value >> SHIFT);
+      //Godot.GD.Print("LUT index: " + index);
+
+      var fraction = (value - (index << SHIFT)) << 9;
+      //Godot.GD.Print("fraction: " + fp.ParseRaw(fraction).ToString());
+
+      var a = SinLut[index];
+      var b = SinLut[index + 1];
+      var v2 = a + (((b - a) * fraction) >> PRECISION);
+      //Godot.GD.Print("LUT lerp result: " + fp.ParseRaw(v2).ToString() + "\n");
+
+      return v2;
+    }
+
+    public static long tan(long value)
+    {
+      var sign = 1;
+
+      if (value < 0)
+      {
+        value = -value;
+        sign = -1;
+      }
+
+      var index = (int)(value >> SHIFT);
+      var fraction = (value - (index << SHIFT)) << 9;
+      var a = TanLut[index];
+      var b = TanLut[index + 1];
+      var v2 = a + (((b - a) * fraction) >> PRECISION);
+      return v2 * sign;
+    }
+
+    public static void sin_cos(long value, out long sin, out long cos)
+    {
+      var sign = 1;
+      if (value < 0)
+      {
+        value = -value;
+        sign = -1;
+      }
+
+      var index = (int)(value >> SHIFT);
+      var doubleIndex = index * 2;
+      var fractions = (value - (index << SHIFT)) << 9;
+
+      var sinA = SinCosLut[doubleIndex];
+      var cosA = SinCosLut[doubleIndex + 1];
+      var sinB = SinCosLut[doubleIndex + 2];
+      var cosB = SinCosLut[doubleIndex + 3];
+
+      sin = (sinA + (((sinB - sinA) * fractions) >> PRECISION)) * sign;
+      cos = cosA + (((cosB - cosA) * fractions) >> PRECISION);
+    }
+
+    public static long asin(long value)
+    {
+      bool flag = false;
+      if (value < 0)
+      {
+        flag = true;
+        value = -value;
+      }
+
+      var result = AsinLut[value];
+      if (flag)
+        result = -result;
+      return result;
+    }
+
+    public static long acos(long value)
+    {
+      bool flag = false;
+      if (value < 0)
+      {
+        flag = true;
+        value = -value;
+      }
+
+      long result = -AsinLut[value];
+      if (flag)
+        result = -result;
+
+      result += fp.pi_half.value;
+      return result;
+    }
+  }
 }

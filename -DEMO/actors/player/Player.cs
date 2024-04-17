@@ -33,7 +33,7 @@ public partial class Player : CharacterBody
 		base._Ready();
 
 		Global global = GetNode<Global>("/root/Global");
-		global.Player = (PhysicsBody) this;
+		global.Player = this;
 
 		inputHandler = GetNode<InputHandler>("/root/InputHandler");
 		cameraRig = GetNode<cameraRigPlayer>("CameraRigPlayer");

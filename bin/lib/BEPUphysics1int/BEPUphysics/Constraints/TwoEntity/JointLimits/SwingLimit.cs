@@ -85,7 +85,7 @@ namespace BEPUphysics.Constraints.TwoEntity.JointLimits
         /// </summary>
         public fp MaximumAngle
         {
-            get { return Fix64.Acos(minimumCosine); }
+            get { return fixmath.Acos(minimumCosine); }
             set { minimumCosine = fixmath.Cos(MathHelper.Clamp(value, F64.C0, MathHelper.Pi)); }
         }
 

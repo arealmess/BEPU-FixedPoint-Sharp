@@ -1,21 +1,13 @@
 using Godot;
-using System;
-
 using FixMath.NET;
-using BEPUphysics;
 using BEPUphysics.Entities;
 using BEPUphysics.Entities.Prefabs;
-using BEPUphysics.CollisionShapes;
 using BEPUphysics.BroadPhaseEntries;  // StaticMesh
 using BEPUphysics.Character;
-using BEPUphysics.CollisionRuleManagement;
 using BEPUutilities;
-using System.Collections.Generic;
-
 using Deterministic.FixedPoint;
 
 /* Static Bodies are currently created as Kinematic Bodies */
-
 
 [Tool]
 public partial class PhysicsBody : Node3D
@@ -31,21 +23,17 @@ public partial class PhysicsBody : Node3D
 	}
 
 	private int Mass = 1;
-    [Export]
-    private int mass {
-        get => Mass;
-        set {
-            Mass = value;
-        }
-    }
+  [Export]
+  private int mass {
+    get => Mass;
+    set { Mass = value; }
+  }
 
 	public PhysicsHandler.CollisionGroupLayer CollisionGroup;
 	[Export]
 	private PhysicsHandler.CollisionGroupLayer _CollisionGroup {
 		get => CollisionGroup;
-		set {
-			CollisionGroup = value;
-		}
+		set { CollisionGroup = value; }
 	}
 
 	public BEPUutilities.Vector3 PosOffset = new();  // This is the value BEPU uses as the origin when creating this PhysicsBody
@@ -60,32 +48,26 @@ public partial class PhysicsBody : Node3D
 			}
 		}
 	}
+
 	private long PosOffsetX;
 	[Export]
 	private long posOffsetX {
 		get => PosOffsetX;
-		set {
-			PosOffsetX = value;
-			PosOffset = new(Fix64.FromRaw(PosOffsetX), Fix64.FromRaw(PosOffsetY), Fix64.FromRaw(PosOffsetZ));
-		}
+		set { PosOffsetX = value; PosOffset = new(Fix64.FromRaw(PosOffsetX), Fix64.FromRaw(PosOffsetY), Fix64.FromRaw(PosOffsetZ)); }
 	}
+
 	private long PosOffsetY;
 	[Export]
 	private long posOffsetY {
 		get => PosOffsetY;
-		set {
-			PosOffsetY = value;
-			PosOffset = new(Fix64.FromRaw(PosOffsetX), Fix64.FromRaw(PosOffsetY), Fix64.FromRaw(PosOffsetZ));
-		}
+		set { PosOffsetY = value; PosOffset = new(Fix64.FromRaw(PosOffsetX), Fix64.FromRaw(PosOffsetY), Fix64.FromRaw(PosOffsetZ)); }
 	}
+
 	private long PosOffsetZ;
 	[Export]
 	private long posOffsetZ {
 		get => PosOffsetZ;
-		set {
-			PosOffsetZ = value;
-			PosOffset = new(Fix64.FromRaw(PosOffsetX), Fix64.FromRaw(PosOffsetY), Fix64.FromRaw(PosOffsetZ));
-		}
+		set { PosOffsetZ = value; PosOffset = new(Fix64.FromRaw(PosOffsetX), Fix64.FromRaw(PosOffsetY), Fix64.FromRaw(PosOffsetZ)); }
 	}
 
 	public BEPUutilities.Quaternion QuatOffset = fp4.Identity;  // This is the value BEPU uses as the origin when creating this PhysicsBody
@@ -101,46 +83,36 @@ public partial class PhysicsBody : Node3D
 			}
 		}
 	}
+
 	private long QuatOffsetX;
 	[Export]
 	private long quatOffsetX {
 		get => QuatOffsetX;
-		set {
-			QuatOffsetX = value;
-			QuatOffset = new fp4(QuatOffsetX, QuatOffsetY, QuatOffsetZ, QuatOffsetW);
-
-    }
+		set { QuatOffsetX = value; QuatOffset = new fp4(QuatOffsetX, QuatOffsetY, QuatOffsetZ, QuatOffsetW); }
 	}
+
 	private long QuatOffsetY;
 	[Export]
 	private long quatOffsetY {
 		get => QuatOffsetY;
-		set {
-			QuatOffsetY = value;
-			QuatOffset = new fp4(QuatOffsetX, QuatOffsetY, QuatOffsetZ, QuatOffsetW);
-
-    }
+		set { QuatOffsetY = value; QuatOffset = new fp4(QuatOffsetX, QuatOffsetY, QuatOffsetZ, QuatOffsetW); }
 	}
+
 	private long QuatOffsetZ;
 	[Export]
 	private long quatOffsetZ {
 		get => QuatOffsetZ;
 		set {
-			QuatOffsetZ = value;
-			QuatOffset = new fp4(QuatOffsetX, QuatOffsetY, QuatOffsetZ, QuatOffsetW);
-
-    }
+			QuatOffsetZ = value; QuatOffset = new fp4(QuatOffsetX, QuatOffsetY, QuatOffsetZ, QuatOffsetW); }
 	}
+
 	private long QuatOffsetW;
 	[Export]
 	private long quatOffsetW {
 		get => QuatOffsetW;
-		set {
-			QuatOffsetW = value;
-			QuatOffset = new fp4(QuatOffsetX, QuatOffsetY, QuatOffsetZ, QuatOffsetW);
-
-    }
+		set { QuatOffsetW = value; QuatOffset = new fp4(QuatOffsetX, QuatOffsetY, QuatOffsetZ, QuatOffsetW); }
 	}
+
 
 	public Entity Body = null;
 	public StaticCollidable BodyStatic = null;
@@ -151,22 +123,18 @@ public partial class PhysicsBody : Node3D
 	protected Godot.Quaternion ColShapeQuat;  // Saves initial orientation offset of ColShape
 	public PhysicsBodyType type = PhysicsBodyType.Unset;
 
-	public PhysicsHandler physicsHandler;
+	public PhysicsHandler physicsHandler; 
 
 
 	public override void _Ready()
 	{
 		physicsHandler = GetNode<PhysicsHandler>("/root/PhysicsHandler");
 
-		if (type == PhysicsBodyType.Unset) {
-			GD.Print(Name + " was not set to one of CharacterBody, KinematicBody, RigidBody, StaticBody, or Area as it's inheirited class");
-		}
+		if (type == PhysicsBodyType.Unset) GD.Print(Name + " was not set to one of CharacterBody, KinematicBody, RigidBody, StaticBody, or Area as it's inheirited class");
 	}
 
-	public override void _PhysicsProcess(double delta)
-	{
-		Update();
-	}
+
+	public override void _PhysicsProcess(double delta) => Update(); 
 
 	public override void _Notification(int what)
 	{
@@ -185,11 +153,8 @@ public partial class PhysicsBody : Node3D
 		}
 	}
 
-	public override void _EnterTree() {
-		if (Engine.IsEditorHint()) {
-			SetNotifyTransform(true);
-		}
-	}
+
+	public override void _EnterTree() { if (Engine.IsEditorHint()) SetNotifyTransform(true); }
 
 	protected void SetPhysicsBodyType(PhysicsBodyType value)
 	{
@@ -198,20 +163,13 @@ public partial class PhysicsBody : Node3D
 		physicsHandler = (PhysicsHandler) GetNode("/root/PhysicsHandler");  // Set this because it might be called before entering SceneTree
 		type = value;
 
-		foreach (Node childNode in GetChildren()) {
-			if (childNode is ColShape) {
-				colShape = (ColShape)childNode;
-			}
-		}
+		foreach (Node childNode in GetChildren()) { if (childNode is ColShape shape) { colShape = shape; } }
 
-		if (colShape == null) {
-			GD.Print("PhysicsBody " + '"' + Name + '"' + " does not have a ColShape");
-			return;
-		}
+		if (colShape == null) { GD.Print("PhysicsBody " + '"' + Name + '"' + " does not have a ColShape"); return; }
 
 		ColShapeOrigin = new Godot.Vector3((float)colShape.PosOffset.X, (float)colShape.PosOffset.Y, (float)colShape.PosOffset.Z);
 		BodyQuat = new Godot.Quaternion((float)QuatOffset.X, (float)QuatOffset.Y, (float)QuatOffset.Z, (float)QuatOffset.W); 
-		ColShapeQuat = new Godot.Quaternion((float)colShape.QuatOffset.X, (float)colShape.QuatOffset.Y, (float)colShape.QuatOffset.Z, (float)colShape.QuatOffset.W);
+		ColShapeQuat = new Godot.Quaternion((float)colShape.QuatOffset.X, (float)colShape.QuatOffset.Y, (float)colShape.QuatOffset.Z, (float)colShape.QuatOffset.W).Normalized();
 
 		BEPUutilities.Quaternion quatInitial = QuatOffset * colShape.QuatOffset;
 		BEPUutilities.Vector3 posInitial = PosOffset + (BEPUutilities.Quaternion.Transform(colShape.PosOffset, QuatOffset));
@@ -235,10 +193,8 @@ public partial class PhysicsBody : Node3D
 						Body.CollisionInformation.SetOwner(this);
 						break;
 					case PhysicsBodyType.RigidBody:
-						Body = new Box(posInitial, boxShape.Size.X, boxShape.Size.Y, boxShape.Size.Z, Mass);
-						fp4 Quat = quatInitial;
-						fixmath.Normalize(Quat);
-						Body.orientation = Quat;
+						Body = new Box(posInitial, boxShape.Size.X, boxShape.Size.Y, boxShape.Size.Z, Mass); 
+						Body.orientation = quatInitial;
 						Body.CollisionInformation.CollisionRules.Group = physicsHandler.CollisionGroups[CollisionGroup];
 						Body.CollisionInformation.SetOwner(this);
 						break;
@@ -289,9 +245,7 @@ public partial class PhysicsBody : Node3D
 						Body.CollisionInformation.SetOwner(this);
 						// Mass must be set in the main CharacterController class script
 
-						if (quatInitial.X != 0 || quatInitial.Y != 0 || quatInitial.Z != 0) {
-							GD.Print(Name + "'s rotation was set, but rotating CharacterBody ColShape is not implemented");
-						}
+						if (quatInitial.X != 0 || quatInitial.Y != 0 || quatInitial.Z != 0) GD.Print(Name + "'s rotation was set, but rotating CharacterBody ColShape is not implemented");
 						break;
 					case PhysicsBodyType.KinematicBody:
 					case PhysicsBodyType.StaticBody:
@@ -354,9 +308,7 @@ public partial class PhysicsBody : Node3D
 						BodyStatic.CollisionRules.Group = physicsHandler.CollisionGroups[CollisionGroup];
 						BodyStatic.SetOwner(this);
 
-						if (quatInitial.X != 0 || quatInitial.Y != 0 || quatInitial.Z != 0) {
-							GD.Print(Name + "'s rotation was set, but rotating StaticMeshes is not implemented");
-						}
+						if (quatInitial.X != 0 || quatInitial.Y != 0 || quatInitial.Z != 0) GD.Print(Name + "'s rotation was set, but rotating StaticMeshes is not implemented");
 						break;
 				}
 				break;
@@ -364,28 +316,27 @@ public partial class PhysicsBody : Node3D
 
 		// Add physics body to physics space
 		if (!Engine.IsEditorHint()) {
-			if (Body != null) {
-				physicsHandler.AddBodyToSpace(Body);
-			}
-			else if (BodyStatic != null) {
-				physicsHandler.AddBodyToSpace(BodyStatic);
-			}
-			else {
-				GD.Print("failed to BEPU body for " + '"' + Name + '"');
-			}
+			if (Body != null) physicsHandler.AddBodyToSpace(Body); 
+			else if (BodyStatic != null) physicsHandler.AddBodyToSpace(BodyStatic); 
+			else { GD.Print("failed to BEPU body for " + '"' + Name + '"'); }
 		}
 	}
 
-    private void Update()  // Updates the visual position of this physics body (does not affect position in BEPU space)
+  private void Update()  // Updates the visual position of this physics body (does not affect position in BEPU space)
 	{
 		if (!Engine.IsEditorHint()){
-			// This code applies the orientation and position properly and allows rotating both the PhysicsBody and the ColShape
-			// Basis
-			var newQuat = new Godot.Quaternion((float)Body.orientation.X, (float)Body.orientation.Y, (float)Body.orientation.Z, (float)Body.orientation.W) * ColShapeQuat.Inverse();
+      // This code applies the orientation and position properly and allows rotating both the PhysicsBody and the ColShape
+      // Basis
+
+      //Body.orientation.Normalize();
+
+      var newQuat = new Godot.Quaternion((float)Body.orientation.X, (float)Body.orientation.Y, (float)Body.orientation.Z, (float)Body.orientation.W) * ColShapeQuat.Inverse();
 			var newBasis = new Basis(newQuat);
 
-			// Origin
-			var newOrigin = new Godot.Vector3((float)Body.Position.X, (float)Body.Position.Y, (float)Body.Position.Z) - (ColShapeOrigin * newQuat.Inverse());
+			newQuat = newQuat.Normalized(); 
+
+      // Origin
+      var newOrigin = new Godot.Vector3((float)Body.Position.X, (float)Body.Position.Y, (float)Body.Position.Z) - (ColShapeOrigin * newQuat.Inverse());
 
 			// Transform
 			var newTransform3D = new Transform3D(newBasis, newOrigin);
@@ -393,15 +344,9 @@ public partial class PhysicsBody : Node3D
 		}
 	}
 
-	public BEPUutilities.Vector3 GetPosition()
-	{
-		return Body.Position;
-	}
+	public BEPUutilities.Vector3 GetPosition() { return Body.Position; }
 
-	public void SetPosition(BEPUutilities.Vector3 pos)
-	{
-		Body.Position = pos;
-	}
+	public void SetPosition(BEPUutilities.Vector3 pos) { Body.Position = pos; }
 
 	private void Delete() {
 		if(IsInsideTree()) {

@@ -13,6 +13,8 @@ height = 2.0
 [node name="projectile_test" type="Node3D"]
 script = ExtResource("1_wnaxa")
 _CollisionGroup = 4
+quatOffset = Quaternion(0, 0, 0, 1)
+quatOffsetW = 65536
 
 [node name="ColShape" parent="." node_paths=PackedStringArray("shape") instance=ExtResource("2_hy1cu")]
 type = 4
@@ -22,6 +24,6 @@ shape = NodePath("Shape")
 mesh = SubResource("SphereMesh_sl5um")
 script = ExtResource("4_bbqas")
 radius = 1.0
-radiusRaw = 4294967296
+radiusRaw = 65536
 
 [editable path="ColShape"]

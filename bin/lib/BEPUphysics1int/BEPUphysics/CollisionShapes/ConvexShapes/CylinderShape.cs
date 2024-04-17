@@ -23,7 +23,7 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
         ///<summary>
         /// Gets or sets the height of the cylinder.
         ///</summary>
-        public fp Height { get { return halfHeight * F64.C2; } set { halfHeight = value * fp._0_50; OnShapeChanged(); } }
+        public fp Height { get { return halfHeight * F64.C2; } set { halfHeight = value * F64.C0p5; OnShapeChanged(); } }
 
         ///<summary>
         /// Constructs a new cylinder shape.
@@ -32,7 +32,7 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
         ///<param name="radius">Radius of the cylinder.</param>
         public CylinderShape(fp height, fp radius)
         {
-            halfHeight = height * fp._0_50;
+            halfHeight = height * F64.C0p5;
             this.radius = radius;
             UpdateConvexShapeInfo(ComputeDescription(height, radius, collisionMargin));
         }
@@ -45,7 +45,7 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
         /// <param name="description">Cached information about the shape. Assumed to be correct; no extra processing or validation is performed.</param>
         public CylinderShape(fp height, fp radius, ConvexShapeDescription description)
         {
-            halfHeight = height * fp._0_50;
+            halfHeight = height * F64.C0p5;
             this.radius = radius;
             UpdateConvexShapeInfo(description);
         }
@@ -67,13 +67,13 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
             ConvexShapeDescription description;
             description.EntityShapeVolume.Volume = MathHelper.Pi * radius * radius * height;
 
-            description.EntityShapeVolume.VolumeDistribution = new Matrix3x3();
-            fp diagValue = (F64.C0p0833333333 * height * height + fp._0_25 * radius * radius);
+            description.EntityShapeVolume.VolumeDistribution = new();
+            fp diagValue = (F64.C0p0833333333 * height * height + F64.C0p25 * radius * radius);
             description.EntityShapeVolume.VolumeDistribution.M11 = diagValue;
-            description.EntityShapeVolume.VolumeDistribution.M22 = fp._0_50 * radius * radius;
+            description.EntityShapeVolume.VolumeDistribution.M22 = F64.C0p5 * radius * radius;
             description.EntityShapeVolume.VolumeDistribution.M33 = diagValue;
 
-            fp halfHeight = height * fp._0_50;
+            fp halfHeight = height * F64.C0p5;
             description.MinimumRadius = MathHelper.Min(radius, halfHeight);
             description.MaximumRadius = fixmath.Sqrt(radius * radius + halfHeight * halfHeight);
             description.CollisionMargin = collisionMargin;

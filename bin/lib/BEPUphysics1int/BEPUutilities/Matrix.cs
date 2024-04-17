@@ -386,27 +386,27 @@ namespace BEPUutilities
             fp yz = axis.Y * axis.Z;
 
             fp sinAngle = fixmath.Sin(angle);
-            fp oneMinusCosAngle = fp._1 - fixmath.Cos(angle);
+            fp oneMinusCosAngle = F64.C1 - fixmath.Cos(angle);
 
-            result.M11 = fp._1 + oneMinusCosAngle * (xx - fp._1);
+            result.M11 = F64.C1 + oneMinusCosAngle * (xx - F64.C1);
             result.M21 = -axis.Z * sinAngle + oneMinusCosAngle * xy;
             result.M31 = axis.Y * sinAngle + oneMinusCosAngle * xz;
-            result.M41 = fp._0;
+            result.M41 = F64.C0;
 
             result.M12 = axis.Z * sinAngle + oneMinusCosAngle * xy;
-            result.M22 = fp._1 + oneMinusCosAngle * (yy - fp._1);
+            result.M22 = F64.C1 + oneMinusCosAngle * (yy - F64.C1);
             result.M32 = -axis.X * sinAngle + oneMinusCosAngle * yz;
-            result.M42 = fp._0;
+            result.M42 = F64.C0;
 
             result.M13 = -axis.Y * sinAngle + oneMinusCosAngle * xz;
             result.M23 = axis.X * sinAngle + oneMinusCosAngle * yz;
-            result.M33 = fp._1 + oneMinusCosAngle * (zz - fp._1);
-            result.M43 = fp._0;
+            result.M33 = F64.C1 + oneMinusCosAngle * (zz - F64.C1);
+            result.M43 = F64.C0;
 
-            result.M14 = fp._0;
-            result.M24 = fp._0;
-            result.M34 = fp._0;
-            result.M44 = fp._1;
+            result.M14 = F64.C0;
+            result.M24 = F64.C0;
+            result.M34 = F64.C0;
+            result.M44 = F64.C1;
         }
 
         /// <summary>
@@ -429,25 +429,25 @@ namespace BEPUutilities
             fp YW = qY2 * quaternion.W;
             fp ZW = qZ2 * quaternion.W;
 
-            result.M11 = fp._1 - YY - ZZ;
+            result.M11 = F64.C1 - YY - ZZ;
             result.M21 = XY - ZW;
             result.M31 = XZ + YW;
-            result.M41 = fp._0;
+            result.M41 = F64.C0;
 
             result.M12 = XY + ZW;
-            result.M22 = fp._1 - XX - ZZ;
+            result.M22 = F64.C1 - XX - ZZ;
             result.M32 = YZ - XW;
-            result.M42 = fp._0;
+            result.M42 = F64.C0;
 
             result.M13 = XZ - YW;
             result.M23 = YZ + XW;
-            result.M33 = fp._1 - XX - YY;
-            result.M43 = fp._0;
+            result.M33 = F64.C1 - XX - YY;
+            result.M43 = F64.C0;
 
-            result.M14 = fp._0;
-            result.M24 = fp._0;
-            result.M34 = fp._0;
-            result.M44 = fp._1;
+            result.M14 = F64.C0;
+            result.M24 = F64.C0;
+            result.M34 = F64.C0;
+            result.M44 = F64.C1;
         }
 
         /// <summary>
@@ -893,10 +893,10 @@ namespace BEPUutilities
             inverted.M43 = -(vX * inverted.M13 + vY * inverted.M23 + vZ * inverted.M33);
 
             //Last chunk.
-            inverted.M14 = fp._0;
-            inverted.M24 = fp._0;
-            inverted.M34 = fp._0;
-            inverted.M44 = fp._1;
+            inverted.M14 = F64.C0;
+            inverted.M24 = F64.C0;
+            inverted.M34 = F64.C0;
+            inverted.M44 = F64.C1;
         }
 
         /// <summary>
@@ -919,25 +919,25 @@ namespace BEPUutilities
             get
             {
                 Matrix toReturn;
-                toReturn.M11 = fp._1;
-                toReturn.M12 = fp._0;
-                toReturn.M13 = fp._0;
-                toReturn.M14 = fp._0;
+                toReturn.M11 = F64.C1;
+                toReturn.M12 = F64.C0;
+                toReturn.M13 = F64.C0;
+                toReturn.M14 = F64.C0;
 
-                toReturn.M21 = fp._0;
-                toReturn.M22 = fp._1;
-                toReturn.M23 = fp._0;
-                toReturn.M24 = fp._0;
+                toReturn.M21 = F64.C0;
+                toReturn.M22 = F64.C1;
+                toReturn.M23 = F64.C0;
+                toReturn.M24 = F64.C0;
 
-                toReturn.M31 = fp._0;
-                toReturn.M32 = fp._0;
-                toReturn.M33 = fp._1;
-                toReturn.M34 = fp._0;
+                toReturn.M31 = F64.C0;
+                toReturn.M32 = F64.C0;
+                toReturn.M33 = F64.C1;
+                toReturn.M34 = F64.C0;
 
-                toReturn.M41 = fp._0;
-                toReturn.M42 = fp._0;
-                toReturn.M43 = fp._0;
-                toReturn.M44 = fp._1;
+                toReturn.M41 = F64.C0;
+                toReturn.M42 = F64.C0;
+                toReturn.M43 = F64.C0;
+                toReturn.M44 = F64.C1;
                 return toReturn;
             }
         }
@@ -958,24 +958,24 @@ namespace BEPUutilities
             fp height = top - bottom;
             fp depth = zFar - zNear;
             projection.M11 = F64.C2 / width;
-            projection.M12 = fp._0;
-            projection.M13 = fp._0;
-            projection.M14 = fp._0;
+            projection.M12 = F64.C0;
+            projection.M13 = F64.C0;
+            projection.M14 = F64.C0;
 
-            projection.M21 = fp._0;
+            projection.M21 = F64.C0;
             projection.M22 = F64.C2 / height;
-            projection.M23 = fp._0;
-            projection.M24 = fp._0;
+            projection.M23 = F64.C0;
+            projection.M24 = F64.C0;
 
-            projection.M31 = fp._0;
-            projection.M32 = fp._0;
-            projection.M33 = -1 / depth;
-            projection.M34 = fp._0;
+            projection.M31 = F64.C0;
+            projection.M32 = F64.C0;
+            projection.M33 = -F64.C1 / depth;
+            projection.M34 = F64.C0;
 
             projection.M41 = (left + right) / -width;
             projection.M42 = (top + bottom) / -height;
             projection.M43 = zNear / -depth;
-            projection.M44 = fp._1;
+            projection.M44 = F64.C1;
 
         }
 
@@ -989,26 +989,26 @@ namespace BEPUutilities
         /// <param name="perspective">Resulting perspective matrix.</param>
         public static void CreatePerspectiveFieldOfViewRH(fp fieldOfView, fp aspectRatio, fp nearClip, fp farClip, out Matrix perspective)
         {
-            fp h = fp._1 / fixmath.Tan(fieldOfView / F64.C2);
+            fp h = F64.C1 / fixmath.Tan(fieldOfView / F64.C2);
             fp w = h / aspectRatio;
             perspective.M11 = w;
-            perspective.M12 = fp._0;
-            perspective.M13 = fp._0;
-            perspective.M14 = fp._0;
+            perspective.M12 = F64.C0;
+            perspective.M13 = F64.C0;
+            perspective.M14 = F64.C0;
 
-            perspective.M21 = fp._0;
+            perspective.M21 = F64.C0;
             perspective.M22 = h;
-            perspective.M23 = fp._0;
-            perspective.M24 = fp._0;
+            perspective.M23 = F64.C0;
+            perspective.M24 = F64.C0;
 
-            perspective.M31 = fp._0;
-            perspective.M32 = fp._0;
+            perspective.M31 = F64.C0;
+            perspective.M32 = F64.C0;
             perspective.M33 = farClip / (nearClip - farClip);
             perspective.M34 = -1;
 
-            perspective.M41 = fp._0;
-            perspective.M42 = fp._0;
-            perspective.M44 = fp._0;
+            perspective.M41 = F64.C0;
+            perspective.M42 = F64.C0;
+            perspective.M44 = F64.C0;
             perspective.M43 = nearClip * perspective.M33;
 
         }
@@ -1080,22 +1080,22 @@ namespace BEPUutilities
             viewMatrix.M11 = x.X;
             viewMatrix.M12 = y.X;
             viewMatrix.M13 = z.X;
-            viewMatrix.M14 = fp._0;
+            viewMatrix.M14 = F64.C0;
             viewMatrix.M21 = x.Y;
             viewMatrix.M22 = y.Y;
             viewMatrix.M23 = z.Y;
-            viewMatrix.M24 = fp._0;
+            viewMatrix.M24 = F64.C0;
             viewMatrix.M31 = x.Z;
             viewMatrix.M32 = y.Z;
             viewMatrix.M33 = z.Z;
-            viewMatrix.M34 = fp._0;
+            viewMatrix.M34 = F64.C0;
             Vector3.Dot(ref x, ref position, out viewMatrix.M41);
             Vector3.Dot(ref y, ref position, out viewMatrix.M42);
             Vector3.Dot(ref z, ref position, out viewMatrix.M43);
             viewMatrix.M41 = -viewMatrix.M41;
             viewMatrix.M42 = -viewMatrix.M42;
             viewMatrix.M43 = -viewMatrix.M43;
-            viewMatrix.M44 = fp._1;
+            viewMatrix.M44 = F64.C1;
 
         }
 
@@ -1123,33 +1123,30 @@ namespace BEPUutilities
         /// <param name="upVector">Up vector which is crossed against the forward vector to compute the transform's basis.</param>
         /// <param name="worldMatrix">World matrix.</param>
         public static void CreateWorldRH(ref Vector3 position, ref Vector3 forward, ref Vector3 upVector, out Matrix worldMatrix)
-        {
-            Vector3 z;
+        { 
             fp length = forward.Length();
-            Vector3.Divide(ref forward, -length, out z);
-            Vector3 x;
-            Vector3.Cross(ref upVector, ref z, out x);
-            x.Normalize();
-            Vector3 y;
-            Vector3.Cross(ref z, ref x, out y);
+            Vector3.Divide(ref forward, -length, out Vector3 z); 
+            Vector3.Cross(ref upVector, ref z, out Vector3 x);
+            x.Normalize(); 
+            Vector3.Cross(ref z, ref x, out Vector3 y);
 
             worldMatrix.M11 = x.X;
             worldMatrix.M12 = x.Y;
             worldMatrix.M13 = x.Z;
-            worldMatrix.M14 = fp._0;
+            worldMatrix.M14 = F64.C0;
             worldMatrix.M21 = y.X;
             worldMatrix.M22 = y.Y;
             worldMatrix.M23 = y.Z;
-            worldMatrix.M24 = fp._0;
+            worldMatrix.M24 = F64.C0;
             worldMatrix.M31 = z.X;
             worldMatrix.M32 = z.Y;
             worldMatrix.M33 = z.Z;
-            worldMatrix.M34 = fp._0;
+            worldMatrix.M34 = F64.C0;
 
             worldMatrix.M41 = position.X;
             worldMatrix.M42 = position.Y;
             worldMatrix.M43 = position.Z;
-            worldMatrix.M44 = fp._1;
+            worldMatrix.M44 = F64.C1;
 
         }
 
@@ -1162,9 +1159,8 @@ namespace BEPUutilities
         /// <param name="upVector">Up vector which is crossed against the forward vector to compute the transform's basis.</param>
         /// <returns>World matrix.</returns>
         public static Matrix CreateWorldRH(Vector3 position, Vector3 forward, Vector3 upVector)
-        {
-            Matrix lookat;
-            CreateWorldRH(ref position, ref forward, ref upVector, out lookat);
+        { 
+            CreateWorldRH(ref position, ref forward, ref upVector, out Matrix lookat);
             return lookat;
         }
 
@@ -1179,10 +1175,10 @@ namespace BEPUutilities
         {
             translationMatrix = new Matrix
             {
-                M11 = fp._1,
-                M22 = fp._1,
-                M33 = fp._1,
-                M44 = fp._1,
+                M11 = F64.C1,
+                M22 = F64.C1,
+                M33 = F64.C1,
+                M44 = F64.C1,
                 M41 = translation.X,
                 M42 = translation.Y,
                 M43 = translation.Z
@@ -1213,7 +1209,7 @@ namespace BEPUutilities
                     M11 = scale.X,
                     M22 = scale.Y,
                     M33 = scale.Z,
-                    M44 = fp._1
+                    M44 = F64.C1
 			};
         }
 
@@ -1243,7 +1239,7 @@ namespace BEPUutilities
                 M11 = x,
                 M22 = y,
                 M33 = z,
-                M44 = fp._1
+                M44 = F64.C1
 			};
         }
 

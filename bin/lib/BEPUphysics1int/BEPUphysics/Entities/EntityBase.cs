@@ -75,7 +75,8 @@ namespace BEPUphysics.Entities
 			}
 			set
 			{
-				Quaternion.Normalize(ref value, out orientation);
+				orientation = fixmath.Normalize(value);
+
 				Matrix3x3.CreateFromQuaternion(ref orientation, out orientationMatrix);
         //Update inertia tensors for consistency.
         Matrix3x3.MultiplyTransposed(ref orientationMatrix, ref localInertiaTensorInverse, out Matrix3x3 multiplied);
@@ -387,9 +388,8 @@ namespace BEPUphysics.Entities
 					if (isDynamic)
 					{
 						//If it's already dynamic, then we don't need to recompute the inertia tensor.
-						//Instead, scale the one we have already.
-						Matrix3x3 newInertia;
-						Matrix3x3.Multiply(ref localInertiaTensor, value * inverseMass, out newInertia);
+						//Instead, scale the one we have already. 
+						Matrix3x3.Multiply(ref localInertiaTensor, value * inverseMass, out Matrix3x3 newInertia);
 						BecomeDynamic(value, newInertia);
 					}
 					else
@@ -747,6 +747,7 @@ namespace BEPUphysics.Entities
 		/// <param name="impulse">Impulse to apply.</param>
 		public void ApplyLinearImpulse(ref Vector3 impulse)
 		{
+
 			linearVelocity.X += impulse.X * inverseMass;
 			linearVelocity.Y += impulse.Y * inverseMass;
 			linearVelocity.Z += impulse.Z * inverseMass;
@@ -862,7 +863,7 @@ namespace BEPUphysics.Entities
 			isDynamic = true;
 			LocalInertiaTensor = localInertiaTensor;
 			this.mass = mass;
-			this.inverseMass = F64.C1 / mass;
+			inverseMass = F64.C1 / mass;
 
 			//Notify simulation island system of the change.
 			if (!previousState)
@@ -896,6 +897,7 @@ namespace BEPUphysics.Entities
 			{ 
 				Vector3.Multiply(ref personalGravity, dt, out Vector3 gravityDt);
 				Vector3.Add(ref gravityDt, ref linearVelocity, out linearVelocity);
+				//linearVelocity = (fp3)gravityDt + (fp3)linearVelocity
 			}
 			else
 			{
@@ -935,9 +937,8 @@ namespace BEPUphysics.Entities
 			linearDampingBoost = F64.C0;
 			angularDampingBoost = F64.C0;
 
-			//Update world inertia tensors.
-			Matrix3x3 multiplied;
-			Matrix3x3.MultiplyTransposed(ref orientationMatrix, ref localInertiaTensorInverse, out multiplied);
+			//Update world inertia tensors. 
+			Matrix3x3.MultiplyTransposed(ref orientationMatrix, ref localInertiaTensorInverse, out Matrix3x3 multiplied);
 			Matrix3x3.Multiply(ref multiplied, ref orientationMatrix, out inertiaTensorInverse);
 			Matrix3x3.MultiplyTransposed(ref orientationMatrix, ref localInertiaTensor, out multiplied);
 			Matrix3x3.Multiply(ref multiplied, ref orientationMatrix, out inertiaTensor);
@@ -950,9 +951,7 @@ namespace BEPUphysics.Entities
 			MathChecker.Validate(angularMomentum);
 #endif
 			MathChecker.Validate(linearVelocity);
-			MathChecker.Validate(angularVelocity);
-
-
+			MathChecker.Validate(angularVelocity); 
 		}
 
 		private ForceUpdater forceUpdater;
@@ -1119,8 +1118,7 @@ namespace BEPUphysics.Entities
 
 				collisionInformation.UpdateWorldTransform(ref position, ref orientation);
 				//The position update is complete if this is a discretely updated object.
-				if (PositionUpdated != null)
-					PositionUpdated(this);
+				if (PositionUpdated != null) PositionUpdated(this);
 			}
 
 			MathChecker.Validate(linearVelocity);

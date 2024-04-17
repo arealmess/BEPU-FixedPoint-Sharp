@@ -26,7 +26,7 @@ namespace BEPUutilities
 		public static readonly fp Cm1em9 = (fp)(-1e-9m);
 		public static readonly fp C1em14 = (fp)(1e-14m);		
 		public static readonly fp C0p1 = (fp)0.1m;
-		public static readonly fp OneThird = (fp)1/(fp)3;
+		public static readonly fp OneThird = C1 / C3;
 		public static readonly fp C0p75 = (fp)0.75m;
 		public static readonly fp C0p15 = (fp)0.15m;
 		public static readonly fp C0p3 = (fp)0.3m;
@@ -35,9 +35,9 @@ namespace BEPUutilities
 		public static readonly fp C0p9 = (fp).9m;
 		public static readonly fp C1p5 = (fp)1.5m;
 		public static readonly fp C1p1 = (fp)1.1m;
-		public static readonly fp OneEighth = fp._1 / 8;
-		public static readonly fp FourThirds = new fp(4) / 3;
-		public static readonly fp TwoFifths = new fp(2) / 5;
+		public static readonly fp OneEighth = C1 / (fp)8;
+		public static readonly fp FourThirds = (fp)4 / C3;
+		public static readonly fp TwoFifths = C2 / C5;
 		public static readonly fp C0p2 = (fp)0.2m;
 		public static readonly fp C0p8 = (fp)0.8m;
 		public static readonly fp C0p01 = (fp)0.01m;
@@ -47,11 +47,12 @@ namespace BEPUutilities
 		public static readonly fp C1em10 = (fp)1e-10m;
 		public static readonly fp Cm0p25 = (fp)(-0.25m);
 		public static readonly fp Cm0p9999 = (fp)(-0.9999m);
-		public static readonly fp C1m1em12 = fp._1 - (fp)1e-12m;
-		public static readonly fp GoldenRatio = fp._1 + fixmath.Sqrt((fp)5) / (fp)2;
-		public static readonly fp OneTwelfth = fp._1 / (fp)12;
+		public static readonly fp C1m1em12 = C1 - (fp)1e-12m;
+		public static readonly fp GoldenRatio = C1 + fixmath.Sqrt(C5) / C2;
+		public static readonly fp OneTwelfth = C1 / (fp)12;
 		public static readonly fp C0p0833333333 = (fp).0833333333m;
 		public static readonly fp C90000 = (fp)90000;
 		public static readonly fp C600000 = (fp)600000;
-	}
+		public static readonly fp OverNineThousand = (fp)0x2329;
+  }
 }

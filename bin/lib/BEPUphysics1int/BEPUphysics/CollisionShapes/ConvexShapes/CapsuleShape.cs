@@ -25,7 +25,7 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
             }
             set
             {
-                halfLength = value * fp._0_50;
+                halfLength = value * F64.C0p5;
                 OnShapeChanged();
             }
         }
@@ -44,7 +44,7 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
         ///<param name="radius">Radius to expand the line segment width.</param>
         public CapsuleShape(fp length, fp radius)
         {
-            halfLength = length * fp._0_50;
+            halfLength = length * F64.C0p5;
 
             UpdateConvexShapeInfo(ComputeDescription(length, radius));
         }
@@ -56,7 +56,7 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
         /// <param name="description">Cached information about the shape. Assumed to be correct; no extra processing or validation is performed.</param>
         public CapsuleShape(fp length, ConvexShapeDescription description)
         {
-            halfLength = length * fp._0_50;
+            halfLength = length * F64.C0p5;
 
             UpdateConvexShapeInfo(description);
         }
@@ -83,12 +83,12 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
 
             description.EntityShapeVolume.VolumeDistribution = new Matrix3x3();
             fp effectiveLength = length + radius / F64.C2; //This is a cylindrical inertia tensor. Approximate.
-            fp diagValue = F64.C0p0833333333 * effectiveLength * effectiveLength + fp._0_25 * radius * radius;
+            fp diagValue = F64.C0p0833333333 * effectiveLength * effectiveLength + F64.C0p25 * radius * radius;
             description.EntityShapeVolume.VolumeDistribution.M11 = diagValue;
-            description.EntityShapeVolume.VolumeDistribution.M22 = fp._0_50 * radius * radius;
+            description.EntityShapeVolume.VolumeDistribution.M22 = F64.C0p5 * radius * radius;
             description.EntityShapeVolume.VolumeDistribution.M33 = diagValue;
 
-            description.MaximumRadius = length * fp._0_50 + radius;
+            description.MaximumRadius = length * F64.C0p5 + radius;
             description.MinimumRadius = radius;
 
             description.CollisionMargin = radius;

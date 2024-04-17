@@ -21,7 +21,7 @@ namespace Deterministic.FixedPoint {
         public fp w;
 
         public static readonly fp4 zero;
-        public static readonly fp4 one       = new fp4 {x = fp._1, y        = fp._1, z        = fp._1, w        = fp._1};
+        public static readonly fp4 one       = new fp4 {x = F64.C1, y        = F64.C1, z        = F64.C1, w        = F64.C1};
         public static readonly fp4 minus_one = new fp4 {x = fp.minus_one, y = fp.minus_one, z = fp.minus_one, w = fp.minus_one};
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -52,7 +52,7 @@ namespace Deterministic.FixedPoint {
         {
           get
           {
-            return new fp4(fp._0, fp._0, fp._0, fp._1);
+            return new fp4(F64.C0, F64.C0, F64.C0, F64.C1);
           }
         }
 

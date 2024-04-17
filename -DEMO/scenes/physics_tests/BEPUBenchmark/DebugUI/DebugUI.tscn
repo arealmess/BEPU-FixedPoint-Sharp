@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cyqg3brmq4og8"]
+[gd_scene load_steps=2 format=3 uid="uid://cyqg3brmq4og8"]
 
 [ext_resource type="Script" path="res://-DEMO/scenes/physics_tests/BEPUBenchmark/DebugUI/DebugUI.cs" id="1_c0h56"]
-[ext_resource type="FontFile" uid="uid://cxs2d3gauujxr" path="res://-DEMO/fonts/Roboto-Regular.ttf" id="2_lotgd"]
 
 [node name="DebugUI" type="Control"]
+layout_direction = 2
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,21 +14,79 @@ offset_right = -1120.0
 offset_bottom = -616.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+size_flags_stretch_ratio = 0.0
 script = ExtResource("1_c0h56")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_direction = 2
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 411.0
+offset_bottom = 217.0
 
-[node name="FPS" type="Label" parent="VBoxContainer"]
+[node name="FPS" type="RichTextLabel" parent="VBoxContainer"]
+clip_contents = false
+layout_direction = 2
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_lotgd")
-theme_override_font_sizes/font_size = 32
-text = "                    FPS:"
+bbcode_enabled = true
+text = "fps"
+fit_content = true
+text_direction = 1
 
-[node name="PhysicsBodyCount" type="Label" parent="VBoxContainer"]
+[node name="PhysicsBodyCount" type="RichTextLabel" parent="VBoxContainer"]
+visible = false
+clip_contents = false
+layout_direction = 2
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_lotgd")
-theme_override_font_sizes/font_size = 32
-text = "Physics Bodies: "
+bbcode_enabled = true
+text = "physics body count"
+fit_content = true
+text_direction = 1
+
+[node name="WorldPos" type="RichTextLabel" parent="VBoxContainer"]
+clip_contents = false
+layout_direction = 2
+layout_mode = 2
+bbcode_enabled = true
+text = "worldpos"
+fit_content = true
+text_direction = 1
+
+[node name="Thresholds" type="RichTextLabel" parent="VBoxContainer"]
+clip_contents = false
+layout_direction = 2
+layout_mode = 2
+bbcode_enabled = true
+text = "thresh"
+fit_content = true
+text_direction = 1
+
+[node name="Contacts" type="RichTextLabel" parent="VBoxContainer"]
+visible = false
+clip_contents = false
+layout_direction = 2
+layout_mode = 2
+bbcode_enabled = true
+text = "contacts"
+fit_content = true
+text_direction = 1
+
+[node name="HasSupport" type="RichTextLabel" parent="VBoxContainer"]
+visible = false
+clip_contents = false
+layout_direction = 2
+layout_mode = 2
+bbcode_enabled = true
+text = "has support"
+fit_content = true
+text_direction = 1
+
+[node name="Overlaps" type="RichTextLabel" parent="VBoxContainer"]
+clip_contents = false
+layout_direction = 2
+layout_mode = 2
+bbcode_enabled = true
+text = "overlaps"
+fit_content = true
+text_direction = 1

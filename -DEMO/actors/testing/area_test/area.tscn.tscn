@@ -5,7 +5,7 @@
 [ext_resource type="Material" uid="uid://8hgns12hdasj" path="res://-custom_nodes/ColShape/Shape/materials_collision/debug_area.material" id="3_0ug2p"]
 [ext_resource type="Script" path="res://-custom_nodes/ColShape/Shape/ColShapeBox.cs" id="4_e5gyw"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_u2x8e"]
+[sub_resource type="BoxMesh" id="BoxMesh_xjuwi"]
 material = ExtResource("3_0ug2p")
 size = Vector3(3, 3, 3)
 
@@ -13,21 +13,19 @@ size = Vector3(3, 3, 3)
 script = ExtResource("1_1tn5r")
 _CollisionGroup = 5
 quatOffset = Quaternion(0, 0, 0, 1)
-quatOffsetW = 4294967296
+quatOffsetW = 65536
 
 [node name="ColShape" parent="." node_paths=PackedStringArray("shape") instance=ExtResource("2_eshff")]
 type = 1
 shape = NodePath("Shape")
-quatOffset = Quaternion(0, 0, 0, 1)
-quatOffsetW = 4294967296
 
 [node name="Shape" parent="ColShape" index="0"]
-material_override = ExtResource("3_0ug2p")
-mesh = SubResource("BoxMesh_u2x8e")
+mesh = SubResource("BoxMesh_xjuwi")
+surface_material_override/0 = ExtResource("3_0ug2p")
 script = ExtResource("4_e5gyw")
 size = Vector3(3, 3, 3)
-sizeX = 12884901888
-sizeY = 12884901888
-sizeZ = 12884901888
+sizeX = 196608
+sizeY = 196608
+sizeZ = 196608
 
 [editable path="ColShape"]

@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using BEPUutilities;
+using System.Runtime.CompilerServices;
 
 namespace Deterministic.FixedPoint
 {
@@ -273,7 +274,7 @@ namespace Deterministic.FixedPoint
         {
             if (v == fp2.zero)
             {
-                magnitude = fp._0;
+                magnitude = F64.C0;
                 return fp2.zero;
             }
 
@@ -383,8 +384,8 @@ namespace Deterministic.FixedPoint
 
             r.value = x + z;
             var dot = r;
-            fp min = -fp._1;
-            fp max = +fp._1;
+            fp min = -F64.C1;
+            fp max = +F64.C1;
             fp ret;
             if (dot.value < min.value)
             {
@@ -487,8 +488,8 @@ namespace Deterministic.FixedPoint
 
             r.value = x + z;
             var dot = r;
-            fp min = -fp._1;
-            fp max = +fp._1;
+            fp min = -F64.C1;
+            fp max = +F64.C1;
             fp ret;
             if (dot.value < min.value)
             {
@@ -599,8 +600,8 @@ namespace Deterministic.FixedPoint
 
             r.value = x + z;
             var dot = r;
-            fp min = -fp._1;
-            fp max = +fp._1;
+            fp min = -F64.C1;
+            fp max = +F64.C1;
             fp ret;
             if (dot.value < min.value)
             {
@@ -619,7 +620,7 @@ namespace Deterministic.FixedPoint
             }
 
             var rad  = new fp(fixlut.acos(ret.value));
-            var sign = ((a.x * b.y - a.y * b.x).value <  fixlut.ZERO) ? fp.minus_one : fp._1;
+            var sign = ((a.x * b.y - a.y * b.x).value <  fixlut.ZERO) ? fp.minus_one : F64.C1;
 
             return rad * sign;
         }
@@ -636,8 +637,8 @@ namespace Deterministic.FixedPoint
 
             r.value = x + z;
             var dot = r;
-            fp min = -fp._1;
-            fp max = +fp._1;
+            fp min = -F64.C1;
+            fp max = +F64.C1;
             fp ret;
             if (dot.value < min.value)
             {
@@ -662,8 +663,8 @@ namespace Deterministic.FixedPoint
 
             r.value = x + z;
             var dot = r;
-            fp min = -fp._1;
-            fp max = +fp._1;
+            fp min = -F64.C1;
+            fp max = +F64.C1;
             fp ret;
             if (dot.value < min.value)
             {
@@ -682,7 +683,7 @@ namespace Deterministic.FixedPoint
             }
 
             var rad  = new fp(fixlut.acos(ret.value));
-            var sign = ((a.x * b.y - a.y * b.x).value < fixlut.ZERO) ? fp.minus_one : fp._1;
+            var sign = ((a.x * b.y - a.y * b.x).value < fixlut.ZERO) ? fp.minus_one : F64.C1;
 
             return rad * sign;
         }
@@ -694,8 +695,8 @@ namespace Deterministic.FixedPoint
 
             fp2 result;
 
-            result.x = vector.x - ((fp._2 * dot) * normal.x);
-            result.y = vector.y - ((fp._2 * dot) * normal.y);
+            result.x = vector.x - ((F64.C2 * dot) * normal.x);
+            result.y = vector.y - ((F64.C2 * dot) * normal.y);
 
             return result;
         }

@@ -338,7 +338,7 @@ namespace BEPUphysics.Constraints.TwoEntity.Joints
                 Vector3.Dot(ref rAcrossN, ref IrACrossN, out angularA);
                 Vector3.Dot(ref rBcrossN, ref IrBCrossN, out angularB);
                 negativeEffectiveMass = connectionA.inverseMass + connectionB.inverseMass + angularA + angularB;
-                negativeEffectiveMass = -1 / (negativeEffectiveMass + softness);
+                negativeEffectiveMass = -F64.C1 / (negativeEffectiveMass + softness);
             }
             else if (connectionA.IsDynamic && !connectionB.IsDynamic)
             {
@@ -347,7 +347,7 @@ namespace BEPUphysics.Constraints.TwoEntity.Joints
                 fp angularA;
                 Vector3.Dot(ref rAcrossN, ref IrACrossN, out angularA);
                 negativeEffectiveMass = connectionA.inverseMass + angularA;
-                negativeEffectiveMass = -1 / (negativeEffectiveMass + softness);
+                negativeEffectiveMass = -F64.C1 / (negativeEffectiveMass + softness);
             }
             else if (!connectionA.IsDynamic && connectionB.IsDynamic)
             {
@@ -356,7 +356,7 @@ namespace BEPUphysics.Constraints.TwoEntity.Joints
                 fp angularB;
                 Vector3.Dot(ref rBcrossN, ref IrBCrossN, out angularB);
                 negativeEffectiveMass = connectionB.inverseMass + angularB;
-                negativeEffectiveMass = -1 / (negativeEffectiveMass + softness);
+                negativeEffectiveMass = -F64.C1 / (negativeEffectiveMass + softness);
             }
             else
                 negativeEffectiveMass = F64.C0;

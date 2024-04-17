@@ -236,7 +236,7 @@ namespace BEPUphysics.Paths
 
                 var curveTime = Curve.ControlPoints[i].Time;
                 var intervalLength = Curve.ControlPoints[i + 1].Time - curveTime;
-                var curveTimePerSample = intervalLength / (SamplesPerInterval + 1);
+                var curveTimePerSample = intervalLength / (fp)(SamplesPerInterval + 1);
                 for (int j = 1; j <= SamplesPerInterval; j++)
                 {
                     previousValue = currentValue;

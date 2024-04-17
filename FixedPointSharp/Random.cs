@@ -1,3 +1,4 @@
+using BEPUutilities;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -141,15 +142,15 @@ namespace Deterministic.FixedPoint {
         
         /// <summary>Returns a normalized 2D direction</summary>
         public fp2 NextDirection2D() {
-            var angle = NextFp() * fp.pi * fp._2;
+            var angle = NextFp() * fp.pi * F64.C2;
             fixmath.SinCos(angle, out var sin, out var cos);
             return new fp2(sin,cos);
         }
         
         /// <summary>Returns a normalized 3D direction</summary>
         public fp3 NextDirection3D() {
-            var z = NextFp(fp._2) - fp._1;
-            var r = fixmath.Sqrt(fixmath.Max(fp._1 - z * z, fp._0));
+            var z = NextFp(F64.C2) - F64.C1;
+            var r = fixmath.Sqrt(fixmath.Max(F64.C1 - z * z, F64.C0));
             var angle = NextFp(fp.pi2);
             fixmath.SinCos(angle, out var sin, out var cos);
             return new fp3(cos * r, sin * r, z);

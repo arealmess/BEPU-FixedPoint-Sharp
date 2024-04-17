@@ -150,7 +150,7 @@ namespace BEPUphysics.Constraints.Collision
             else
                 entryB = F64.C0;
 
-            velocityToImpulse = -1 / (entryA + entryB);
+            velocityToImpulse = -F64.C1 / (entryA + entryB);
 
 
             //Compute the relative velocity to determine what kind of friction to use

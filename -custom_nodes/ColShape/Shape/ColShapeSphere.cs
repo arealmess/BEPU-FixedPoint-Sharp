@@ -14,11 +14,11 @@ public partial class ColShapeSphere : Shape
 		get => (float)Fix64.FromRaw(RadiusRaw);
 		set {
 			if (Engine.IsEditorHint()) {  // Avoid any float values changing fixed point raw values when the game runs
-				RadiusRaw = ((fp)value).value;
+				RadiusRaw = ((fp)(decimal)value).value;
 			}
 
-			((SphereMesh)Mesh).Radius = (float)radius;
-			((SphereMesh)Mesh).Height = (float)radius * 2;
+			((SphereMesh)Mesh).Radius = radius;
+			((SphereMesh)Mesh).Height = radius * 2;
 		}
 	}
 
@@ -29,8 +29,8 @@ public partial class ColShapeSphere : Shape
 		set {
 			RadiusRaw = value;
 			Radius = Fix64.FromRaw(RadiusRaw);
-			((SphereMesh)Mesh).Radius = (float)radius;
-			((SphereMesh)Mesh).Height = (float)radius * 2;
+			((SphereMesh)Mesh).Radius = radius;
+			((SphereMesh)Mesh).Height = radius * 2;
 		}
 	}
 }

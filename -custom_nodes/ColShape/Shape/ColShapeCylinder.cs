@@ -8,13 +8,13 @@ using Deterministic.FixedPoint;
 [Tool]
 public partial class ColShapeCylinder : Shape
 {
-	public fp Height = (fp)2;
+	public fp Height = F64.C2;
 	[Export]
 	private float height {
 		get => (float)Fix64.FromRaw(HeightRaw);
 		set {
 			if (Engine.IsEditorHint()) {  // Avoid any float values changing fixed point raw values when the game runs
-				HeightRaw = ((fp)value).value;
+				HeightRaw = ((fp)(decimal)value).value;
 				((CylinderMesh)Mesh).Height = height;
 			}
 		}
@@ -26,7 +26,7 @@ public partial class ColShapeCylinder : Shape
 		get => (float)Fix64.FromRaw(RadiusRaw);
 		set {
 			if (Engine.IsEditorHint()) {  // Avoid any float values changing fixed point raw values when the game runs
-				RadiusRaw = ((fp)value).value;
+				RadiusRaw = ((fp)(decimal)value).value;
 				((CylinderMesh)Mesh).TopRadius = radius;
 				((CylinderMesh)Mesh).BottomRadius = radius;
 			}

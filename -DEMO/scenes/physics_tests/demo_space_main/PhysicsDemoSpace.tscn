@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ca27c6mo70hw3"]
+[gd_scene load_steps=12 format=3 uid="uid://ca27c6mo70hw3"]
 
 [ext_resource type="Script" path="res://-DEMO/scenes/physics_tests/demo_space_main/PhysicsDemoSpace.cs" id="1_053bd"]
 [ext_resource type="Environment" uid="uid://dic646ekf57ug" path="res://env_default.tres" id="2_ppv33"]
@@ -7,8 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://dix7fwy582ser" path="res://-DEMO/actors/testing/area_test/area.tscn.tscn" id="5_lqmog"]
 [ext_resource type="PackedScene" uid="uid://baac0vfnch66j" path="res://-DEMO/actors/objects/statue/statueDemo.tscn" id="6_he8k3"]
 [ext_resource type="PackedScene" uid="uid://cpk18w6503y60" path="res://-DEMO/actors/testing/projectile_test/projectile_test.tscn" id="7_fu6e0"]
-[ext_resource type="PackedScene" uid="uid://bk6p4itrk8b3o" path="res://-DEMO/scenes/physics_tests/demo_space_main/objects/boxDemo.tscn" id="8_biv8l"]
 [ext_resource type="PackedScene" uid="uid://bqtummaelsyx0" path="res://-DEMO/scenes/physics_tests/demo_space_main/objects/rotationDemo.tscn" id="8_iyf3i"]
+[ext_resource type="PackedScene" uid="uid://ua1781w6cmxf" path="res://-DEMO/scenes/physics_tests/demo_space_main/objects/ball.tscn" id="10_3kkl7"]
+[ext_resource type="PackedScene" uid="uid://bk6p4itrk8b3o" path="res://-DEMO/scenes/physics_tests/demo_space_main/objects/boxDemo.tscn" id="11_3imbi"]
+[ext_resource type="PackedScene" uid="uid://cyqg3brmq4og8" path="res://-DEMO/scenes/physics_tests/BEPUBenchmark/DebugUI/DebugUI.tscn" id="11_fxl21"]
 
 [node name="PhysicsDemoSpace" type="Node"]
 script = ExtResource("1_053bd")
@@ -21,61 +23,77 @@ shadow_enabled = true
 environment = ExtResource("2_ppv33")
 
 [node name="Player" parent="." instance=ExtResource("3_5y1fn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 16)
-posOffset = Vector3(-16, 0, 16)
-posOffsetX = -68719476736
-posOffsetZ = 68719476736
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.0329, 8.66201, 22.5982)
+posOffset = Vector3(-12.0329, 8.662, 22.5982)
+posOffsetX = -788588
+posOffsetY = 567673
+posOffsetZ = 1480995
 
-[node name="Node3D" parent="." instance=ExtResource("4_tu006")]
-quatOffset = Quaternion(0, 0, 0, 1)
-quatOffsetW = 4294967296
+[node name="ground" parent="." instance=ExtResource("4_tu006")]
 
 [node name="area_test" parent="." instance=ExtResource("5_lqmog")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.8647, 3, -16)
 posOffset = Vector3(-16.8647, 3, -16)
-posOffsetX = -72433334956
-posOffsetY = 12884901888
-posOffsetZ = -68719476736
+posOffsetX = -1105244
+posOffsetY = 196608
+posOffsetZ = -1048576
 
 [node name="statue" parent="." instance=ExtResource("6_he8k3")]
 
 [node name="projectile_test" parent="." instance=ExtResource("7_fu6e0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.7207, 62.3899, -74.3178)
 posOffset = Vector3(27.7207, 62.3899, -74.3178)
-posOffsetX = 119059499922
-posOffsetY = 267962580100
-posOffsetZ = -319192520510
-quatOffset = Quaternion(0, 0, 0, 1)
-quatOffsetW = 4294967296
+posOffsetX = 1816703
+posOffsetY = 4088784
+posOffsetZ = -4870491
 
 [node name="RotationDemo" parent="." instance=ExtResource("8_iyf3i")]
+transform = Transform3D(0.973956, -0.216535, 0.0672442, 0.226736, 0.930136, -0.288851, 0, 0.296575, 0.955009, -19.4723, 4.229, 10.9442)
+posOffset = Vector3(-19.4723, 4.22899, 10.9442)
+posOffsetX = -1276135
+quatOffset = Quaternion(0.149002, 0.0171051, 0.112808, 0.982224)
+quatOffsetX = 9765
+quatOffsetY = 1121
+quatOffsetZ = 7393
+quatOffsetW = 64371
 
-[node name="RigidBody" parent="." instance=ExtResource("8_biv8l")]
-mass = 1
-quatOffset = Quaternion(0, -0.440096, 0, 0.897951)
+[node name="Ball" parent="." instance=ExtResource("10_3kkl7")]
+transform = Transform3D(0.951471, 0.307739, 0, -0.307739, 0.951471, 0, 0, 0, 1, -0.325022, 28.4552, 0.0459161)
+posOffset = Vector3(-0.325012, 28.4552, 0.0459137)
+posOffsetX = -21300
+posOffsetY = 1864839
+posOffsetZ = 3009
+quatOffset = Quaternion(0, 0, -0.155762, 0.987793)
+quatOffsetZ = -10208
+quatOffsetW = 64736
 
-[node name="RigidBody2" parent="." instance=ExtResource("8_biv8l")]
-transform = Transform3D(0.612631, 0, -0.790369, 0, 1, 0, 0.790369, 0, 0.612631, 18.1067, 1.5, -10.7933)
-mass = 1
-posOffset = Vector3(18.1067, 1.5, -10.7933)
-posOffsetX = 77767684338
-quatOffset = Quaternion(0, -0.440096, 0, 0.897951)
+[node name="DebugUI" parent="." instance=ExtResource("11_fxl21")]
 
-[node name="RigidBody3" parent="." instance=ExtResource("8_biv8l")]
-transform = Transform3D(0.612631, 0, -0.790369, 0, 1, 0, 0.790369, 0, 0.612631, 16.2896, 1.5, -14.104)
-mass = 1
-posOffset = Vector3(16.2896, 1.5, -14.104)
-posOffsetX = 69963299264
-posOffsetZ = -60576218742
-quatOffset = Quaternion(0, -0.440096, 0, 0.897951)
+[node name="Ball2" parent="." instance=ExtResource("10_3kkl7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.626101, 17.1126, -1.38641)
+posOffset = Vector3(-0.626099, 17.1126, -1.3864)
+posOffsetX = -41032
+posOffsetY = 1121491
+posOffsetZ = -90859
 
-[node name="RigidBody4" parent="." instance=ExtResource("8_biv8l")]
-transform = Transform3D(-0.0811037, 0, -0.996706, 0, 1, 0, 0.996706, 0, -0.0811037, 16.29, 4.5, -11.342)
-mass = 1
-posOffset = Vector3(16.29, 4.5, -11.342)
-posOffsetX = 69965017251
-posOffsetY = 19327352832
-posOffsetZ = -48713519071
-quatOffset = Quaternion(0, -0.735222, 0, 0.677826)
-quatOffsetY = -3157755733
-quatOffsetW = 2911240502
+[node name="RigidBody" parent="." instance=ExtResource("11_3imbi")]
+transform = Transform3D(0.569305, -0.656335, -0.495092, 0.495256, 0.754469, -0.430695, 0.656212, 7.22194e-09, 0.754577, 16.9343, 5.50969, 1.36141)
+posOffset = Vector3(16.9343, 5.50969, 1.3614)
+posOffsetX = 1109806
+posOffsetY = 361083
+posOffsetZ = 89221
+quatOffset = Quaternion(0.122726, -0.328094, 0.328171, 0.877258)
+quatOffsetX = 8043
+quatOffsetY = -21502
+quatOffsetZ = 21507
+quatOffsetW = 57492
+
+[node name="RigidBody2" parent="." instance=ExtResource("11_3imbi")]
+transform = Transform3D(0.754577, 0, -0.656212, 0, 1, 0, 0.656212, 0, 0.754577, 12.8918, 13.424, -6.72812)
+posOffset = Vector3(12.8918, 13.424, -6.72812)
+posOffsetX = 844877
+posOffsetY = 879755
+posOffsetZ = -440934
+quatOffset = Quaternion(0, -0.350296, 0, 0.93663)
+quatOffsetY = -22957
+quatOffsetW = 61383

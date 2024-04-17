@@ -1,3 +1,4 @@
+using BEPUutilities;
 using System.Runtime.CompilerServices;
 
 namespace Deterministic.FixedPoint {
@@ -34,7 +35,7 @@ namespace Deterministic.FixedPoint {
         {
             if (v == fp4.zero)
             {
-                magnitude = fp._0;
+                magnitude = F64.C0;
                 return fp4.zero;
             }
 

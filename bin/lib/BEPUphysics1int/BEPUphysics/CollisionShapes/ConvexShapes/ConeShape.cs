@@ -98,7 +98,7 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
 
             fp denominator = radius / height;
             denominator = denominator / fixmath.Sqrt(denominator * denominator + F64.C1);
-            description.MinimumRadius = collisionMargin + MathHelper.Min(fp._0_25 * height, denominator * F64.C0p75 * height);
+            description.MinimumRadius = collisionMargin + MathHelper.Min(F64.C0p25 * height, denominator * F64.C0p75 * height);
 
             description.CollisionMargin = collisionMargin;
             return description;

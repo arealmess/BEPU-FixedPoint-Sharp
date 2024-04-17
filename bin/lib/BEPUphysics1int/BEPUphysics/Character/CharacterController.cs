@@ -465,7 +465,7 @@ namespace BEPUphysics.Character
             QueryManager = new QueryManager(Body, ContactCategorizer);
             SupportFinder = new SupportFinder(Body, QueryManager, ContactCategorizer);
             HorizontalMotionConstraint = new HorizontalMotionConstraint(Body, SupportFinder);
-            HorizontalMotionConstraint.PositionAnchorDistanceThreshold = (fp)radius * fp._0_25;
+            HorizontalMotionConstraint.PositionAnchorDistanceThreshold = (fp)radius * F64.C0p25;
             VerticalMotionConstraint = new VerticalMotionConstraint(Body, SupportFinder, (fp)maximumGlueForce);
             StepManager = new StepManager(Body, ContactCategorizer, SupportFinder, QueryManager, HorizontalMotionConstraint);
             StanceManager = new StanceManager(Body, (fp)crouchingHeight, (fp)proneHeight, QueryManager, SupportFinder);
@@ -747,7 +747,7 @@ namespace BEPUphysics.Character
             Vector3 downDirection = Body.OrientationMatrix.Down;
             Vector3 position = Body.Position;
             fp margin = Body.CollisionInformation.Shape.CollisionMargin;
-            fp minimumHeight = Body.Height * fp._0_50 - margin;
+            fp minimumHeight = Body.Height * F64.C0p5 - margin;
             fp coreRadius = Body.Radius - margin;
             fp coreRadiusSquared = coreRadius * coreRadius;
             foreach (var pair in Body.CollisionInformation.Pairs)

@@ -1,37 +1,24 @@
 using Godot;
-using System;
-
-using FixMath.NET;
-using BEPUphysics;
-using BEPUphysics.Entities;
-using BEPUutilities;
-using BEPUphysics.BroadPhaseEntries.MobileCollidables;
-
+using Deterministic.FixedPoint;
+using BEPUphysics.Character;
 
 public partial class DebugUI : Control
 {
-	Label FPS;
-	Label PhysicsBodyCount;
+  RichTextLabel FPS; RichTextLabel Thresholds; RichTextLabel PhysicsBodyCount;
 
-	public override void _Ready()
+  public override void _Ready()
 	{
-		FPS = (Label) GetNode("VBoxContainer/FPS");
-		PhysicsBodyCount = (Label) GetNode("VBoxContainer/PhysicsBodyCount");
+    PhysicsBodyCount = (RichTextLabel)GetNode("VBoxContainer/PhysicsBodyCount");
+    FPS = (RichTextLabel)GetNode("VBoxContainer/FPS");  
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-		UpdateFPS();
-	}
+    FPS.Text = "FPS: " + Engine.GetFramesPerSecond().ToString();
+  } 
 
-	public void UpdateFPS()
-	{
-		FPS.Text = "FPS: " + Godot.Engine.GetFramesPerSecond().ToString();
-	}
-
-	public void UpdatePhysicsBodyCount(int count)
-	{
-		PhysicsBodyCount.Text = "Physics Bodies: " + count.ToString();
-	}
-}
-
+  public void UpdateStats(int entityCount)
+  {
+    PhysicsBodyCount.Text = "Physics Bodies: " + entityCount.ToString();
+  }
+} 

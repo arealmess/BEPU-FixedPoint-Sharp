@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BEPUutilities;
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -9,13 +10,13 @@ namespace Deterministic.FixedPoint {
     public struct fp2 : IEquatable<fp2> {
         public const int SIZE = 16;
 
-        public static readonly fp2 left      = new fp2(-fp._1,       fp._0);
-        public static readonly fp2 right     = new fp2(fp._1,        fp._0);
-        public static readonly fp2 up        = new fp2(fp._0,        fp._1);
-        public static readonly fp2 down      = new fp2(fp._0,        -fp._1);
-        public static readonly fp2 one       = new fp2(fp._1,        fp._1);
+        public static readonly fp2 left      = new fp2(-F64.C1,       F64.C0);
+        public static readonly fp2 right     = new fp2(F64.C1,        F64.C0);
+        public static readonly fp2 up        = new fp2(F64.C0,        F64.C1);
+        public static readonly fp2 down      = new fp2(F64.C0,        -F64.C1);
+        public static readonly fp2 one       = new fp2(F64.C1,        F64.C1);
         public static readonly fp2 minus_one = new fp2(fp.minus_one, fp.minus_one);
-        public static readonly fp2 zero      = new fp2(fp._0,        fp._0);
+        public static readonly fp2 zero      = new fp2(F64.C0,        F64.C0);
 
         [FieldOffset(0)]
         public fp x;

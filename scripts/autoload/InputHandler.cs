@@ -9,6 +9,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using Newtonsoft.Json;
 using System.IO.Compression;
 using Deterministic.FixedPoint;
+using BEPUutilities;
 
 
 public partial class InputHandler : Node
@@ -41,7 +42,8 @@ public partial class InputHandler : Node
 	public override void _Ready()
 	{
 		InitializeInputDict();
-	}
+    Input.MouseMode = Input.MouseModeEnum.Captured;
+  }
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -94,8 +96,20 @@ public partial class InputHandler : Node
 		PollInputActions(ignore);
 	}
 
-	// Could set action values for up, down, left, right here
-	private void PollJoyAxis(bool ignore = false)
+  //public override void _Input(InputEvent @event)
+  //{
+  //  // Mouse in viewport coordinates.
+  //  if (@event is InputEventMouseButton eventMouseButton)
+  //    GD.Print("Mouse Click/Unclick at: ", eventMouseButton.Position);
+  //  else if (@event is InputEventMouseMotion eventMouseMotion)
+  //    GD.Print("Mouse Motion at: ", eventMouseMotion.Position);
+
+  //  // Print the size of the viewport.
+  //  GD.Print("Viewport Resolution is: ", GetViewport().GetVisibleRect().Size);
+  //}
+
+  // Could set action values for up, down, left, right here
+  private void PollJoyAxis(bool ignore = false)
 	{
 		if (!ignore) {
 			JoyAxisLeft.X = (fp)Godot.Input.GetJoyAxis(DeviceID, Godot.JoyAxis.LeftX);
@@ -103,8 +117,16 @@ public partial class InputHandler : Node
 			JoyAxisRight.X = (fp)Godot.Input.GetJoyAxis(DeviceID, Godot.JoyAxis.RightX);
 			JoyAxisRight.Y = (fp)Godot.Input.GetJoyAxis(DeviceID, Godot.JoyAxis.RightY);
 
-			// Apply deadzones
-			if (JoyAxisLeft.Length() < deadzoneInnerLeft) {
+      if (Input.IsKeyPressed(Key.W)) JoyAxisLeft.Y -= 1;
+      if (Input.IsKeyPressed(Key.A)) JoyAxisLeft.X -= 1; 
+      if (Input.IsKeyPressed(Key.S)) JoyAxisLeft.Y += 1;
+      if (Input.IsKeyPressed(Key.D)) JoyAxisLeft.X += 1; 
+
+      JoyAxisRight.X = (fp)Input.GetLastMouseVelocity().X * F64.C0p001;
+      JoyAxisRight.Y = (fp)Input.GetLastMouseVelocity().Y * F64.C0p001; 
+
+      // Apply deadzones
+      if (JoyAxisLeft.Length() < deadzoneInnerLeft) {
 				JoyAxisLeft = new BEPUutilities.Vector2();
 			}
 			if (JoyAxisRight.Length() < deadzoneInnerRight) {

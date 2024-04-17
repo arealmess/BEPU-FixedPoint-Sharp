@@ -50,8 +50,8 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
 		/// </summary>
 		public fp Width
 		{
-			get { return halfWidth * fp._2; }
-			set { halfWidth = value * fp._0_50; OnShapeChanged(); }
+			get { return halfWidth * F64.C2; }
+			set { halfWidth = value * F64.C0p5; OnShapeChanged(); }
 		}
 
 		/// <summary>
@@ -59,8 +59,8 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
 		/// </summary>
 		public fp Height
 		{
-			get { return halfHeight * fp._2; }
-			set { halfHeight = value * fp._0_50; OnShapeChanged(); }
+			get { return halfHeight * F64.C2; }
+			set { halfHeight = value * F64.C0p5; OnShapeChanged(); }
 		}
 
 		/// <summary>
@@ -68,8 +68,8 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
 		/// </summary>
 		public fp Length
 		{
-			get { return halfLength * fp._2; }
-			set { halfLength = value * fp._0_50; OnShapeChanged(); }
+			get { return halfLength * F64.C2; }
+			set { halfLength = value * F64.C0p5; OnShapeChanged(); }
 		}
 
 
@@ -81,9 +81,9 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
 		///<param name="length">Length of the box.</param>
 		public BoxShape(fp width, fp height, fp length)
 		{
-			halfWidth = width * fp._0_50;
-			halfHeight = height * fp._0_50;
-			halfLength = length * fp._0_50;
+			halfWidth = width * F64.C0p5;
+			halfHeight = height * F64.C0p5;
+			halfLength = length * F64.C0p5;
 
 			UpdateConvexShapeInfo(ComputeDescription(width, height, length, collisionMargin));
 		}
@@ -97,9 +97,9 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
 		/// <param name="description">Cached information about the shape. Assumed to be correct; no extra processing or validation is performed.</param>
 		public BoxShape(fp width, fp height, fp length, ConvexShapeDescription description)
 		{
-			halfWidth = width * fp._0_50;
-			halfHeight = height * fp._0_50;
-			halfLength = length * fp._0_50;
+			halfWidth = width * F64.C0p5;
+			halfHeight = height * F64.C0p5;
+			halfLength = length * F64.C0p5;
 
 			UpdateConvexShapeInfo(description);
 		}
@@ -126,15 +126,15 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
 			fp widthSquared = width * width;
 			fp heightSquared = height * height;
 			fp lengthSquared = length * length;
-			fp inv12 = fp.OneTwelfth;
+			fp inv12 = F64.OneTwelfth;
 
 			description.EntityShapeVolume.VolumeDistribution = new Matrix3x3();
 			description.EntityShapeVolume.VolumeDistribution.M11 = (heightSquared + lengthSquared) * inv12;
 			description.EntityShapeVolume.VolumeDistribution.M22 = (widthSquared + lengthSquared) * inv12;
 			description.EntityShapeVolume.VolumeDistribution.M33 = (widthSquared + heightSquared) * inv12;
 
-			description.MaximumRadius = fp._0_50 * fixmath.Sqrt(width * width + height * height + length * length);
-			description.MinimumRadius = fp._0_50 * MathHelper.Min(width, MathHelper.Min(height, length));
+			description.MaximumRadius = F64.C0p5 * fixmath.Sqrt(width * width + height * height + length * length);
+			description.MinimumRadius = F64.C0p5 * MathHelper.Min(width, MathHelper.Min(height, length));
 
 			description.CollisionMargin = collisionMargin;
 			return description;

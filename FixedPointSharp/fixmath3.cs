@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using BEPUutilities;
+using System.Runtime.CompilerServices;
 
 namespace Deterministic.FixedPoint
 {
@@ -71,7 +72,7 @@ namespace Deterministic.FixedPoint
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp3 Reflect(fp3 vector, fp3 normal)
         {
-            var num = -fp._2 * Dot(normal, vector);
+            var num = -F64.C2 * Dot(normal, vector);
             return new fp3(num * normal.x + vector.x, num * normal.y + vector.y, num * normal.z + vector.z);
         }
 
@@ -102,7 +103,7 @@ namespace Deterministic.FixedPoint
         {
             var v = target - current;
             var sqrMagnitude = MagnitudeSqr(v);
-            if (v == fp3.zero || maxDelta >= fp._0 && sqrMagnitude <= maxDelta * maxDelta)
+            if (v == fp3.zero || maxDelta >= F64.C0 && sqrMagnitude <= maxDelta * maxDelta)
                 return target;
 
             var magnitude = Sqrt(sqrMagnitude);
@@ -117,10 +118,10 @@ namespace Deterministic.FixedPoint
 
             if (n < fp.epsilon)
             {
-                return fp._0;
+                return F64.C0;
             }
 
-            return Acos(Clamp(Dot(a, b) / n, fp.minus_one, fp._1)) * fp.rad2deg;
+            return Acos(Clamp(Dot(a, b) / n, fp.minus_one, F64.C1)) * fp.rad2deg;
         }
 
         public static fp AngleSigned(fp3 a, fp3 b, fp3 axis)
@@ -133,20 +134,20 @@ namespace Deterministic.FixedPoint
                         ((axis.y.value * num3) >> fixlut.PRECISION) +
                         ((axis.z.value * num4) >> fixlut.PRECISION)) < 0
                 ? fp.minus_one
-                : fp._1;
+                : F64.C1;
             return angle * sign;
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp Radians(fp3 a, fp3 b)
         {
-            return Acos(Clamp(Dot(Normalize(a), Normalize(b)), fp.minus_one, fp._1));
+            return Acos(Clamp(Dot(Normalize(a), Normalize(b)), fp.minus_one, F64.C1));
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp RadiansSkipNormalize(fp3 a, fp3 b)
         {
-            return Acos(Clamp(Dot(a, b), fp.minus_one, fp._1));
+            return Acos(Clamp(Dot(a, b), fp.minus_one, F64.C1));
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -215,7 +216,7 @@ namespace Deterministic.FixedPoint
         {
             if (v == fp3.zero)
             {
-                magnitude = fp._0;
+                magnitude = F64.C0;
                 return fp3.zero;
             }
 

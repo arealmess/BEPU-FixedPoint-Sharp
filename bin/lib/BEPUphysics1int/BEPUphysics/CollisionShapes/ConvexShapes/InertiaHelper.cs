@@ -145,7 +145,7 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
 			//Create the regular icosahedron vertices.
 			//Vector3[] vertices = new Vector3[12];
 			var goldenRatio = F64.GoldenRatio;
-			fp length = fixmath.Sqrt(fp._1 + goldenRatio * goldenRatio);
+			fp length = fixmath.Sqrt(F64.C1 + goldenRatio * goldenRatio);
 			fp x = F64.C1 / length;
 			fp y = goldenRatio / length;
             vertices[0] = new Vector3(F64.C0, x, y);
@@ -461,7 +461,7 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
             }
             else
             {
-                Vector3.Multiply(ref summedCenter, fp._0_25 / scaledVolume, out center);
+                Vector3.Multiply(ref summedCenter, F64.C0p25 / scaledVolume, out center);
                 volume = scaledVolume / F64.C6;
                 fp scaledDensity = F64.C1 / volume;
                 fp diagonalFactor = scaledDensity / F64.C60;
@@ -536,7 +536,7 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
 
             //While this shares a lot of math with the volume distribution computation (volume of a parallelepiped),
             //it requires that a center be available. So, it's a separate calculation.
-            fp minimumDistance = fp.max;
+            fp minimumDistance = Fix64.MaxValue;
             for (int i = 0; i < triangleIndices.Count; i += 3)
             {
                 Vector3 v2 = vertices[triangleIndices[i]];

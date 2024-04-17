@@ -65,8 +65,7 @@ namespace BEPUutilities
 		
 		public static bool Invert(ref Matrix3x3 m, out Matrix3x3 r)
 		{
-			if (Matrix == null)
-				 Matrix = new fp[3, 6];
+			Matrix ??= new fp[3, 6];
 			fp[,] M = Matrix;
 
 			// Initialize temporary matrix

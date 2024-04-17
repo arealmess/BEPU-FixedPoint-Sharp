@@ -369,7 +369,7 @@ namespace BEPUphysics.Vehicle
             fp biasFactor;
             springSettings.ComputeErrorReductionAndSoftness(dt, F64.C1 / dt, out biasFactor, out softness);
 
-            velocityToImpulse = -1 / (entryA + entryB + softness);
+            velocityToImpulse = -F64.C1 / (entryA + entryB + softness);
 
             //Correction velocity
             bias = MathHelper.Min(MathHelper.Max(F64.C0, (restLength - currentLength) - allowedCompression) * biasFactor, maximumSpringCorrectionSpeed);

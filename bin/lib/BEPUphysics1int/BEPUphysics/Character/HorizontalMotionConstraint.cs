@@ -267,7 +267,7 @@ namespace BEPUphysics.Character
             this.characterBody = characterBody;
             this.supportFinder = supportFinder;
             CollectInvolvedEntities();
-            MaximumAccelerationForce = fp.max;
+            MaximumAccelerationForce = Fix64.MaxValue;
         }
 
 

@@ -1,5 +1,4 @@
-using System;
-using System.Collections.Generic;
+using System; 
 using BEPUphysics.BroadPhaseEntries;
 using BEPUphysics.BroadPhaseEntries.MobileCollidables;
 using BEPUphysics.Entities.Prefabs;
@@ -7,11 +6,11 @@ using BEPUphysics.UpdateableSystems;
 using BEPUutilities;
 using BEPUphysics.NarrowPhaseSystems.Pairs;
 using BEPUphysics.Materials;
-using BEPUphysics.PositionUpdating;
-using System.Diagnostics;
-using System.Threading;
+using BEPUphysics.PositionUpdating; 
 using FixMath.NET;
 using Deterministic.FixedPoint;
+using System.Diagnostics;
+
 
 namespace BEPUphysics.Character
 {
@@ -66,10 +65,7 @@ namespace BEPUphysics.Character
 		/// </summary>
 		public Vector3 Down
 		{
-			get
-			{
-				return Body.OrientationMatrix.Down;
-			}
+			get { return Body.OrientationMatrix.Down; }
 			set
 			{
 				//Update the character's orientation to something compatible with the new direction.
@@ -93,25 +89,18 @@ namespace BEPUphysics.Character
 		/// </summary>
 		public Vector3 ViewDirection
 		{
-			get
-			{
-				return viewDirection;
-			}
+			get { return viewDirection; }
 			set
 			{
 				fp lengthSquared = value.LengthSquared();
-				if (lengthSquared > F64.C1em7)
-				{
-					Vector3.Divide(ref value, fixmath.Sqrt(lengthSquared), out viewDirection);
-				}
+
+				if (lengthSquared > F64.C1em7) Vector3.Divide(ref value, fixmath.Sqrt(lengthSquared), out viewDirection); 
 				else
 				{
 					value = Vector3.Cross(Down, Toolbox.UpVector);
 					lengthSquared = value.LengthSquared();
-					if (lengthSquared > F64.C1em7)
-					{
-						Vector3.Divide(ref value, fixmath.Sqrt(lengthSquared), out viewDirection);
-					}
+
+					if (lengthSquared > F64.C1em7) Vector3.Divide(ref value, fixmath.Sqrt(lengthSquared), out viewDirection); 
 					else
 					{
 						value = Vector3.Cross(Down, Toolbox.ForwardVector);
@@ -127,14 +116,10 @@ namespace BEPUphysics.Character
 		/// </summary>
 		public fp JumpSpeed
 		{
-			get
-			{
-				return jumpSpeed;
-			}
+			get { return jumpSpeed; }
 			set
 			{
-				if (value < F64.C0)
-					throw new ArgumentException("Value must be nonnegative.");
+				if (value < F64.C0) throw new ArgumentException("Value must be nonnegative.");
 				jumpSpeed = value;
 			}
 		}
@@ -144,14 +129,10 @@ namespace BEPUphysics.Character
 		/// </summary>
 		public fp SlidingJumpSpeed
 		{
-			get
-			{
-				return slidingJumpSpeed;
-			}
+			get { return slidingJumpSpeed; }
 			set
 			{
-				if (value < F64.C0)
-					throw new ArgumentException("Value must be nonnegative.");
+				if (value < F64.C0) throw new ArgumentException("Value must be nonnegative.");
 				slidingJumpSpeed = value;
 			}
 		}
@@ -161,14 +142,10 @@ namespace BEPUphysics.Character
 		/// </summary>
 		public fp JumpForceFactor
 		{
-			get
-			{
-				return jumpForceFactor;
-			}
+			get { return jumpForceFactor; }
 			set
 			{
-				if (value < F64.C0)
-					throw new ArgumentException("Value must be nonnegative.");
+				if (value < F64.C0) throw new ArgumentException("Value must be nonnegative.");
 				jumpForceFactor = value;
 			}
 		}
@@ -180,17 +157,14 @@ namespace BEPUphysics.Character
 		/// </summary>
 		public fp StandingSpeed
 		{
-			get
-			{
-				return standingSpeed;
-			}
+			get { return standingSpeed; }
 			set
 			{
-				if (value < F64.C0)
-					throw new ArgumentException("Value must be nonnegative.");
+				if (value < F64.C0) throw new ArgumentException("Value must be nonnegative.");
 				standingSpeed = value;
 			}
 		}
+
 		fp crouchingSpeed;
 		/// <summary>
 		/// Gets or sets the speed at which the character will try to move while crouching with a support that provides traction.
@@ -198,17 +172,14 @@ namespace BEPUphysics.Character
 		/// </summary>
 		public fp CrouchingSpeed
 		{
-			get
-			{
-				return crouchingSpeed;
-			}
+			get { return crouchingSpeed; }
 			set
 			{
-				if (value < F64.C0)
-					throw new ArgumentException("Value must be nonnegative.");
+				if (value < F64.C0) throw new ArgumentException("Value must be nonnegative.");
 				crouchingSpeed = value;
 			}
 		}
+
 		fp proneSpeed;
 		/// <summary>
 		/// Gets or sets the speed at which the character will try to move while prone with a support that provides traction.
@@ -216,31 +187,24 @@ namespace BEPUphysics.Character
 		/// </summary>
 		public fp ProneSpeed
 		{
-			get
-			{
-				return proneSpeed;
-			}
+			get { return proneSpeed; }
 			set
 			{
-				if (value < F64.C0)
-					throw new ArgumentException("Value must be nonnegative.");
+				if (value < F64.C0) throw new ArgumentException("Value must be nonnegative.");
 				proneSpeed = value;
 			}
 		}
+
 		fp tractionForce;
 		/// <summary>
 		/// Gets or sets the maximum force that the character can apply while on a support which provides traction.
 		/// </summary>
 		public fp TractionForce
 		{
-			get
-			{
-				return tractionForce;
-			}
+			get { return tractionForce; }
 			set
 			{
-				if (value < F64.C0)
-					throw new ArgumentException("Value must be nonnegative.");
+				if (value < F64.C0) throw new ArgumentException("Value must be nonnegative.");
 				tractionForce = value;
 			}
 		}
@@ -252,31 +216,24 @@ namespace BEPUphysics.Character
 		/// </summary>
 		public fp SlidingSpeed
 		{
-			get
-			{
-				return slidingSpeed;
-			}
+			get { return slidingSpeed; }
 			set
 			{
-				if (value < F64.C0)
-					throw new ArgumentException("Value must be nonnegative.");
+				if (value < F64.C0) throw new ArgumentException("Value must be nonnegative.");
 				slidingSpeed = value;
 			}
 		}
+
 		fp slidingForce;
 		/// <summary>
 		/// Gets or sets the maximum force that the character can apply while on a support which does not provide traction.
 		/// </summary>
 		public fp SlidingForce
 		{
-			get
-			{
-				return slidingForce;
-			}
+			get { return slidingForce; }
 			set
 			{
-				if (value < F64.C0)
-					throw new ArgumentException("Value must be nonnegative.");
+				if (value < F64.C0) throw new ArgumentException("Value must be nonnegative.");
 				slidingForce = value;
 			}
 		}
@@ -288,31 +245,24 @@ namespace BEPUphysics.Character
 		/// </summary>
 		public fp AirSpeed
 		{
-			get
-			{
-				return airSpeed;
-			}
+			get { return airSpeed; }
 			set
 			{
-				if (value < F64.C0)
-					throw new ArgumentException("Value must be nonnegative.");
+				if (value < F64.C0) throw new ArgumentException("Value must be nonnegative.");
 				airSpeed = value;
 			}
 		}
+
 		fp airForce;
 		/// <summary>
 		/// Gets or sets the maximum force that the character can apply with no support.
 		/// </summary>
 		public fp AirForce
 		{
-			get
-			{
-				return airForce;
-			}
+			get { return airForce; }
 			set
 			{
-				if (value < F64.C0)
-					throw new ArgumentException("Value must be nonnegative.");
+				if (value < F64.C0) throw new ArgumentException("Value must be nonnegative.");
 				airForce = value;
 			}
 		}
@@ -409,44 +359,30 @@ namespace BEPUphysics.Character
 			fp? maximumGlueForce = null
 			)
 		{
-			if (height == null)
-				height = (fp)1.7m;
-			if (crouchingHeight == null)
-				crouchingHeight = (fp)0;
-			if (proneHeight == null)
-				proneHeight = (fp)0;
-			if (radius == null)
-				radius = (fp)0.6m;
-			if (margin == null)
-				margin = (fp)0.1m;
-			if (mass == null)
-				mass = 1;
-			if (maximumTractionSlope == null)
-				maximumTractionSlope = (fp)0.8m;
-			if (maximumSupportSlope == null)
-				maximumSupportSlope = (fp)1.3m;
-			if (standingSpeed == null)
-				standingSpeed = 8;
-			if (crouchingSpeed == null)
-				crouchingSpeed = 3;
-			if (proneSpeed == null)
-				proneSpeed = (fp)1.5m;
-			if (tractionForce == null)
-				tractionForce = 1000;
-			if (slidingSpeed == null)
-				slidingSpeed = 6;
-			if (slidingForce == null)
-				slidingForce = 50;
-			if (airSpeed == null)
-				airSpeed = 1;
-			if (airForce == null)
-				airForce = 250;
-			if (jumpSpeed == null)
-				jumpSpeed = (fp)4.5m;
-			if (slidingJumpSpeed == null)
-				slidingJumpSpeed = 3;
-			if (maximumGlueForce == null)
-				maximumGlueForce = 5000;
+			if (height == null)															height = (fp)1.7m;
+			if (crouchingHeight == null)					 crouchingHeight = F64.C1;
+			if (proneHeight == null)									 proneHeight = F64.C0;
+			if (radius == null)															radius = (fp)0.6m;
+			if (margin == null)												 		  margin = (fp)0.1m;
+			if (mass == null)																  mass = (fp)1;
+
+			if (maximumTractionSlope == null)	maximumTractionSlope = (fp).8m;
+      Godot.GD.Print("PLAYER SLOPES: \n" + "maximumTractionSlope: " + maximumTractionSlope);
+
+      if (maximumSupportSlope == null)	 maximumSupportSlope = (fp)1.3m;
+      Godot.GD.Print("maximumSupportSlope: " + maximumSupportSlope); 
+
+      if (standingSpeed == null)							 standingSpeed = (fp)8;
+			if (crouchingSpeed == null)							crouchingSpeed = (fp)3;
+			if (proneSpeed == null)											proneSpeed = (fp)1.5m;
+			if (tractionForce == null)							 tractionForce = (fp)1000;
+			if (slidingSpeed == null)									slidingSpeed = (fp)6;
+			if (slidingForce == null)									slidingForce = (fp)50;
+			if (airSpeed == null)													airSpeed = (fp)1;
+			if (airForce == null)													airForce = (fp)250;
+			if (jumpSpeed == null)											 jumpSpeed = (fp)4.5m;
+			if (slidingJumpSpeed == null)					slidingJumpSpeed = (fp)3;
+			if (maximumGlueForce == null)					maximumGlueForce = (fp)5000;
 
 			// if (margin > radius || margin > crouchingHeight || margin > height)
 			// 	throw new ArgumentException("Margin must not be larger than the character's radius or height.");
@@ -473,15 +409,15 @@ namespace BEPUphysics.Character
 			StanceManager = new StanceManager(Body, (fp)crouchingHeight, (fp)proneHeight, QueryManager, SupportFinder);
 			PairLocker = new CharacterPairLocker(Body);
 
-			StandingSpeed = (fp)standingSpeed;
-			CrouchingSpeed = (fp)crouchingSpeed;
-			ProneSpeed = (fp)proneSpeed;
-			TractionForce = (fp)tractionForce;
-			SlidingSpeed = (fp)slidingSpeed;
-			SlidingForce = (fp)slidingForce;
-			AirSpeed = (fp)airSpeed;
-			AirForce = (fp)airForce;
-			JumpSpeed = (fp)jumpSpeed;
+				 StandingSpeed = (fp)standingSpeed;
+				CrouchingSpeed = (fp)crouchingSpeed;
+						ProneSpeed = (fp)proneSpeed;
+				 TractionForce = (fp)tractionForce;
+					SlidingSpeed = (fp)slidingSpeed;
+					SlidingForce = (fp)slidingForce;
+							AirSpeed = (fp)airSpeed;
+							AirForce = (fp)airForce;
+						 JumpSpeed = (fp)jumpSpeed;
 			SlidingJumpSpeed = (fp)slidingJumpSpeed;
 
 			//Enable multithreading for the characters.  
@@ -490,9 +426,6 @@ namespace BEPUphysics.Character
 			//Any object which replaces this must implement the ICharacterTag for locking to work properly.
 			Body.CollisionInformation.Tag = new CharacterSynchronizer(Body);
 		}
-
-
-
 
 		void RemoveFriction(EntityCollidable sender, BroadPhaseEntry other, NarrowPhasePair pair)
 		{
@@ -557,12 +490,8 @@ namespace BEPUphysics.Character
 				Vector3.Subtract(ref boundingBox.Min, ref expansion, out boundingBox.Min);
 
 				Body.CollisionInformation.BoundingBox = boundingBox;
-
 			}
-
-
 		}
-
 
 		void IBeforeSolverUpdateable.Update(fp dt)
 		{
@@ -708,8 +637,6 @@ namespace BEPUphysics.Character
 				HorizontalMotionConstraint.MaximumForce = airForce;
 			}
 			HorizontalMotionConstraint.TargetSpeed *= SpeedScale;
-
-
 		}
 
 		SupportData TeleportToPosition(Vector3 newPosition, fp dt)
@@ -817,7 +744,6 @@ namespace BEPUphysics.Character
 					}
 				}
 			}
-
 		}
 
 		void ComputeRelativeVelocity(ref SupportData supportData, out Vector3 relativeVelocity)
@@ -934,8 +860,6 @@ namespace BEPUphysics.Character
 			Body.AngularVelocity = new Vector3();
 			Body.LinearVelocity = new Vector3();
 		}
-
-
 	}
 }
 

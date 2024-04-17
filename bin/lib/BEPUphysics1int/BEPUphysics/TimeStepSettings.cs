@@ -1,4 +1,5 @@
-﻿using Deterministic.FixedPoint;
+﻿using BEPUutilities;
+using Deterministic.FixedPoint;
 using FixMath.NET;
 
 namespace BEPUphysics
@@ -19,7 +20,7 @@ namespace BEPUphysics
         /// The other method, Space.Update(float), will try to move time forward by the amount specified in the parameter by taking steps of TimeStepDuration size.
         /// Defaults to 1/60.
         /// </summary>
-        public fp TimeStepDuration = 1 / (fp)60m;
+        public fp TimeStepDuration = F64.C1 / (fp)60;
 
         /// <summary>
         /// Amount of time accumulated by previous calls to Space.Update(float) that has not yet been simulated.

@@ -1,16 +1,4 @@
-using Godot;
-using System;
-
-using FixMath.NET;
-using BEPUphysics;
-using BEPUphysics.Entities;
-using BEPUutilities;
-
-// Collision libraries
-using BEPUphysics.BroadPhaseEntries;
-using BEPUphysics.NarrowPhaseSystems.Pairs;
-using BEPUphysics.BroadPhaseEntries.MobileCollidables;
-
+using Godot;  
 
 [Tool]
 public partial class groundBenchmark : StaticBody  // Change inheirited class to desired PhysicsBody (CharacterBody, KinematicBody, RigidBody, StaticBody)
@@ -28,6 +16,4 @@ public partial class groundBenchmark : StaticBody  // Change inheirited class to
 
 		base._PhysicsProcess(delta);
 	}
-}
-
-
+} 

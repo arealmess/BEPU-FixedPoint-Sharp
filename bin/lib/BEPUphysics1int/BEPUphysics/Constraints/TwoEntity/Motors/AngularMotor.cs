@@ -226,7 +226,7 @@ namespace BEPUphysics.Constraints.TwoEntity.Motors
             basis.rotationMatrix = connectionA.orientationMatrix;
             basis.ComputeWorldSpaceAxes();
 
-            fp inverseDt = fp._1 / dt;
+            fp inverseDt = F64.C1 / dt;
             if (settings.mode == MotorMode.Servomechanism) //Only need to do the bulk of this work if it's a servo.
             {
 

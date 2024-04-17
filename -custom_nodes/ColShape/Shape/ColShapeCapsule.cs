@@ -14,7 +14,7 @@ public partial class ColShapeCapsule : Shape
 		get => (float)Fix64.FromRaw(HeightRaw);
 		set {
 			if (Engine.IsEditorHint()) {  // Avoid any float values changing fixed point raw values when the game runs
-				HeightRaw = ((fp)value).value;
+				HeightRaw = ((fp)(decimal)value).value;
 				((CapsuleMesh)Mesh).Height = height + (radius * 2);
 			}
 		}
@@ -26,7 +26,7 @@ public partial class ColShapeCapsule : Shape
 		get => (float)Fix64.FromRaw(RadiusRaw);
 		set {
 			if (Engine.IsEditorHint()) {  // Avoid any float values changing fixed point raw values when the game runs
-				RadiusRaw = ((fp)value).value;
+				RadiusRaw = ((fp)(decimal)value).value;
 				((CapsuleMesh)Mesh).Radius = radius;
 			}
 		}

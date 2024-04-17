@@ -25,5 +25,3 @@ public partial class statueDemo : StaticBody
 		base._PhysicsProcess(delta);
 	}
 }
-
-

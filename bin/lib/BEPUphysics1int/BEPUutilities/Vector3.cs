@@ -1,6 +1,7 @@
 using FixMath.NET;
 using System;
 using Deterministic.FixedPoint;
+using static Godot.HttpRequest;
 
 namespace BEPUutilities
 {
@@ -30,9 +31,9 @@ namespace BEPUutilities
 		/// <param name="z">Z component of the vector.</param>
 		public Vector3(fp x, fp y, fp z)
 		{
-			this.X = x;
-			this.Y = y;
-			this.Z = z;
+			X = x;
+			Y = y;
+			Z = z;
 		}
 
 		/// <summary>
@@ -42,9 +43,9 @@ namespace BEPUutilities
 		/// <param name="z">Z component of the vector.</param>
 		public Vector3(Vector2 xy, fp z)
 		{
-			this.X = xy.X;
-			this.Y = xy.Y;
-			this.Z = z;
+			X = xy.X;
+			Y = xy.Y;
+			Z = z;
 		}
 
 		/// <summary>
@@ -54,17 +55,23 @@ namespace BEPUutilities
 		/// <param name="yz">Y and Z components of the vector.</param>
 		public Vector3(fp x, Vector2 yz)
 		{
-			this.X = x;
-			this.Y = yz.X;
-			this.Z = yz.Y;
+			X = x;
+			Y = yz.X;
+			Z = yz.Y;
 		}
 
-		/// <summary>
-		/// Computes the squared length of the vector.
-		/// </summary>
-		/// <returns>Squared length of the vector.</returns>
-		public fp LengthSquared()
+    public static implicit operator Vector3(fp3 fp3)
+    {
+      return new Vector3(fp3.x, fp3.y, fp3.z);
+    }
+
+    /// <summary>
+    /// Computes the squared length of the vector.
+    /// </summary>
+    /// <returns>Squared length of the vector.</returns>
+    public fp LengthSquared()
 		{
+			//return fixmath.MagnitudeSqr(this);
 			return X * X + Y * Y + Z * Z;
 		}
 
@@ -74,15 +81,17 @@ namespace BEPUutilities
 		/// <returns>Length of the vector.</returns>
 		public fp Length()
 		{
-			return fixmath.Sqrt(X * X + Y * Y + Z * Z);
-		}
+      //return fixmath.Magnitude(this);
+      return fixmath.Sqrt(X * X + Y * Y + Z * Z);
+    }
 
 		/// <summary>
 		/// Normalizes the vector.
 		/// </summary>
 		public void Normalize()
 		{
-			fp inverse = fp._1 / fixmath.Sqrt(X * X + Y * Y + Z * Z);
+			//fixmath.Normalize(this);
+			fp inverse = F64.C1 / fixmath.Sqrt(X * X + Y * Y + Z * Z);
 			X *= inverse;
 			Y *= inverse;
 			Z *= inverse;
@@ -105,6 +114,7 @@ namespace BEPUutilities
 		/// <returns>Resulting dot product.</returns>
 		public static fp Dot(Vector3 a, Vector3 b)
 		{
+			//return fixmath.Dot(a, b);
 			return a.X * b.X + a.Y * b.Y + a.Z * b.Z;
 		}
 
@@ -116,8 +126,9 @@ namespace BEPUutilities
 		/// <param name="product">Resulting dot product.</param>
 		public static void Dot(ref Vector3 a, ref Vector3 b, out fp product)
 		{
-			product = a.X * b.X + a.Y * b.Y + a.Z * b.Z;
-		}
+			//product = fixmath.Dot(a, b);
+      product = a.X * b.X + a.Y * b.Y + a.Z * b.Z;
+    }
 		/// <summary>
 		/// Adds two vectors together.
 		/// </summary>
@@ -126,6 +137,7 @@ namespace BEPUutilities
 		/// <param name="sum">Sum of the two vectors.</param>
 		public static void Add(ref Vector3 a, ref Vector3 b, out Vector3 sum)
 		{
+      //sum = (fp3)a + (fp3)b;
 			sum.X = a.X + b.X;
 			sum.Y = a.Y + b.Y;
 			sum.Z = a.Z + b.Z;
@@ -138,6 +150,7 @@ namespace BEPUutilities
 		/// <param name="difference">Result of the subtraction.</param>
 		public static void Subtract(ref Vector3 a, ref Vector3 b, out Vector3 difference)
 		{
+			//difference = (fp3)a - (fp3)b;
 			difference.X = a.X - b.X;
 			difference.Y = a.Y - b.Y;
 			difference.Z = a.Z - b.Z;
@@ -150,6 +163,7 @@ namespace BEPUutilities
 		/// <param name="result">Scaled vector.</param>
 		public static void Multiply(ref Vector3 v, fp scale, out Vector3 result)
 		{
+			//result = (fp3)v * scale;
 			result.X = v.X * scale;
 			result.Y = v.Y * scale;
 			result.Z = v.Z * scale;
@@ -163,6 +177,7 @@ namespace BEPUutilities
 		/// <param name="result">Result of the componentwise multiplication.</param>
 		public static void Multiply(ref Vector3 a, ref Vector3 b, out Vector3 result)
 		{
+			//result = (fp3)a * (fp3)b;
 			result.X = a.X * b.X;
 			result.Y = a.Y * b.Y;
 			result.Z = a.Z * b.Z;
@@ -176,7 +191,8 @@ namespace BEPUutilities
 		/// <param name="result">Result of the division.</param>
 		public static void Divide(ref Vector3 v, fp divisor, out Vector3 result)
 		{
-			fp inverse = fp._1 / divisor;
+			//result = (fp3)v / divisor;
+			fp inverse = F64.C1 / divisor;
 			result.X = v.X * inverse;
 			result.Y = v.Y * inverse;
 			result.Z = v.Z * inverse;
@@ -189,6 +205,7 @@ namespace BEPUutilities
 		/// <returns>Scaled vector.</returns>
 		public static Vector3 operator *(Vector3 v, fp f)
 		{
+			//fp3 toReturn = (fp3)v * f;
 			Vector3 toReturn;
 			toReturn.X = v.X * f;
 			toReturn.Y = v.Y * f;
@@ -204,6 +221,7 @@ namespace BEPUutilities
 		/// <returns>Scaled vector.</returns>
 		public static Vector3 operator *(fp f, Vector3 v)
 		{
+			//fp3 toReturn = (fp3)v * f;
 			Vector3 toReturn;
 			toReturn.X = v.X * f;
 			toReturn.Y = v.Y * f;
@@ -233,7 +251,7 @@ namespace BEPUutilities
 		public static Vector3 operator /(Vector3 v, fp f)
 		{
 			Vector3 toReturn;
-			f = fp._1 / f;
+			f = F64.C1 / f;
 			toReturn.X = v.X * f;
 			toReturn.Y = v.Y * f;
 			toReturn.Z = v.Z * f;
@@ -418,9 +436,9 @@ namespace BEPUutilities
 			{
 				return new Vector3()
 				{
-					X = fp._0,
-					Y =	fp._1,
-					Z = fp._0
+					X = F64.C0,
+					Y =	F64.C1,
+					Z = F64.C0
 				};
 			}
 		}
@@ -434,9 +452,9 @@ namespace BEPUutilities
 			{
 				return new Vector3()
 				{
-					X = fp._0,
-					Y = -1,
-					Z = fp._0
+					X = F64.C0,
+					Y = -F64.C1,
+					Z = F64.C0
 				};
 			}
 		}
@@ -450,9 +468,9 @@ namespace BEPUutilities
 			{
 				return new Vector3()
 				{
-					X = fp._1,
-					Y = fp._0,
-					Z = fp._0
+					X = F64.C1,
+					Y = F64.C0,
+					Z = F64.C0
 				};
 			}
 		}
@@ -466,9 +484,9 @@ namespace BEPUutilities
 			{
 				return new Vector3()
 				{
-					X = -1,
-					Y = fp._0,
-					Z = fp._0
+					X = -F64.C1,
+					Y = F64.C0,
+					Z = F64.C0
 				};
 			}
 		}
@@ -482,10 +500,10 @@ namespace BEPUutilities
 			{
 				return new Vector3()
 				{
-					X = fp._0,
-					Y = fp._0,
-					Z = -1
-				};
+					X = F64.C0,
+					Y = F64.C0,
+					Z = -F64.C1
+        };
 			}
 		}
 
@@ -498,9 +516,9 @@ namespace BEPUutilities
 			{
 				return new Vector3()
 				{
-					X = fp._0,
-					Y = fp._0,
-					Z = fp._1
+					X = F64.C0,
+					Y = F64.C0,
+					Z = F64.C1
 				};
 			}
 		}
@@ -510,7 +528,7 @@ namespace BEPUutilities
 		/// </summary>
 		public static Vector3 UnitX
 		{
-			get { return new Vector3 { X = fp._1 }; }
+			get { return new Vector3 { X = F64.C1 }; }
 		}
 
 		/// <summary>
@@ -518,7 +536,7 @@ namespace BEPUutilities
 		/// </summary>
 		public static Vector3 UnitY
 		{
-			get { return new Vector3 { Y = fp._1 }; }
+			get { return new Vector3 { Y = F64.C1 }; }
 		}
 
 		/// <summary>
@@ -526,7 +544,7 @@ namespace BEPUutilities
 		/// </summary>
 		public static Vector3 UnitZ
 		{
-			get { return new Vector3 { Z = fp._1 }; }
+			get { return new Vector3 { Z = F64.C1 }; }
 		}
 
 		/// <summary>
@@ -537,8 +555,7 @@ namespace BEPUutilities
 		/// <returns>Cross product of the two vectors.</returns>
 		public static Vector3 Cross(Vector3 a, Vector3 b)
 		{
-			Vector3 toReturn;
-			Vector3.Cross(ref a, ref b, out toReturn);
+			Cross(ref a, ref b, out Vector3 toReturn);
 			return toReturn;
 		}
 		/// <summary>
@@ -563,9 +580,8 @@ namespace BEPUutilities
 		/// <param name="v">Vector to normalize.</param>
 		/// <returns>Normalized vector.</returns>
 		public static Vector3 Normalize(Vector3 v)
-		{
-			Vector3 toReturn;
-			Vector3.Normalize(ref v, out toReturn);
+		{ 
+			Normalize(ref v, out Vector3 toReturn);
 			return toReturn;
 		}
 
@@ -576,7 +592,7 @@ namespace BEPUutilities
 		/// <param name="result">Normalized vector.</param>
 		public static void Normalize(ref Vector3 v, out Vector3 result)
 		{
-			fp inverse = fp._1	 / fixmath.Sqrt(v.X * v.X + v.Y * v.Y + v.Z * v.Z);
+			fp inverse = F64.C1	 / fixmath.Sqrt(v.X * v.X + v.Y * v.Y + v.Z * v.Z);
 			result.X = v.X * inverse;
 			result.Y = v.Y * inverse;
 			result.Z = v.Z * inverse;
@@ -601,15 +617,15 @@ namespace BEPUutilities
 		/// <param name="result">Vector with nonnegative elements.</param>
 		public static void Abs(ref Vector3 v, out Vector3 result)
 		{
-			if (v.X < fp._0)
+			if (v.X < F64.C0)
 				result.X = -v.X;
 			else
 				result.X = v.X;
-			if (v.Y < fp._0)
+			if (v.Y < F64.C0)
 				result.Y = -v.Y;
 			else
 				result.Y = v.Y;
-			if (v.Z < fp._0)
+			if (v.Z < F64.C0)
 				result.Z = -v.Z;
 			else
 				result.Z = v.Z;
@@ -621,9 +637,8 @@ namespace BEPUutilities
 		/// <param name="v">Vector to take the absolute value of.</param>
 		/// <returns>Vector with nonnegative elements.</returns>
 		public static Vector3 Abs(Vector3 v)
-		{
-			Vector3 result;
-			Abs(ref v, out result);
+		{ 
+			Abs(ref v, out Vector3 result);
 			return result;
 		}
 
@@ -647,9 +662,8 @@ namespace BEPUutilities
 		/// <param name="b">Second input vector to compare values from.</param>
 		/// <returns>Vector containing the lesser values of each vector.</returns>
 		public static Vector3 Min(Vector3 a, Vector3 b)
-		{
-			Vector3 result;
-			Min(ref a, ref b, out result);
+		{ 
+			Min(ref a, ref b, out Vector3 result);
 			return result;
 		}
 
@@ -674,9 +688,8 @@ namespace BEPUutilities
 		/// <param name="b">Second input vector to compare values from.</param>
 		/// <returns>Vector containing the greater values of each vector.</returns>
 		public static Vector3 Max(Vector3 a, Vector3 b)
-		{
-			Vector3 result;
-			Max(ref a, ref b, out result);
+		{ 
+			Max(ref a, ref b, out Vector3 result);
 			return result;
 		}
 
@@ -688,9 +701,8 @@ namespace BEPUutilities
 		/// <param name="interpolationAmount">Amount of the end location to use.</param>
 		/// <returns>Interpolated intermediate state.</returns>
 		public static Vector3 Lerp(Vector3 start, Vector3 end, fp interpolationAmount)
-		{
-			Vector3 toReturn;
-			Lerp(ref start, ref end, interpolationAmount, out toReturn);
+		{ 
+			Lerp(ref start, ref end, interpolationAmount, out Vector3 toReturn);
 			return toReturn;
 		}
 		/// <summary>
@@ -702,7 +714,7 @@ namespace BEPUutilities
 		/// <param name="result">Interpolated intermediate state.</param>
 		public static void Lerp(ref Vector3 start, ref Vector3 end, fp interpolationAmount, out Vector3 result)
 		{
-			fp startAmount = fp._1 - interpolationAmount;
+			fp startAmount = F64.C1 - interpolationAmount;
 			result.X = start.X * startAmount + end.X * interpolationAmount;
 			result.Y = start.Y * startAmount + end.Y * interpolationAmount;
 			result.Z = start.Z * startAmount + end.Z * interpolationAmount;
@@ -721,9 +733,9 @@ namespace BEPUutilities
 		{
 			fp weightSquared = interpolationAmount * interpolationAmount;
 			fp weightCubed = interpolationAmount * weightSquared;
-			fp value1Blend = fp._2 * weightCubed - fp._3 * weightSquared + fp._1;
-			fp tangent1Blend = weightCubed - fp._2 * weightSquared + interpolationAmount;
-			fp value2Blend = -2 * weightCubed + fp._3 * weightSquared;
+			fp value1Blend = F64.C2 * weightCubed - F64.C3 * weightSquared + F64.C1;
+			fp tangent1Blend = weightCubed - F64.C2 * weightSquared + interpolationAmount;
+			fp value2Blend = -2 * weightCubed + F64.C3 * weightSquared;
 			fp tangent2Blend = weightCubed - weightSquared;
 			result.X = value1.X * value1Blend + value2.X * value2Blend + tangent1.X * tangent1Blend + tangent2.X * tangent2Blend;
 			result.Y = value1.Y * value1Blend + value2.Y * value2Blend + tangent1.Y * tangent1Blend + tangent2.Y * tangent2Blend;
@@ -739,9 +751,8 @@ namespace BEPUutilities
 		/// <param name="interpolationAmount">Amount of the second point to use.</param>
 		/// <returns>Interpolated intermediate state.</returns>
 		public static Vector3 Hermite(Vector3 value1, Vector3 tangent1, Vector3 value2, Vector3 tangent2, fp interpolationAmount)
-		{
-			Vector3 toReturn;
-			Hermite(ref value1, ref tangent1, ref value2, ref tangent2, interpolationAmount, out toReturn);
+		{ 
+			Hermite(ref value1, ref tangent1, ref value2, ref tangent2, interpolationAmount, out Vector3 toReturn);
 			return toReturn;
 		}
 	}

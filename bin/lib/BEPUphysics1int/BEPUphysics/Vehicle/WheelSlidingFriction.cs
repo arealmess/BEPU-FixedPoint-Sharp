@@ -285,7 +285,7 @@ namespace BEPUphysics.Vehicle
             else
                 entryB = F64.C0;
 
-            velocityToImpulse = -1 / (entryA + entryB); //Softness?
+            velocityToImpulse = -F64.C1 / (entryA + entryB); //Softness?
 
             //Compute friction.
             //Which coefficient? Check velocity.

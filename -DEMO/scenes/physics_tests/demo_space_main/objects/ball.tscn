@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://ua1781w6cmxf"]
+
+[ext_resource type="PackedScene" uid="uid://dpt518os4srey" path="res://-custom_nodes/PhysicsBody/RigidBody/RigidBody.tscn" id="1_pvo8q"]
+[ext_resource type="PackedScene" uid="uid://doo2knvjrr7bm" path="res://-custom_nodes/ColShape/ColShape.tscn" id="2_0gxiq"]
+[ext_resource type="Material" uid="uid://c6ypot3c22on6" path="res://-custom_nodes/ColShape/Shape/materials_collision/debug_physicsbody.material" id="3_eub0e"]
+[ext_resource type="Script" path="res://-custom_nodes/ColShape/Shape/ColShapeSphere.cs" id="4_erd6i"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_kxmig"]
+material = ExtResource("3_eub0e")
+radius = 5.0
+height = 10.0
+
+[node name="Ball" instance=ExtResource("1_pvo8q")]
+mass = 1
+quatOffset = Quaternion(0, 0, 0, 1)
+quatOffsetW = 65536
+
+[node name="ColShape" parent="." index="0" node_paths=PackedStringArray("shape") instance=ExtResource("2_0gxiq")]
+type = 4
+shape = NodePath("Shape")
+
+[node name="Shape" parent="ColShape" index="0"]
+mesh = SubResource("SphereMesh_kxmig")
+script = ExtResource("4_erd6i")
+radius = 2.0
+radiusRaw = 131072
+
+[editable path="ColShape"]
