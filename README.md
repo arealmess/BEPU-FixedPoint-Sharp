@@ -1,11 +1,13 @@
-Base Godot project using a fixed point fork of BEPUphysics in Godot Mono
+This is just a branch for getting a different fixed point library to work with the main. It has a lot more bugs, and isnt yet fully taking advantage of the math performance.
 
-On opening the project, build and then reload the project
+Also WIP is Glamorous Toolkit query/visualization.
+The following was added here automatically when i first connected the repo to it (i dont think the c# can be parsed in current state but yeah):
+## Installation
 
-Everything in the "-DEMO" folder is not required for BEPUphysics to work and can be deleted
--DEMO folder contains two scenes:
-  A player demo scene where you can run around with a joypad, jump, and dodge left and right with the shoulder buttons
-  A benchmark scene that spawns cubes continuously and shows FPS and the number of cubes spawned
+```st
+Metacello new
+	repository: 'github://arealmess/BEPU-FixedPoint-Sharp:BEPUphysics1int-Godot-FPSharp/';
+	baseline: 'BEPUphysics1intGodot';
+	load
+```
 
-BEPUphysics1int Documentation: https://github.com/sam-vdp/bepuphysics1int/blob/master/Documentation/Documentation.md
-## Installation```stMetacello new	repository: 'github://arealmess/BEPU-FixedPoint-Sharp:BEPUphysics1int-Godot-FPSharp/';	baseline: 'BEPUphysics1intGodot';	load```
